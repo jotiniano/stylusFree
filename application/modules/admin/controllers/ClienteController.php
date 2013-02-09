@@ -10,12 +10,18 @@ class Admin_ClienteController extends App_Controller_Action
     }
     
     public function indexAction()
-    {
+    {        
         //$this->_flashMessenger->addMessage("Ejemplo");
         $form = new App_Form_BuscarCliente();
         $modelCliente = new App_Model_Cliente();
         
         $result = $modelCliente->lista();
+        
+        if($this->getRequest()->isPost()){
+            $data = $this->getRequest()->getPost();
+            $form->populate($data);
+            $result = $modelCliente->buscarClientes($data);            
+        }
         
         
         $this->view->form = $form;
@@ -29,9 +35,19 @@ class Admin_ClienteController extends App_Controller_Action
     {
 
     }
-    public function listarAction()
+    public function eliminarAction()
     {
-
+        //if ($this->isAuth){        
+        $modelCliente = new App_Model_Cliente();
+        $id = $this->_getParam('id');
+        $data = array(
+            'idCliente' => $id,
+            'estado' => App_Model_Cliente::ESTADO_ELIMINADO
+        );        
+        $modelCliente->actualizarDatos($data);
+        $this->_flashMessenger->addMessage("Cliente eliminado con exito");
+        $this->_redirect('/cliente');
+        //}
     }
 
 }
