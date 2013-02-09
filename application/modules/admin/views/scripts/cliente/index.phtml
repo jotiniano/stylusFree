@@ -1,1 +1,126 @@
-CLIENTE
+    <div>
+        <!-- row of columns -->
+        <div class="row-fluid">
+          
+          <div>
+                <ul class="breadcrumb">                    
+                    <li><a href="/cliente/crear">Agregar Cliente</a></li>
+                </ul>
+              <form class="well inline" method="post" enctype="multipart/form-data" >
+                      <h3>Buscar Clientes</h3>
+                      <hr>                      
+                      <div class="row-fluid">
+                          <div class="span2">
+                              <h4>Cod. Cliente</h4>
+                              <?php echo $this->form->id?>                                                            
+                           </div>
+                          <div class="span3">
+                              <h4>Nombre</h4>
+                              <?php echo $this->form->nombre?>
+                           </div>
+                          <div class="span3">
+                              <h4>Email</h4>
+                              <?php echo $this->form->email?>
+                           </div>                          
+                          <div class="span4">                              
+                              <?php echo $this->form->buscar?>
+                           </div>
+                      </div>
+                 </form>
+                 <div id="message"></div>
+                 <table class="table table-bordered">                     
+                   <thead>
+                     <tr>
+                       <th>
+                          <a id="id" href="/admin/usuario/index/o/id/ord/<?php echo $ord?>" order="<?php echo $ord?>">Núm. </a>
+                          <?php if($this->parm == "id") echo $simb;?>
+                       </th>
+                       <th>                          
+                          <a id="email" href="/admin/usuario/index/o/email/ord/<?php echo $ord?>" order="<?php echo $ord?>">Email</a>
+                          <?php if($this->parm == "email") echo $simb;?>
+                       </th>
+                       <th>                          
+                          <a id="nombre" href="/admin/usuario/index/o/nombre/ord/<?php echo $ord?>" order="<?php echo $ord?>">Nombre</a>
+                          <?php if($this->parm == "nombre") echo $simb;?>
+                       </th>
+                       <th>                          
+                          <a id="direccion" href="/admin/usuario/index/o/direccion/ord/<?php echo $ord?>" order="<?php echo $ord?>">Direccion</a>
+                          <?php if($this->parm == "direccion") echo $simb;?>
+                       </th>
+                       <th>                          
+                          <a id="cod_postal" href="/admin/usuario/index/o/cod_postal/ord/<?php echo $ord?>" order="<?php echo $ord?>">Código Postal</a>
+                          <?php if($this->parm == "cod_postal") echo $simb;?>
+                       </th>
+                       <th>                          
+                          Teléfono
+                       </th>
+                       <th>                          
+                          Distrito
+                       </th>
+                       <th>                          
+                          Sitio
+                       </th>
+                       <th>                          
+                          Tipo
+                       </th>
+                       <th>                          
+                          <a id="fch_registro" href="/admin/usuario/index/o/fch_registro/ord/<?php echo $ord?>" order="<?php echo $ord?>">Fecha de registro</a>
+                          <?php if($this->parm == "fch_registro") echo $simb;?>
+                       </th>
+                       <th>
+                          Acciones
+                       </th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <?php
+                     foreach ($this->result as $res):?>
+                     <tr>
+                       <td>
+                          <?php echo $res["id"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["email"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["nombre"]. " " . $res["apellido"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["direccion"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["cod_postal"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["telefono"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["distrito"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["site"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["tipo"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["fch_registro"]; ?>
+                       </td>
+                       <td>
+                           <?php if($res["tipo"] == "Cliente") {?>
+                         <a href="/admin/usuario/editar/id/<?php echo $res["id"]; ?>" title="Editar">Editar</a> |
+                         <a href="/admin/usuario/enviarcontrasena/id/<?php echo $res["id"]; ?>" title="contrasena">Enviar Contraseña</a>
+                         <?php } else {?> 
+                         <a href="/admin/usuario/editar/id/<?php echo $res["id"]; ?>" title="Editar">Editar</a>
+                         <?php }?>
+                       </td>
+                     </tr>
+                         <?php endforeach; ?>
+                   </tbody>
+                 </table>
+              <?php                
+                //echo $this->paginationControl($this->result, 'Sliding', '_pag.phtml', array('tipo' => 1));
+                ?>
+         </div>
+        </div>                
+  </div>
