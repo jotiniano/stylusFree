@@ -17,7 +17,7 @@
 			header: {
 				left: 'prev,next today',
 				center: 'title',
-				right: 'month,basicWeek,basicDay'
+				right: 'month,agendaWeek,agendaDay'
 			},
 			selectable: true,
 			editable: true,
@@ -40,10 +40,12 @@
 					);
 				}*/
 				$("#modalReserva").modal({
-							backdrop : true,
-							show : true,
 							keyboard : true,
+							backdrop : true,
+							show : true
 				});
+
+				$()
 
 				//calendar.fullCalendar('unselect');
 			},
@@ -106,23 +108,38 @@
 
 </style>
 
+
+<!-- CALENDARIO -->
 <div id='calendar'></div>
 
+
+<!-- FORMULARIO -->
 <div id="modalReserva" class="modal hide fade">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h3>Nueva Reserva</h3>
   </div>
   <div class="modal-body">
-    <p>FORMUALRIO DE RESERVA</p>
+   
+	  <div class="control-group">
+	      <label class="control-label" for="inputWarning">Nombre:</label>
+	      <div class="controls">
+	        <input type="text" id="input">
+	        <span class="help-inline">Something may have gone wrong</span>
+	      </div>
+	  </div>
+	  <div class="control-group">
+	      <label class="control-label" for="inputWarning">Input with warning</label>
+	      <div class="controls">
+	        <input type="text" id="input">
+	        <span class="help-inline">Something may have gone wrong</span>
+	      </div>
+	  </div>
+	
   </div>
   <div class="modal-footer">
-    <a href="#" class="btn">Cerrar</a>
+    <a href="#" class="btn" onClick="$('#modalReserva .close').click()">Cerrar</a>
     <a href="#" class="btn btn-primary">Guardar</a>
   </div>
 </div>
 
-
-<div id="controles">
-	<button class="btn">Agregar Reserva</button>
-</div>
