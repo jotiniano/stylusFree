@@ -27,7 +27,7 @@ class Admin_ClienteController extends App_Controller_Action
     }
     
     public function crearAction()
-    {
+    {        
         $form = new App_Form_CrearCliente();
         $this->view->form = $form; 
         if($this->getRequest()->isPost()){            
@@ -35,9 +35,20 @@ class Admin_ClienteController extends App_Controller_Action
             $data = $this->getRequest()->getPost();
             
             if ($form->isValid($data)) {
+                $modelCliente = new App_Model_Cliente();
+                $fecha = Zend_Date::now()->toString('YYYY-MM-dd HH:mm:ss');
+                $data['fechaUltimaVisita'] = $fecha;
+                $data['estado'] = App_Model_Cliente::ESTADO_ACTIVO;
+                $data['totalVisitas'] = 1;
+                $data['idTipoUsuario'] = App_Model_Usuario::TIPO_CLIENTE;                
+                $id = $modelCliente->actualizarDatos($data);
+                
+                $this->_flashMessenger->addMessage("Cliente guardado con exito");
+                $this->_redirect('/cliente');
                 
             } else {
                 $form->populate($data);
+                var_dump($form->getErrors());
             }
                 
             

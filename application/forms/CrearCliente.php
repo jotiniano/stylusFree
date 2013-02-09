@@ -58,6 +58,11 @@ class App_Form_CrearCliente extends App_Form
         $this->addElement('hash', 'csrf', array(
                     'ignore' => true,
                 ));
+         foreach($this->getElements() as $e) {
+            $e->removeDecorator('DtDdWrapper');
+            $e->removeDecorator('Label');
+            $e->removeDecorator('HtmlTag');
+        } 
         
         
         
