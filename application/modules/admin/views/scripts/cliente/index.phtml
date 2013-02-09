@@ -12,7 +12,7 @@
                       <div class="row-fluid">
                           <div class="span2">
                               <h4>Cod. Cliente</h4>
-                              <?php echo $this->form->id?>                                                            
+                              <?php echo $this->form->idCliente?>
                            </div>
                           <div class="span3">
                               <h4>Nombre</h4>
@@ -65,20 +65,20 @@
                          <?php echo $res["apellidoCliente"]; ?>
                        </td>
                        <td>
-                         <?php echo $res["totalVisita"]; ?>
+                         <?php echo $res["totalVisitas"]; ?>
                        </td>
                        <td>
-                         <?php echo $res["ultimaVisita"]; ?>
+                         <?php echo $res["fechaUltimaVisita"]; ?>
                        </td>
                        <td>
                          <?php echo $res["telefono"]; ?>
                        </td>
                        <td>
-                         <?php echo $res["email"]; ?>
+                         <?php echo $res["correo"]; ?>
                        </td>                       
                        <td>
-                           <a href="/cliente/editar/id/<?php echo $res["id"]; ?>" title="Editar">Editar</a> |
-                           <a href="/cliente/eliminar/id/<?php echo $res["id"]; ?>" title="Editar">Eliminar</a>                           
+                           <a href="/cliente/editar/id/<?php echo $res["idCliente"]; ?>" title="Editar">Editar</a> |
+                           <a href="/cliente/eliminar/id/<?php echo $res["idCliente"]; ?>" title="Editar">Eliminar</a>
                        </td>
                      </tr>
                          <?php endforeach; ?>

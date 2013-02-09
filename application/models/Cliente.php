@@ -20,10 +20,11 @@ class App_Model_Cliente extends App_Db_Table_Abstract {
      */
     private function _guardar($datos, $condicion = NULL) {
         $id = 0;
-        if (!empty($datos['id'])) {
-            $id = (int) $datos['id'];
+        if (!empty($datos['idCliente'])) {
+            $id = (int) $datos['idCliente'];
         }
-        unset($datos['id']);
+        
+        unset($datos['idCliente']);
         $datos = array_intersect_key($datos, array_flip($this->_getCols()));
 
         if ($id > 0) {
@@ -32,7 +33,7 @@ class App_Model_Cliente extends App_Db_Table_Abstract {
                 $condicion = ' AND ' . $condicion;
             }
 
-            $cantidad = $this->update($datos, 'id = ' . $id . $condicion);
+            $cantidad = $this->update($datos, 'idCliente = ' . $id . $condicion);
             $id = ($cantidad < 1) ? 0 : $id;
         } else {
             $id = $this->insert($datos);
@@ -51,13 +52,41 @@ class App_Model_Cliente extends App_Db_Table_Abstract {
     public function lista() {
         $query = $this->getAdapter()
                 ->select()->from(array('c' => $this->_name))
-                ->where('c.estado = ?', App_Model_Cliente::ESTADO_ACTIVO);
+                ->where('c.estado = ?', App_Model_Cliente::ESTADO_ACTIVO)
+                ->order('fechaUltimaVisita')
+                ->limit(50);
 
         return $this->getAdapter()->fetchAll($query);
     }
 
     public function actualizarDatos($datos) {
         return $this->_guardar($datos);
+    }
+    
+    public function buscarClientes(array $data = array()) {
+
+        $db = $this->getAdapter();
+
+        $select = $db->select()
+                ->from(array('u' => $this->_name), $this->_getCols())
+                ->where('u.estado = ?', self::ESTADO_ACTIVO)
+                ->where('u.idTipoUsuario = ?', App_Model_Usuario::TIPO_CLIENTE);
+
+        if (isset ($data['idCliente']) and !empty($data['idCliente']))
+            $select->where('u.idCliente = ?', $data["idCliente"]);
+
+        if (isset ($data["email"]) and !empty($data["email"]))
+            $select->where('u.correo like ?', "%{$data["email"]}%");
+
+        if (isset($data["nombre"]) and !empty($data["nombre"])) {
+            $concat = new Zend_Db_Expr("CONCAT(TRIM(u.nombreCliente), ' ', TRIM(u.apellidoCliente))");
+            $select->where("$concat like ?", "%{$data["nombre"]}%");
+        }        
+        
+        $select->order('idCliente')
+                ->limit(50);
+
+        return $db->fetchAll($select);
     }
 
     

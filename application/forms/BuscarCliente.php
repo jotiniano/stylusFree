@@ -6,7 +6,7 @@ class App_Form_BuscarCliente extends App_Form
         
         parent::init();
         
-        $e = new Zend_Form_Element_Text('id');
+        $e = new Zend_Form_Element_Text('idCliente');
         $e->setAttrib('class', 'span8');
         $this->addElement($e);
         
