@@ -17,13 +17,13 @@
         <?= $this->render('_topbar.phtml');?>
         <div class="container-fluid">
             <?=$this->render('_sidebar.phtml');?>
-            <div class="content">
+            <div class="content" style="min-height:650px">
                 <?=$this->render('_messages.phtml');?>
                 <?=$this->layout()->content?>
             </div>
-            <!--<div class="content">
+            <div class="content">
             <?=$this->render('_footer.phtml');?>
-            </div>-->
+            </div>
         </div>
     </body>
 </html>

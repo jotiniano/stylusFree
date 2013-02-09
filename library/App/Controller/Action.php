@@ -1,6 +1,6 @@
 <?php
-
-class App_Controller_Action extends Zend_Controller_Action {
+class App_Controller_Action extends Zend_Controller_Action
+{
 
     /**
      *
@@ -14,9 +14,11 @@ class App_Controller_Action extends Zend_Controller_Action {
      */
     protected $_flashMessenger;
 
-    public function init() {
+    public function init() 
+    {
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessengerCustom');
         $this->view->fmsgs = $this->_flashMessenger->getMessages();
+
         $this->_hash = new Zend_Form_Element_Hash('csrf_hash', array('salt' => 'exitsalt'));
         $this->_hash->setTimeout(3600);
         $this->_hash->initCsrfToken();
@@ -33,7 +35,8 @@ class App_Controller_Action extends Zend_Controller_Action {
      *
      * @return void
      */
-    public function preDispatch() {
+    public function preDispatch() 
+    {
         parent::preDispatch();
         $config = $this->getConfig();
 
@@ -42,6 +45,8 @@ class App_Controller_Action extends Zend_Controller_Action {
         //$this->cache = $this->getCache();
         $this->siteUrl = $this->config->app->siteUrl;
         $this->view->assign('siteUrl', $config->app->siteUrl);
+
+        
 
         if (APPLICATION_ENV != 'production') {
             $sep = sprintf('[%s]', strtoupper(substr(APPLICATION_ENV, 0, 3)));
@@ -59,7 +64,8 @@ class App_Controller_Action extends Zend_Controller_Action {
      *
      * @return App_Controller_Action_Helper_FlashMessengerCustom
      */
-    public function getMessenger() {
+    public function getMessenger() 
+    {
         return $this->_flashMessenger;
     }
 
@@ -68,7 +74,8 @@ class App_Controller_Action extends Zend_Controller_Action {
      * @see Zend/Controller/Zend_Controller_Action::getRequest()
      * @return Zend_Controller_Request_Http
      */
-    public function getRequest() {
+    public function getRequest() 
+    {
         return parent::getRequest();
     }
 
@@ -77,7 +84,8 @@ class App_Controller_Action extends Zend_Controller_Action {
      *
      * @return Zend_Config
      */
-    public function getConfig() {
+    public function getConfig() 
+    {
         return Zend_Registry::get('config');
     }
 
@@ -86,7 +94,8 @@ class App_Controller_Action extends Zend_Controller_Action {
      *
      * @return Zend_Cache_Core
      */
-    public function getCache() {
+    public function getCache() 
+    {
         //return Zend_Registry::get('cache');
     }
 
@@ -95,7 +104,8 @@ class App_Controller_Action extends Zend_Controller_Action {
      *
      * @return Zend_Db_Adapter_Abstract
      */
-    public function getAdapter() {
+    public function getAdapter() 
+    {
         return Zend_Registry::get('db');
     }
 
@@ -104,11 +114,13 @@ class App_Controller_Action extends Zend_Controller_Action {
      *
      * @return Zend_Log
      */
-    public function getLog() {
+    public function getLog() 
+    {
         return Zend_Registry::get('log');
     }
 
-    public function getSession() {
+    public function getSession() 
+    {
         $session = new Zend_Session_Namespace();
         return $session;
     }
