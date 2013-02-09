@@ -43,6 +43,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         //$v->headLink()->appendStylesheet($v->s('/css/normalize.css'));                
         
         $v->headLink()->appendStylesheet($v->s('/css/bootstrap.min.css'), 'all');
+        $v->headLink()->appendStylesheet($v->s('/css/styles/admin.css'), 'all');
         $v->headLink()->appendStylesheet($v->s('/css/main.css'), 'all');
         $v->headLink()->appendStylesheet($v->s('/css/fixie.css'), 'all', 'lte IE 8');
 

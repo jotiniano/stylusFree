@@ -1,1 +1,89 @@
-CLIENTE
+    <div>
+        <!-- row of columns -->
+        <div class="row-fluid">
+          
+          <div>
+                <ul class="breadcrumb">                    
+                    <li><a href="/cliente/crear">Agregar Cliente</a></li>
+                </ul>
+              <form class="well inline" method="post" enctype="multipart/form-data" >
+                      <h3>Buscar Clientes</h3>
+                      <hr>                      
+                      <div class="row-fluid">
+                          <div class="span2">
+                              <h4>Cod. Cliente</h4>
+                              <?php echo $this->form->id?>                                                            
+                           </div>
+                          <div class="span3">
+                              <h4>Nombre</h4>
+                              <?php echo $this->form->nombre?>
+                           </div>
+                          <div class="span3">
+                              <h4>Email</h4>
+                              <?php echo $this->form->email?>
+                           </div>                          
+                          <div class="span3">
+                              <?php echo $this->form->buscar?>
+                           </div>
+                      </div>
+                 </form>
+                 <div id="message"></div>
+                 <table class="table table-bordered">                     
+                   <thead>
+                     <tr>                       
+                       <th>
+                           Nombre
+                       </th>
+                       <th>
+                           Apellido
+                       </th>
+                       <th>
+                           Número de Visitas
+                       </th>
+                       <th>
+                           Última visita
+                       </th>
+                       <th>                          
+                          Teléfono
+                       </th>
+                       <th>                          
+                          Email
+                       </th>
+                       <th>
+                          Acciones
+                       </th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <?php
+                     foreach ($this->result as $res):?>
+                     <tr>
+                       <td>
+                         <?php echo $res["nombreCliente"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["apellidoCliente"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["totalVisita"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["ultimaVisita"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["telefono"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["email"]; ?>
+                       </td>                       
+                       <td>
+                           <a href="/cliente/editar/id/<?php echo $res["id"]; ?>" title="Editar">Editar</a> |
+                           <a href="/cliente/eliminar/id/<?php echo $res["id"]; ?>" title="Editar">Eliminar</a>                           
+                       </td>
+                     </tr>
+                         <?php endforeach; ?>
+                   </tbody>
+                 </table>
+         </div>
+        </div>                
+  </div>
