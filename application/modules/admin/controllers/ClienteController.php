@@ -20,19 +20,29 @@ class Admin_ClienteController extends App_Controller_Action
         if($this->getRequest()->isPost()){
             $data = $this->getRequest()->getPost();
             $form->populate($data);
-            $result = $modelCliente->buscarClientes($data);            
+            $result = $modelCliente->buscarClientes($data);
         }
-        
-        
         $this->view->form = $form;
-        
-        
-        
         $this->view->result = $result; 
     }
     
-    public function nuevoAction()
+    public function crearAction()
     {
+        $form = new App_Form_CrearCliente();
+        $this->view->form = $form; 
+        if($this->getRequest()->isPost()){            
+            
+            $data = $this->getRequest()->getPost();
+            
+            if ($form->isValid($data)) {
+                
+            } else {
+                $form->populate($data);
+            }
+                
+            
+            
+        }
 
     }
     public function eliminarAction()
