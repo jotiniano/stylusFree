@@ -1,5 +1,4 @@
 <?php
-
 class Admin_ClienteController extends App_Controller_Action
 {
     protected $_mCliente;
