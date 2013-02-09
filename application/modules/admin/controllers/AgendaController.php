@@ -16,13 +16,11 @@ class Admin_AgendaController extends App_Controller_Action
             $this->getConfig()->app->mediaUrl . '/css/fullcalendar/fullcalendar.css'
         );
         $this->view->headLink()->appendStylesheet(
-            $this->getConfig()->app->mediaUrl . '/css/fullcalendar/fullcalendar.print.css'
+            $this->getConfig()->app->mediaUrl . '/css/fullcalendar/fullcalendar.print.css',
+            array('media' => 'print')
         );
         
         //Javascripts
-        $this->view->headScript()->appendFile(
-            $this->getConfig()->app->mediaUrl . '/js/jquery-1.8.1.min.js'
-        );
         $this->view->headScript()->appendFile(
             $this->getConfig()->app->mediaUrl . '/js/fullcalendar/jquery-ui-1.8.23.custom.min.js'
         );

@@ -17,7 +17,28 @@
 				center: 'title',
 				right: 'month,basicWeek,basicDay'
 			},
+			selectable: true,
 			editable: true,
+			select: function(start, end, allDay) {
+				console.log(start);
+				console.log(end);
+				console.log(allDay);
+
+
+				var title = prompt('Event Title:');
+				if (title) {
+					calendar.fullCalendar('renderEvent',
+						{
+							title: title,
+							start: start,
+							end: end,
+							allDay: allDay
+						},
+						true // make the event "stick"
+					);
+				}
+				calendar.fullCalendar('unselect');
+			},
 			events: [
 				{
 					title: 'All Day Event',
