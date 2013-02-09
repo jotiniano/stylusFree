@@ -6,6 +6,8 @@
 
 	$(document).ready(function() {
 	
+		
+
 		var date = new Date();
 		var d = date.getDate();
 		var m = date.getMonth();
@@ -25,7 +27,7 @@
 				console.log(allDay);
 
 
-				var title = prompt('Event Title:');
+				/*var title = prompt('Event Title:');
 				if (title) {
 					calendar.fullCalendar('renderEvent',
 						{
@@ -36,8 +38,14 @@
 						},
 						true // make the event "stick"
 					);
-				}
-				calendar.fullCalendar('unselect');
+				}*/
+				$("#modalReserva").modal({
+							backdrop : true,
+							show : true,
+							keyboard : true,
+				});
+
+				//calendar.fullCalendar('unselect');
 			},
 			events: [
 				{
@@ -91,27 +99,29 @@
 
 </script>
 <style type='text/css'>
-
-	body {
-		margin-top: 40px;
-		text-align: center;
-		font-size: 14px;
-		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-		}
-
 	#calendar {
-		width: 900px;
+		width: auto;
 		margin: 0 auto;
 		}
 
-	.fc-event-skin {
-		border-color: #36c !important;     /* default BORDER color */
-		background-color: #36c !important; /* default BACKGROUND color */
-		color: #fff;            			/* default TEXT color */
-	}
 </style>
 
 <div id='calendar'></div>
+
+<div id="modalReserva" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Nueva Reserva</h3>
+  </div>
+  <div class="modal-body">
+    <p>FORMUALRIO DE RESERVA</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn">Cerrar</a>
+    <a href="#" class="btn btn-primary">Guardar</a>
+  </div>
+</div>
+
 
 <div id="controles">
 	<button class="btn">Agregar Reserva</button>

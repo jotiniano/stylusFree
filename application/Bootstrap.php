@@ -48,7 +48,8 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $v->headLink()->appendStylesheet($v->s('/css/fixie.css'), 'all', 'lte IE 8');
 
         $v->headScript()->appendFile($v->s('/js/jquery-1.8.1.min.js'));
-        $v->headScript()->appendFile($v->s('/js/bootstrap-alerts.js'));
+        $v->headScript()->appendFile($v->s('/js/bootstrap.min.js'));
+        
         $v->headScript()->appendFile($v->s('/js/main.js'));            
         $v->headScript()->appendFile(
             'http://html5shim.googlecode.com/svn/trunk/html5.js',
