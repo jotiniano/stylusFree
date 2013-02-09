@@ -7,7 +7,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
     {
         $config = new Zend_Config($this->getOptions(), true);
         $inifiles = array('app','cache','private'); //TODO: only load cache.ini for models
-        foreach($inifiles as $file){
+        foreach ($inifiles as $file) {
             $inifile = APPLICATION_PATH."/configs/$file.ini";
             if (is_readable($inifile))
                 $config->merge(new Zend_Config_Ini($inifile));
@@ -42,16 +42,15 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $v->headMeta()->setCharset("utf-8");
         //$v->headLink()->appendStylesheet($v->s('/css/normalize.css'));                
         
-        $v->headLink()->appendStylesheet($v->s('/css/bootstrap.min.css'), 'all');
+        $v->headLink()->appendStylesheet($v->s('/css/bootstrap3.min.css'), 'all');
+        $v->headLink()->appendStylesheet($v->s('/css/styles/admin.css'), 'all');
         $v->headLink()->appendStylesheet($v->s('/css/main.css'), 'all');
         $v->headLink()->appendStylesheet($v->s('/css/fixie.css'), 'all', 'lte IE 8');
-/*        $v->headLink(array('rel' => 'shortcut icon', 'href' => $v->s('/images/favicon.ico')));
-        $v->headLink(array('rel' => 'image_src', 'href' => $v->s('/images/fb_share.png'), 'id' => "image_src"));
-        $v->headLink(array('rel' => 'apple-touch-icon', 'href'=> $v->s('/images/apple-touch-icon.png')));
-        $v->headLink(array('rel' => 'apple-touch-icon', 'href'=> $v->s('/images/apple-touch-icon-72x72.png'), 'sizes'=>'72x72')); // fix sizes attribute 
-        $v->headLink(array('rel' => 'apple-touch-icon', 'href'=> $v->s('/images/apple-touch-icon-114x114.png'), 'sizes'=>'114x114')); // fix sizes attribute */
-        $v->headScript()->appendFile($v->s('/js/jquery-1.4.2.min.js'));
-        $v->headScript()->appendFile($v->s('/js/bootstrap-alerts.js'));
+
+        $v->headScript()->appendFile($v->s('/js/jquery-1.8.1.min.js'));
+        //$v->headScript()->appendFile($v->s('/js/bootstrap-alerts.js'));
+        $v->headScript()->appendFile($v->s('/js/bootstrap.min.js'));
+        
         $v->headScript()->appendFile($v->s('/js/main.js'));            
         $v->headScript()->appendFile(
             'http://html5shim.googlecode.com/svn/trunk/html5.js',

@@ -1,0 +1,145 @@
+<h2> AGENDA </h2>
+<hr />
+
+
+<script type='text/javascript'>
+
+	$(document).ready(function() {
+	
+		
+
+		var date = new Date();
+		var d = date.getDate();
+		var m = date.getMonth();
+		var y = date.getFullYear();
+		
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,agendaWeek,agendaDay'
+			},
+			selectable: true,
+			editable: true,
+			select: function(start, end, allDay) {
+				console.log(start);
+				console.log(end);
+				console.log(allDay);
+
+
+				/*var title = prompt('Event Title:');
+				if (title) {
+					calendar.fullCalendar('renderEvent',
+						{
+							title: title,
+							start: start,
+							end: end,
+							allDay: allDay
+						},
+						true // make the event "stick"
+					);
+				}*/
+				$("#modalReserva").modal({
+							keyboard : true,
+							backdrop : true,
+							show : true
+				});
+
+				$()
+
+				//calendar.fullCalendar('unselect');
+			},
+			events: [
+				{
+					title: 'All Day Event',
+					start: new Date(y, m, 1)
+				},
+				{
+					title: 'Long Event',
+					start: new Date(y, m, d-5),
+					end: new Date(y, m, d-2)
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: new Date(y, m, d-3, 16, 0),
+					allDay: false
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: new Date(y, m, d+4, 16, 0),
+					allDay: false
+				},
+				{
+					title: 'Meeting',
+					start: new Date(y, m, d, 10, 30),
+					allDay: false
+				},
+				{
+					title: 'Lunch',
+					start: new Date(y, m, d, 12, 0),
+					end: new Date(y, m, d, 14, 0),
+					allDay: false
+				},
+				{
+					title: 'Birthday Party',
+					start: new Date(y, m, d+1, 19, 0),
+					end: new Date(y, m, d+1, 22, 30),
+					allDay: false
+				},
+				{
+					title: 'Click for Google',
+					start: new Date(y, m, 28),
+					end: new Date(y, m, 29),
+					url: 'http://google.com/'
+				}
+			]
+		});
+		
+	});
+
+</script>
+<style type='text/css'>
+	#calendar {
+		width: auto;
+		margin: 0 auto;
+		}
+
+</style>
+
+
+<!-- CALENDARIO -->
+<div id='calendar'></div>
+
+
+<!-- FORMULARIO -->
+<div id="modalReserva" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Nueva Reserva</h3>
+  </div>
+  <div class="modal-body">
+   
+	  <div class="control-group">
+	      <label class="control-label" for="inputWarning">Nombre:</label>
+	      <div class="controls">
+	        <input type="text" id="input">
+	        <span class="help-inline">Something may have gone wrong</span>
+	      </div>
+	  </div>
+	  <div class="control-group">
+	      <label class="control-label" for="inputWarning">Input with warning</label>
+	      <div class="controls">
+	        <input type="text" id="input">
+	        <span class="help-inline">Something may have gone wrong</span>
+	      </div>
+	  </div>
+	
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" onClick="$('#modalReserva .close').click()">Cerrar</a>
+    <a href="#" class="btn btn-primary">Guardar</a>
+  </div>
+</div>
+

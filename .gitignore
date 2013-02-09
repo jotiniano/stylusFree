@@ -1,4 +1,9 @@
 /library/Zend/
 /library/Zend/.
-/logs/
-/logs/.
+logs/
+!logs/empty
+logs/*
+cache
+cache/*
+!cache/empty
+

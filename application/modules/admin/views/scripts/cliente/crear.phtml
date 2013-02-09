@@ -1,0 +1,60 @@
+<ul class="breadcrumb">    
+    <li>
+        <a href="/clientes">Clientes</a> <span class="divider">/</span>
+    </li>    
+</ul>
+<div id="content_wrapper">
+     <div id="content">
+         <div class="inner">
+             <form action="" method="post" enctype="multipart/form-data" class="well">
+                <div class="header">
+                    <h3>Detalles del cliente</h3>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <label for="nombre" class="span5 no-margin">Nombre :</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->nombreCliente->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                        </div>
+                        <div class="clear"></div>
+                        <label for="apellido" class="span5 no-margin">Apellidos :</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->apellidoCliente->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                        </div>
+                        <div class="clear"></div>
+                        <label for="fechaN" class="span5 no-margin">Fecha nacimiento:</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->fechaNacimiento->setAttrib('class', 'span12')->setAttrib('maxlength', '20')->renderViewHelper();?>
+                        </div>
+                        <div class="clear"></div>
+                        <label for="email" class="span5 no-margin">Correo:</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->correo->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                        </div>
+                        <div class="clear"></div>
+                        <label for="telefono" class="span5 no-margin">Número telefónico:</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->telefono->setAttrib('class', 'span12')->setAttrib('maxlength', '10')->renderViewHelper();?>
+                        </div>    
+                        <div class="clear"></div>
+                        <label for="celular" class="span5 no-margin">Celular:</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->celular->setAttrib('class', 'span12')->setAttrib('maxlength', '12')->renderViewHelper();?>
+                        </div>
+                        <div class="clear"></div>
+                        <label for="direccion" class="span5 no-margin">Dirección:</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->direccion->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                        </div>
+                        <?php echo $this->form->csrf; ?>
+                    </div>
+                    <div class="clear"></div>
+                                        
+                </div>
+                <div class="form-actions">
+                    <?php echo $this->form->guardar->setAttrib('class', 'btn pull-right')?>                    
+                </div>
+        </form>
+    </div>
+ </div>
+</div>
