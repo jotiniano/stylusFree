@@ -1,0 +1,133 @@
+/* 
+    Document   : ejemplo
+    Created on : 17-ene-2013, 17:43:58
+    Author     : usuario
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+body{
+    background-color: #000;
+    /*background-image: url("../img/fondo.png");*/
+    background-attachment: fixed;
+    word-spacing: 4px;
+    text-decoration: none;    
+    /*text-transform: uppercase;*/ /*transforma a mayusculas*/
+    /*text-transform: capitalize;*/ /*transforma a mayusculas la primera letra de la palabra*/
+    letter-spacing: 1px;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;        
+    /*background-attachment: fixed;*/
+    /*background : color | image | repeat | attachment | position ;*/
+    color: #EEE;
+    font-family: Arial;
+    font-size: 16px;
+    text-align: center;
+}
+header{
+    background: url("../img/logo.png") no-repeat 95% center,
+        url("../img/fondo.gif");
+    background-size: 80px, 50px 100px;
+    margin: 0 0 1em 0;      /*margen externo*/
+    padding: 0.5em 0; /*margen interno*/
+    width: 100%;
+}
+header h1 {
+    margin: 0;
+    text-shadow: #0ff 5px 5px 10px  ; /*crear sombras texto*/
+    /*text-shadow: rgba(255,255,255,0.5) 5px 5px 10px ; /*crear sombras texto*/
+}
+header h2 {
+    margin: 0;
+    font-weight: normal;
+    text-shadow: rgba(255,255,255,0.5) 5px 5px 7px;
+}
+
+nav
+{
+    background: rgba(60,85,4, 0.8) ;        /*0.8 = 80% es transparencia*/
+    bottom: 0; /*pegafa a la parte inferior*/
+    color: #EEE;
+    font-size: 1.5em;
+    left: 0; /*pegada a la izquiera*/    
+    padding: 1em 0 0;
+    position: fixed; /*posicion fija siempre se muestra  */
+    width: 100%;
+    
+}
+
+nav ul
+{
+    list-style: none;
+    padding: 0;
+    
+    
+}
+nav li{
+    display: inline-block; /*uno alado del otro*/
+}
+nav li a
+{
+    background: #be9a3f;
+    border-radius: 0.5em;
+    color: white;
+    display: inline-block;
+    margin: 0 1em 0 0;
+    padding: 0.5em 0.5em 0.4em 1em;
+    text-decoration: none; /* le quitamos la linea baja al enlace*/
+    transition: all 0.5s ease; /*linear ease-in , ease-out*/
+    -webkit-transition: all 0.5s ease;
+}
+
+nav li a:hover{
+    background: white;
+    color:black;    
+    transform: scale(1.2) rotate(45deg); /*agranda 20%*/
+    -webkit-transform: scale(1.2) rotate(45deg);
+    
+    
+}
+
+#carro 
+{
+    background: white;
+    color: #222; /*color del texto*/        
+    text-align: left;
+    width: 50%; /*porque los margenes tb tienen un porcentaje*/
+    
+}
+#carro img
+{    
+    border-radius: 0.5em;
+    width: 100%;  /*la imagen no se saldra de su contenedor RESPONSIVE DESIGN*/
+    /*max-width: 100%; para imagenes graneds que son mas grandes que el contenedor*/
+    
+    
+}
+#carro figcaption
+{
+    margin: 1em;
+}
+
+#carro, #historia
+{
+    display: inline-block; 
+    vertical-align: top; /* alinear a la misma altura*/
+}
+
+#historia {
+    background: rgba(0,0,0,0.6);
+    border-radius: 0.5em;
+    box-shadow:  rgba(0,0,0,0.5) 5px 5px 10px; /*sombra de caja*/
+    margin: 0 2% 10em 1em;
+    padding: 1em;
+    text-align: justify;
+    width: 40%;
+    /* -webkit-column-count: 2;  */  /*no soporta la mayoria de navegadores*/
+}
+
+
+.carro
+{
+    float: left;    
+}
