@@ -8,20 +8,11 @@ class Admin_AuthController extends App_Controller_Action
         $this->view->headScript()->appendFile($this->view->s('/js/auth.js'));            
     }
 
-<<<<<<< HEAD
-    public function indexAction(){
-        
-     Zend_Layout::getMvcInstance()->setLayout('login');
-     $this->view->idBody = 'login-bg';
-     $form = new App_Form_Login();
-      
-     
-      //CSS
-=======
+
     public function indexAction()
     {
         //////CSS
->>>>>>> 269bb8e0d24bced6aed3200b63230e6b872065df
+
         $this->view->headLink()->appendStylesheet(
             $this->getConfig()->app->mediaUrl . '/css/screen.css'
         );
@@ -53,13 +44,13 @@ class Admin_AuthController extends App_Controller_Action
             echo "error";
             exit();
         }
-<<<<<<< HEAD
+
         
         $this->view->formLogin = $form;
     }
-=======
-}
->>>>>>> 269bb8e0d24bced6aed3200b63230e6b872065df
+
+
+
     
     public function loginAction()
     {
