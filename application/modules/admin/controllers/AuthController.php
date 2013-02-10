@@ -38,10 +38,9 @@ class Admin_AuthController extends App_Controller_Action
                     $this->autentificateUser($this->_getParam('email'), 
                             $this->_getParam('pwd'))) {
                 
-              echo "entro";
-               exit();
+             
                 $this->_redirect($this->view->url(array("module" => "admin",
-                            "controller" => "panel",
+                            "controller" => "index",
                             "action" => "index")));
             } else {
                 echo "error"; exit();
