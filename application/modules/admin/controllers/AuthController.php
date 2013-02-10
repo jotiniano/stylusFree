@@ -8,9 +8,11 @@ class Admin_AuthController extends App_Controller_Action
         $this->view->headScript()->appendFile($this->view->s('/js/auth.js'));            
     }
 
+
     public function indexAction()
     {
         //////CSS
+
         $this->view->headLink()->appendStylesheet(
             $this->getConfig()->app->mediaUrl . '/css/screen.css'
         );
@@ -30,19 +32,26 @@ class Admin_AuthController extends App_Controller_Action
         Zend_Layout::getMvcInstance()->setLayout('login');
         $this->view->idBody = 'login-bg';
         $form = new App_Form_Login();
-        $this->view->formLogin = $form; 
+       
+        if( $this->_request->isPost() ){
             
-        if ($form->isValid($this->_getAllParams()) &&
-                $this->autentificateUser($this->_getParam('email'), $this->_getParam('pwd'))) {
+           
+            if ($this->autentificateUser($this->_getParam('usuario'), $this->_getParam('pwd'))) {
+                ;
+                $this->_redirect($this->view->url(array("module" => "admin",
+                            "controller" => "index",
+                            "action" => "index")));
+            } else {
+                echo "error";
+                exit();
+            }
 
-            $this->_redirect($this->view->url(array("module" => "admin",
-                        "controller" => "index",
-                        "action" => "index")));
-        } else {
-            echo "error";
-            exit();
         }
-}
+        $this->view->formLogin = $form;
+    }
+
+
+
     
     public function loginAction()
     {
