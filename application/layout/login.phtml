@@ -6,17 +6,9 @@
         <?=$this->headLink()?>
         <?=$this->headScript()?>
         <?=$this->headStyle()?>
-        <link rel="stylesheet" type="text/css" href="<?php echo CST_Server_ServerStaticAdmin::getUrl(); ?>/css/screen.css"/>
-        <link rel="stylesheet" type="text/css" media="screen" href="<?php echo CST_Server_ServerStaticAdmin::getUrl(); ?>/css/formularios/screen.css" />
-        <?php echo $this->headLink() ?>
-        <script src="<?php echo CST_Server_ServerStaticAdmin::getUrl(); ?>/js/formularios/lib/jquery.js" type="text/javascript"></script>
-        <script src="<?php echo CST_Server_ServerStaticAdmin::getUrl(); ?>/js/formularios/jquery.validate.js" type="text/javascript"></script>
-        <?php echo $this->headScript() ?>
+        
     </head>
     <body id="<?php echo $this->idBody ?>" class="<?php echo $this->classBody ?>" >
         <?php echo $this->layout()->content ?>
-    <div class="grid_2">
-        <p></p>
-    </div>
-    </body>
+    </body>    
 </html>
