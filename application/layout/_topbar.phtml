@@ -11,8 +11,8 @@
             <? if($this->isAuth): ?>
                 <p class="navbar-text pull-right">
                     Bienvenido
-                    <a href="#"><?=$this->authData->email?></a>
-                    <a href="<?=$this->url(array(),'logout',true);?>">[Cerrar Sesión]</a>
+                    <a href="#"><?php echo $this->authData->nombreUsuario." ".$this->authData->apellidoUsuario;?></a>
+                    <a href="/admin/auth/logout">[Cerrar Sesión]</a>
                 </p>
             <? endif; ?>
             <ul class="nav">
