@@ -17,7 +17,21 @@ class Admin_UserController extends App_Controller_Action
     
     public function indexAction()
     {
-        $this->view->list = $this->mUser->fetchAll();
+        $form = new App_Form_BuscarUsuario();
+        
+       
+        $modelUsuario = new App_Model_Usuario();
+        print_r($form);
+        exit; 
+        $result = $modelUsuario->lista();
+        
+        if($this->getRequest()->isPost()){
+            $data = $this->getRequest()->getPost();
+            $form->populate($data);
+            $result = $modelUsuario->buscarUsuario($data);
+        }
+        $this->view->form = $form;
+        $this->view->result = $result; 
     }
     
     public function newAction()

@@ -1,49 +1,89 @@
-<? $url = $this->url(array('controller' => 'user', 'action' => 'new'), null, true) ?>
-<a class="btn primary pull-right" href="<?= $url ?>">Add User</a>
-<h2>Users</h2>
-
-<table class="bordered-table zebra-striped">
-    <? if (count($this->list)): ?>
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-                <th>Created At</th>
-                <th>Operations</th>
-            </tr>
-        </thead>
-        <tbody>
-            <? foreach ($this->list as $key => $item): ?>
-                <tr>
-                    <? $id = $item->id ?>
-                    <td><?= $item->name ?> <?= $item->lastname ?></td>
-                    <td><?= $item->email ?></td>
-                    <td><?= $item->role ?></td>
-                    <td><span title="<?= $item->created_at ?>"><?= $this->Hace($item->created_at) ?> ago</span></td>
-                    <td>
-                        <? $base = array('controller' => 'user', 'id' => $id) ?>
-
-                        <? $url = $this->url($base + array('action' => 'edit'), null, true) ?>
-                        <a href="<?= $url ?>"><span class="label notice">edit</span></a>
-
-                        <? if ($item->active): ?>
-                            <? $url = $this->url($base + array('action' => 'deactivate'), null, true) ?>
-                            <a href="<?= $url ?>"><span class="label important">deactivate</span></a>
-                        <? else: ?>
-                            <? $url = $this->url($base + array('action' => 'activate'), null, true) ?>
-                            <a href="<?= $url ?>"><span class="label success">activate</span></a>
-                        <? endif; ?>
-                    </td>
-                </tr>
-            <? endforeach; ?>
-        </tbody>
-    <? else: ?>
-        <thead>
-            <tr>
-                <th>Not user yet :(</th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-    <? endif; ?>
-</table>
+  <div>
+        <!-- row of columns -->
+        <div class="row-fluid">
+          
+          <div>
+                <ul class="breadcrumb">                    
+                    <li><a href="/usuario/crear">Agregar Usuario</a></li>
+                </ul>
+              <form class="well inline" method="post" enctype="multipart/form-data" >
+                      <h3>Buscar Clientes</h3>
+                      <hr>                      
+                      <div class="row-fluid">
+                          <div class="span2">
+                              <h4>Cod. Usuario</h4>
+                              <?php echo $this->form->idUsuario;?>
+                           </div>
+                          <div class="span3">
+                              <h4>Nombre</h4>
+                              <?php echo $this->form->nombreUsuario;?>
+                           </div>
+                          <div class="span3">
+                              <h4>Usuario</h4>
+                              <?php echo $this->form->usuario;?>
+                           </div>                          
+                          <div class="span3">
+                              <?php echo $this->form->buscar?>
+                           </div>
+                      </div>
+                 </form>
+                 <div id="message"></div>
+                 <table class="table table-bordered">                     
+                   <thead>
+                     <tr>                       
+                       <th>
+                           Nombre
+                       </th>
+                       <th>
+                           Apellido
+                       </th>
+                       <th>
+                           Número de Visitas
+                       </th>
+                       <th>
+                           Última visita
+                       </th>
+                       <th>                          
+                          Teléfono
+                       </th>
+                       <th>                          
+                          Email
+                       </th>
+                       <th>
+                          Acciones
+                       </th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <?php
+                     foreach ($this->result as $res):?>
+                     <tr>
+                       <td>
+                         <?php echo $res["nombreCliente"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["apellidoCliente"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["totalVisitas"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["fechaUltimaVisita"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["telefono"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["correo"]; ?>
+                       </td>                       
+                       <td>
+                           <a href="/cliente/editar/id/<?php echo $res["idCliente"]; ?>" title="Editar">Editar</a> |
+                           <a href="/cliente/eliminar/id/<?php echo $res["idCliente"]; ?>" title="Editar">Eliminar</a>
+                       </td>
+                     </tr>
+                         <?php endforeach; ?>
+                   </tbody>
+                 </table>
+         </div>
+        </div>                
+  </div>

@@ -15,7 +15,7 @@ class App_Form_Login extends App_Form
 
         // pwd
         $e = new Zend_Form_Element_Password('pwd');
-        $e->setLabel('Password');
+       // $e->setLabel('Password');
         $v = new App_Validate_Auth(array(
             'identity_element'=>'email',
             'identity_column'=>'email',
