@@ -28,7 +28,7 @@ class App_Auth_Adapter_DbTable_Salted extends Zend_Auth_Adapter_DbTable
 
     public function authenticate()
     {
-        $this->_authenticateSetup();
+        /*$this->_authenticateSetup();
 
         $sql = $this->_zendDb->select()->from($this->_tableName)
                 ->where($this->_identityColumn . ' = ?', $this->_identity);
@@ -45,7 +45,7 @@ class App_Auth_Adapter_DbTable_Salted extends Zend_Auth_Adapter_DbTable
             $row['zend_auth_credential_match'] = 1;
         }
 
-        return $this->_authenticateValidateResult($row);
+        return $this->_authenticateValidateResult($row);*/
     }
     
     /**
@@ -78,7 +78,7 @@ class App_Auth_Adapter_DbTable_Salted extends Zend_Auth_Adapter_DbTable
      */
     public static function checkPassword($rawPassword, $encPassword)
     {
-        $parts = explode('$', $encPassword);
+        /*$parts = explode('$', $encPassword);
         if (count($parts) != 3) {
             return false;
         }
@@ -94,7 +94,7 @@ class App_Auth_Adapter_DbTable_Salted extends Zend_Auth_Adapter_DbTable
             $credentialEnc = md5($salt . $rawPassword, false);
         }
         
-        return $credentialEnc == $encPass;
+        return $credentialEnc == $encPass;*/
     }
     
 }
