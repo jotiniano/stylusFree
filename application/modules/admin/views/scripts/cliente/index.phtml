@@ -30,7 +30,10 @@
                  <div id="message"></div>
                  <table class="table table-bordered">                     
                    <thead>
-                     <tr>                       
+                     <tr>                                                
+                       <th>
+                           Código
+                       </th>
                        <th>
                            Nombre
                        </th>
@@ -58,6 +61,9 @@
                      <?php
                      foreach ($this->result as $res):?>
                      <tr>
+                       <td>
+                         <?php echo $res["idCliente"]; ?>
+                       </td>
                        <td>
                          <?php echo $res["nombreCliente"]; ?>
                        </td>

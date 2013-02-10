@@ -46,15 +46,35 @@ class Admin_ClienteController extends App_Controller_Action
                 $this->_redirect('/cliente');
                 
             } else {
-                $form->populate($data);
-                var_dump($form->getErrors());
+                $form->populate($data);                
             }
-                
-            
-            
         }
-
     }
+    
+    public function editarAction()
+    {   
+        $modelCliente = new App_Model_Cliente();
+        $form = new App_Form_CrearCliente();
+        $id = $this->_getParam('id');
+        $cliente = $modelCliente->getClientesPorId($id);
+        $form->populate($cliente);        
+         
+        if($this->getRequest()->isPost()){            
+            $data = $this->getRequest()->getPost();
+            $data['idCliente'] = $id;
+            if ($form->isValid($data)) {                
+                $id = $modelCliente->actualizarDatos($data);
+                $this->_flashMessenger->addMessage("Cliente editado con éxito");
+                $this->_redirect('/cliente/');
+                
+            } else {
+                $form->populate($data);                
+            }
+        }
+        $this->view->form = $form;
+    }
+    
+    
     public function eliminarAction()
     {
         //if ($this->isAuth){        

@@ -1,0 +1,1 @@
+alter table `spa`.`cliente` change `fechaNacimiento` `fechaNacimiento` date NULL ;

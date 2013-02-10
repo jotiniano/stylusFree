@@ -44,7 +44,7 @@ class App_Model_Cliente extends App_Db_Table_Abstract {
     public function getClientesPorId($id) {
         $query = $this->getAdapter()->select()
                 ->from($this->_name)
-                ->where('id = ?', $id);        
+                ->where('idCliente = ?', $id);        
 
         return $this->getAdapter()->fetchRow($query);
     }
