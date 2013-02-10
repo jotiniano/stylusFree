@@ -8,6 +8,7 @@ class Admin_AuthController extends App_Controller_Action
         $this->view->headScript()->appendFile($this->view->s('/js/auth.js'));            
     }
 
+<<<<<<< HEAD
     public function indexAction(){
         
      Zend_Layout::getMvcInstance()->setLayout('login');
@@ -16,6 +17,11 @@ class Admin_AuthController extends App_Controller_Action
       
      
       //CSS
+=======
+    public function indexAction()
+    {
+        //////CSS
+>>>>>>> 269bb8e0d24bced6aed3200b63230e6b872065df
         $this->view->headLink()->appendStylesheet(
             $this->getConfig()->app->mediaUrl . '/css/screen.css'
         );
@@ -32,24 +38,28 @@ class Admin_AuthController extends App_Controller_Action
             $this->getConfig()->app->mediaUrl . '/js/formularios/jquery.validate.js'
         );
         
-       if ($this->getRequest()->isPost()) {
+        Zend_Layout::getMvcInstance()->setLayout('login');
+        $this->view->idBody = 'login-bg';
+        $form = new App_Form_Login();
+        $this->view->formLogin = $form; 
             
-           if ($form->isValid($this->_getAllParams()) && 
-                    $this->autentificateUser($this->_getParam('email'), 
-                            $this->_getParam('pwd'))) {
-                
-             
-                $this->_redirect($this->view->url(array("module" => "admin",
-                            "controller" => "index",
-                            "action" => "index")));
-            } else {
-                echo "error"; exit();
-            }
-            
+        if ($form->isValid($this->_getAllParams()) &&
+                $this->autentificateUser($this->_getParam('email'), $this->_getParam('pwd'))) {
+
+            $this->_redirect($this->view->url(array("module" => "admin",
+                        "controller" => "index",
+                        "action" => "index")));
+        } else {
+            echo "error";
+            exit();
         }
+<<<<<<< HEAD
         
         $this->view->formLogin = $form;
     }
+=======
+}
+>>>>>>> 269bb8e0d24bced6aed3200b63230e6b872065df
     
     public function loginAction()
     {
