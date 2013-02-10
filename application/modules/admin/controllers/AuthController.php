@@ -13,7 +13,7 @@ class Admin_AuthController extends App_Controller_Action
      Zend_Layout::getMvcInstance()->setLayout('login');
      $this->view->idBody = 'login-bg';
      $form = new App_Form_Login();
-     $this->view->formLogin = $form; 
+      
      
       //CSS
         $this->view->headLink()->appendStylesheet(
@@ -47,7 +47,8 @@ class Admin_AuthController extends App_Controller_Action
             }
             
         }
-   
+        
+        $this->view->formLogin = $form;
     }
     
     public function loginAction()
