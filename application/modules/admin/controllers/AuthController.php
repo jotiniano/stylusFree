@@ -10,8 +10,8 @@ class Admin_AuthController extends App_Controller_Action
 
     public function indexAction(){
         
-        
      Zend_Layout::getMvcInstance()->setLayout('login');
+     $this->view->idBody = 'login-bg';
      $form = new App_Form_Login();
      $this->view->formLogin = $form; 
      
@@ -32,18 +32,14 @@ class Admin_AuthController extends App_Controller_Action
             $this->getConfig()->app->mediaUrl . '/js/formularios/jquery.validate.js'
         );
         
-     
-     /*   
-      $this->view->idBody = 'login-bg';
-      $formulario = new Application_Form_Login();
-      $formulario->removeDecorators();
-      $formulario->customDecoratorFile("/form-custom/_formLogin.phtml");
-                  
-      if ($this->getRequest()->isPost()) {
-           if ($formulario->isValid($this->_getAllParams()) && 
-                    $this->autentificateUser($this->_getParam('Login'), 
-                            $this->_getParam('Password'))) {
+       if ($this->getRequest()->isPost()) {
+            
+           if ($form->isValid($this->_getAllParams()) && 
+                    $this->autentificateUser($this->_getParam('email'), 
+                            $this->_getParam('pwd'))) {
                 
+              echo "entro";
+               exit();
                 $this->_redirect($this->view->url(array("module" => "admin",
                             "controller" => "panel",
                             "action" => "index")));
@@ -52,8 +48,7 @@ class Admin_AuthController extends App_Controller_Action
             }
             
         }
-        $this->view->formLoginAdmin = $formulario;
-       */ 
+   
     }
     
     public function loginAction()
