@@ -46,9 +46,11 @@ class App_Model_User extends App_Db_Table_Abstract {
     }
     
       public function lista() {
-        $query = $this->getAdapter()
-                ->select()->from(array('c' => $this->_name))
-                ->where('c.estado = ?', App_Model_Cliente::ESTADO_ACTIVO);
+        $query = "SELECT * FROM
+   tipousuario t
+    INNER JOIN usuario u
+        ON (t.idTipoUsuario = u.idTipoUsuario)
+where u.estado = 1";
 
         return $this->getAdapter()->fetchAll($query);
     }

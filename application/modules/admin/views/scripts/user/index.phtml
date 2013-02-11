@@ -7,7 +7,7 @@
                     <li><a href="/usuario/crear">Agregar Usuario</a></li>
                 </ul>
               <form class="well inline" method="post" enctype="multipart/form-data" >
-                      <h3>Buscar Clientes</h3>
+                      <h3>Buscar Usuario</h3>
                       <hr>                      
                       <div class="row-fluid">
                           <div class="span2">
@@ -38,16 +38,13 @@
                            Apellido
                        </th>
                        <th>
-                           Número de Visitas
+                           Usuario
                        </th>
                        <th>
-                           Última visita
+                           Tipo
                        </th>
                        <th>                          
-                          Teléfono
-                       </th>
-                       <th>                          
-                          Email
+                          Estado
                        </th>
                        <th>
                           Acciones
@@ -56,26 +53,28 @@
                    </thead>
                    <tbody>
                      <?php
+                     print_r($this->result);
                      foreach ($this->result as $res):?>
                      <tr>
                        <td>
-                         <?php echo $res["nombreCliente"]; ?>
+                         <?php echo $res["nombreUsuario"]; ?>
                        </td>
                        <td>
-                         <?php echo $res["apellidoCliente"]; ?>
+                         <?php echo $res["apellidoUsuario"]; ?>
                        </td>
                        <td>
-                         <?php echo $res["totalVisitas"]; ?>
+                         <?php echo $res["usuario"]; ?>
                        </td>
                        <td>
-                         <?php echo $res["fechaUltimaVisita"]; ?>
+                         <?php echo $res["descripcion"]; ?>
                        </td>
                        <td>
-                         <?php echo $res["telefono"]; ?>
+                         <?php if($res["estado"]==1):
+                             echo  "Activo"; 
+                             else:
+                                 "Inactivo";
+                             endif; ?>
                        </td>
-                       <td>
-                         <?php echo $res["correo"]; ?>
-                       </td>                       
                        <td>
                            <a href="/cliente/editar/id/<?php echo $res["idCliente"]; ?>" title="Editar">Editar</a> |
                            <a href="/cliente/eliminar/id/<?php echo $res["idCliente"]; ?>" title="Editar">Eliminar</a>
