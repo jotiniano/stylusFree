@@ -50,14 +50,15 @@ class Admin_ProductoController extends App_Controller_Action
                 $form->foto->addFilter(
                            'Rename',
                            array(
-                               'target' => $ruta . $id . "jpeg",
+                               'target' => $ruta . $id . ".jpeg",
                                'overwrite' => true)
                        );
                 
-                $form->foto->receive();
+                $form->foto->receive();                
                 $data['idProducto']= $id;
                 $data['foto'] = $id . ".jpeg";
-                $modelProducto->actualizarDatos($data);                
+                
+                $modelProducto->actualizarDatos($data);
                 $this->_flashMessenger->addMessage("Guardado con éxito");
                 $this->_redirect('/producto');
                 
