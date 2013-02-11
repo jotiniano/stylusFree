@@ -10,7 +10,7 @@ class App_Form_BuscarUsuario extends App_Form
         $e->setAttrib('class', 'span8');
         $this->addElement($e);
         
-        $e = new Zend_Form_Element_Text('nombre');
+        $e = new Zend_Form_Element_Text('nombreUsuario');
         $e->setAttrib('class', 'span8');
         $this->addElement($e);
         
