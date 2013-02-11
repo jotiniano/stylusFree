@@ -46,11 +46,16 @@ class App_Model_User extends App_Db_Table_Abstract {
     }
     
       public function lista() {
+        /*$query = $this->getAdapter()
+                ->select()->from(array('c' => $this->_name))
+                ->where('c.estado = ?', App_Model_User::ESTADO_ACTIVO);
+        */
         $query = "SELECT * FROM
-   tipousuario t
-    INNER JOIN usuario u
-        ON (t.idTipoUsuario = u.idTipoUsuario)
-where u.estado = 1";
+                    tipousuario t
+                        INNER JOIN usuario u
+                            ON (t.idTipoUsuario = u.idTipoUsuario)
+                    where u.estado = 1";
+        
 
         return $this->getAdapter()->fetchAll($query);
     }
@@ -63,14 +68,11 @@ where u.estado = 1";
         $select = $db->select()
                 ->from(array('u' => $this->_name), $this->_getCols())
                 ->where('u.estado = ?', self::ESTADO_ACTIVO)
-                ->where('u.idTipoUsuario = ?', App_Model_Usuario::TIPO_CLIENTE);
-
+                ->where('u.idTipoUsuario = ?', App_Model_User::TIPO_CLIENTE);
+        
         if (isset ($data['idUsuario']) and !empty($data['idUsuario']))
             $select->where('u.idUsuario = ?', $data["idUsuario"]);
-/*
-        if (isset ($data["email"]) and !empty($data["email"]))
-            $select->where('u.correo like ?', "%{$data["email"]}%");
-*/
+
         if (isset($data["nombreUsuario"]) and !empty($data["nombreUsuario"])) {
             $concat = new Zend_Db_Expr("CONCAT(TRIM(u.nombreUsuario), ' ', TRIM(u.apellidoUsuario))");
             $select->where("$concat like ?", "%{$data["nombreUsuario"]}%");
