@@ -1,0 +1,133 @@
+<div class="control-group">
+  <label class="control-label">Cliente</label>
+  <div class="controls">
+    <input id="clienteReserva" data-provide="typeahead" type="text" id="input" class="span11">
+    <span class="help-inline">
+    	<a href="#nuevoClienteReserva" class="btn">
+    		<span class="icon-plus"></span>
+    	</a>
+    </span>
+  </div>
+</div>
+
+<div class="control-group">
+  <label class="control-label" for="fechaReserva">Fecha y Hora de Inicio:</label>
+  <div class="controls">
+    <input type="text" class="span4" id="fechaReserva" >
+    <span class="bootstrap-timepicker">
+    	<input type="text" class="span4" id="horaReserva" >
+    </span>
+  </div>
+</div>
+
+<div class="control-group">
+  <label class="control-label" for="fechaReservaFin">Fecha y Hora de Fin:</label>
+  <div class="controls">
+    <input type="text" class="span4" id="fechaReservaFin" >
+    <span class="bootstrap-timepicker">
+    	<input type="text" class="span4" id="horaReservaFin" >
+	</span>
+  </div>
+</div>
+
+<div class="control-group">
+  <label class="control-label" for="descripcionReserva">Descripción:</label>
+  <div class="controls">
+    <textarea rows=5 class="span12" id="descripcionReserva"></textarea>
+  </div>
+</div>
+
+<input type="hidden" value="<?=$this->start; ?>" id="fStart">
+<input type="hidden" value="<?=$this->end; ?>" id="fEnd">
+<input type="hidden" value="<?=$this->allDay; ?>" id="fAllDay">
+<input type="hidden" value="" id="idCliente">
+
+
+<div id="buscarClienteReserva" class="modal hide fade" tabindex="-1" role="dialog" >
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Modal header</h3>
+  </div>
+  <div class="modal-body">
+    <p>One fine body…</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+    <button class="btn btn-primary">Save changes</button>
+  </div>
+</div>
+
+<style>
+ .typeahead {
+    z-index: 1100;
+}
+  </style>
+
+<script>
+$(document).ready(function(){
+
+	var fecha_ini = new Date($("#fStart").val());
+	var fecha_fin = new Date($("#fEnd").val());
+	var all_day = new Date($("#fAllDay").val());
+	
+	var sFechaIni = dateHelper.dateToStr(fecha_ini, "dd/dd-mm-yyyy", "/");
+	var sFechaFin = dateHelper.dateToStr(fecha_fin, "dd/dd-mm-yyyy", "/");
+
+	var sHoraIni = dateHelper.dateToTime(fecha_ini);
+	var sHoraFin = dateHelper.dateToTime(fecha_fin);
+
+
+	//DatePicker
+	$('#fechaReserva').datepicker({
+		format: 'dd-mm-yyyy',
+        todayBtn: 'linked',
+        language: 'es'
+	});
+	$('#fechaReservaFin').datepicker({
+		format: 'dd-mm-yyyy',
+        todayBtn: 'linked',
+        language: 'es'
+	});
+
+	//TimePicker
+	$('#horaReserva').timepicker({
+		showMeridian : false,
+		minuteStep   : 30,
+		showSeconds  : false,
+		showInputs: false,
+        disableFocus: true
+	});
+	$('#horaReservaFin').timepicker({
+		showMeridian : false,
+		minuteStep   : 30,
+		showSeconds  : false,
+		showInputs: false,
+        disableFocus: true
+	});
+
+	//Fecha de Reserva
+	$('#fechaReserva').datepicker('update', sFechaIni);
+	$('#fechaReservaFin').datepicker('update', sFechaFin);
+
+	//Hora de Reserva
+	$('#horaReserva').timepicker('setTime', sHoraIni);
+	$('#horaReservaFin').timepicker('setTime', sHoraFin);
+
+	//BuscarCliente
+	$('#clienteReserva').typeahead({
+	    source: function (typeahead, query) {
+	        if (query.length<1) return [];
+	        $.post('/agenda/listar-clientes', { query: query }, function (data) {
+	            return typeahead.process(JSON.parse(data));
+	        });
+	    },
+	    onselect: function (obj) {
+	    	$("#idCliente").val(obj.id);
+	    }
+	});
+
+	
+	
+
+});
+</script>

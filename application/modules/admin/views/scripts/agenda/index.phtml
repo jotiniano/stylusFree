@@ -22,10 +22,6 @@
 			selectable: true,
 			editable: true,
 			select: function(start, end, allDay) {
-				console.log(start);
-				console.log(end);
-				console.log(allDay);
-
 
 				/*var title = prompt('Event Title:');
 				if (title) {
@@ -45,10 +41,48 @@
 							show : true
 				});
 
-				$()
+				$("#contentReserva .contenido").removeClass("hide");
+				$("#contentReserva .loading").removeAttr("style");
+				$("#contentReserva .loading").addClass("hide");
+				
+				$("#contentReserva .contenido").html("");
+				$("#contentReserva .contenido").addClass("loading");
+
+				var datos = {
+					start : start,
+					end   : end,
+					allDay : allDay
+				};
+
+				$.ajax({
+                       url: "/agenda/nueva-reserva",
+                       type: 'post',
+                       data: datos,
+                       dataType: 'html',
+                       success: function(response) {
+                       		$("#contentReserva .contenido").removeClass("loading");
+                       		$("#contentReserva .contenido").html(response);
+                       }
+                 });
 
 				//calendar.fullCalendar('unselect');
 			},
+			eventClick: function(calEvent, jsEvent, view) {
+				$("#modalEliminarReserva").modal({
+							keyboard : true,
+							backdrop : true,
+							show : true
+				});
+
+		        //alert('Event: ' + calEvent.title);
+		        //alert('Coordinates: ' + jsEvent.pageX + ',' + jsEvent.pageY);
+		        //alert('View: ' + view.name);
+				//alert('Id: ' + view.id);
+
+
+		        // change the border color just for fun
+		        $(this).css('border-color', 'red');
+		    },
 			events: [
 				{
 					title: 'All Day Event',
@@ -96,6 +130,62 @@
 				}
 			]
 		});
+
+	//Formulario registro
+	$("#btnGuardarReserva").live("click",function() {
+		var fecha_reserva_ini = $("#fechaReserva").val();
+		var hora_reserva_ini = $("#horaReserva").val();
+
+		var fecha_reserva_fin = $("#fechaReservaFin").val();
+		var hora_reserva_fin = $("#horaReservaFin").val();
+
+		var descripcion = $("#descripcionReserva").val();
+		var idcliente = $("#idCliente").val();
+
+		if (idcliente == "") {
+			$("#clienteReserva").parents(".control-group").addClass("error");
+		} else {
+			var datos = {
+				fecha_reserva_ini : fecha_reserva_ini,
+				hora_reserva_ini  : hora_reserva_ini,
+				fecha_reserva_fin : fecha_reserva_fin,
+				hora_reserva_fin  : hora_reserva_fin,
+				descripcion       : descripcion,
+				idcliente         : idcliente
+			};
+
+			$("#contentReserva .contenido").addClass("hide");
+			$("#contentReserva .loading").removeClass("hide");
+			$("#contentReserva .loading").attr("style","height:100px");
+
+
+			$.ajax({
+	               url: "/agenda/registrar-reserva",
+	               type: 'post',
+	               data: datos,
+	               dataType: 'json',
+	               success: function(response) {
+	               		if (response.status = false) {
+	               			$("#contentReserva .contenido").removeClass("hide");
+	               			$("#contentReserva .loading").addClass("hide");
+	               			$("#contentReserva .loading").removeAttr("style");
+	               			
+	               		} else {
+	               			location.href = urls.siteUrl + response.url;
+	               		}
+	               }
+	         });
+		}
+
+		
+
+	});
+
+	//Eliminar
+	$("#btnEliminarReserva").live("click", function(){
+		$("#modalEliminarReserva").find("form").submit();
+	});
+
 		
 	});
 
@@ -105,7 +195,6 @@
 		width: auto;
 		margin: 0 auto;
 		}
-
 </style>
 
 
@@ -119,27 +208,30 @@
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
     <h3>Nueva Reserva</h3>
   </div>
-  <div class="modal-body">
-   
-	  <div class="control-group">
-	      <label class="control-label" for="inputWarning">Nombre:</label>
-	      <div class="controls">
-	        <input type="text" id="input">
-	        <span class="help-inline">Something may have gone wrong</span>
-	      </div>
-	  </div>
-	  <div class="control-group">
-	      <label class="control-label" for="inputWarning">Input with warning</label>
-	      <div class="controls">
-	        <input type="text" id="input">
-	        <span class="help-inline">Something may have gone wrong</span>
-	      </div>
-	  </div>
-	
+  <div class="modal-body" id="contentReserva">
+  	<div class="loading hide"></div>
+  	<div class="contenido"></div>
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" onClick="$('#modalReserva .close').click()">Cerrar</a>
-    <a href="#" class="btn btn-primary">Guardar</a>
+    <a id="btnGuardarReserva" href="#" class="btn btn-primary">Guardar</a>
   </div>
 </div>
 
+<!-- ELIMINAR EVENTO -->
+<div id="modalEliminarReserva" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Eliminar Reserva</h3>
+  </div>
+  <div class="modal-body" id="contentEliminarReserva">
+  	Desea Eliminar esta Reserva?
+  	 <form action="/agenda/eliminar-reserva" method="post">
+  		<input type="hidden" name="idReserva" />
+     </form>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" onClick="$('#modalEliminarReserva .close').click()">Cancelar</a>
+    <a id="btnEliminarReserva" href="#" class="btn btn-primary">Eliminar</a>
+  </div>
+</div>
