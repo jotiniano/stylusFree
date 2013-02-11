@@ -31,37 +31,58 @@ class Admin_UserController extends App_Controller_Action
         $this->view->result = $result; 
     }
     
-    public function newAction()
+    public function crearAction()
     {
-        $form = new App_Form_User();
-        if($this->_request->isPost()){
-            $params = $this->_getAllParams();
-            if($form->isValid($params)){
-                $this->mUser->create($form->getValues(), $this->authData->id);
-                $this->getMessenger()->success('New User Added');
+        $form = new App_Form_CrearUsuario();
+        $this->view->form = $form; 
+        if($this->getRequest()->isPost()){            
+            
+            $data = $this->getRequest()->getPost();
+            
+            if ($form->isValid($data)) {
+                $modeloUsuario = new App_Model_User();
+                $fechaRegistro = Zend_Date::now()->toString('YYYY-MM-dd HH:mm:ss');
+                $data['nombreUsuario'] = $params['nombre'];
+                $data['apellidoUsuario'] = $params['apellido'];
+                $data['fechaRegistro'] = $fechaRegistro;
+                $data['usuario'] =  $params['usuario'];
+                $data['clave'] =  $params['clave'];
+                $data['idTipoUsuario'] =  '2';
+                $data['estado'] = App_Model_User::ESTADO_ACTIVO;
+                $modeloUsuario->actualizarDatos($data);
+                
+                $this->_flashMessenger->addMessage("Cliente guardado con exito");
                 $this->_redirect($this->indexUrl);
+                
+            } else {
+                $form->populate($data);                
             }
         }
-        $this->view->form = $form;
+        
+        
+        
+        
     }
     
-    public function activateAction() {
-        $this->changeActiveFlag('1', 'User Activated');
-    }
-
-    public function deactivateAction() {
-        $this->changeActiveFlag('0', 'User Deactivated');
+    public function editarAction(){
+        
     }
     
-    private function changeActiveFlag($value, $msg){
-        $db = $this->mUser->getAdapter();
-        $where = $db->quoteInto('id = ?', $this->_getParam('id'));
-        $this->mUser->update(array('active'=>$value), $where);
-        $this->getMessenger()->success($msg);
+    public function eliminarAction(){
+        
+        $modeloUsuario = new App_Model_User();
+        $id = $this->_getParam('id');
+        $data = array(
+            'idUsuario' => $id,
+            'estado' => App_Model_User::ESTADO_ELIMINADO
+        );        
+        $modeloUsuario->actualizarDatos($data);
+        $this->_flashMessenger->addMessage("Usuario eliminado con exito");
         $this->_redirect($this->indexUrl);
+        
+        
     }
-    
-    
+   
 
 
 }

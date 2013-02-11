@@ -21,10 +21,10 @@ class App_Model_User extends App_Db_Table_Abstract {
      */
     private function _guardar($datos, $condicion = NULL) {
         $id = 0;
-        if (!empty($datos['id'])) {
-            $id = (int) $datos['id'];
+        if (!empty($datos['idUsuario'])) {
+            $id = (int) $datos['idUsuario'];
         }
-        unset($datos['id']);
+        unset($datos['idUsuario']);
         $datos = array_intersect_key($datos, array_flip($this->_getCols()));
 
         if ($id > 0) {
@@ -33,7 +33,7 @@ class App_Model_User extends App_Db_Table_Abstract {
                 $condicion = ' AND ' . $condicion;
             }
 
-            $cantidad = $this->update($datos, 'id = ' . $id . $condicion);
+            $cantidad = $this->update($datos, 'idUsuario = ' . $id . $condicion);
             $id = ($cantidad < 1) ? 0 : $id;
         } else {
             $id = $this->insert($datos);
@@ -83,4 +83,5 @@ class App_Model_User extends App_Db_Table_Abstract {
 
         return $db->fetchAll($select);
     }
+    
 }
