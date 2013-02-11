@@ -37,20 +37,33 @@ class Admin_ProductoController extends App_Controller_Action
             
             $data = $this->getRequest()->getPost();
             
-            if ($form->isValid($data)) {
-                $modelCliente = new App_Model_Cliente();
+            if ($form->isValid($data)) {                
+                $modelProducto = new App_Model_Producto();
                 $fecha = Zend_Date::now()->toString('YYYY-MM-dd HH:mm:ss');
-                $data['fechaUltimaVisita'] = $fecha;
-                $data['estado'] = App_Model_Cliente::ESTADO_ACTIVO;
-                $data['totalVisitas'] = 1;
-                $data['idTipoUsuario'] = App_Model_User::TIPO_CLIENTE;                
-                $id = $modelCliente->actualizarDatos($data);
+                $data['fechaRegistro'] = $fecha;
+                $data['usuarioRegistro'] = $this->view->authData->idUsuario;
+                $data['estado'] = App_Model_Producto::ESTADO_ACTIVO;                
+                $id = $modelProducto->actualizarDatos($data);                
+                $config = Zend_Registry::get('config');
+                $ruta = $config->app->mediaRoot;
                 
-                $this->_flashMessenger->addMessage("Cliente guardado con exito");
-                $this->_redirect('/cliente');
+                $form->foto->addFilter(
+                           'Rename',
+                           array(
+                               'target' => $ruta . $id . "jpeg",
+                               'overwrite' => true)
+                       );
+                
+                $form->foto->receive();
+                $data['idProducto']= $id;
+                $data['foto'] = $id . ".jpeg";
+                $modelProducto->actualizarDatos($data);                
+                $this->_flashMessenger->addMessage("Guardado con éxito");
+                $this->_redirect('/producto');
                 
             } else {
-                $form->populate($data);                
+                $this->_flashMessenger->addMessage("Verifique sus datos");
+                $form->populate($data);
             }
         }
     }

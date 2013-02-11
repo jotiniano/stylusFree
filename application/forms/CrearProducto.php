@@ -23,6 +23,9 @@ class App_Form_CrearProducto extends App_Form
         $this->addElement($e);
         
         $e = new Zend_Form_Element_File('foto');        
+        $config = Zend_Registry::get('config');
+        $ruta = $config->app->mediaRoot;
+        $e->setDestination($ruta);
         $this->addElement($e);
         
         $e = new Zend_Form_Element_Submit('guardar');
