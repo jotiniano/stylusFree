@@ -39,7 +39,7 @@ class Admin_ClienteController extends App_Controller_Action
                 $data['fechaUltimaVisita'] = $fecha;
                 $data['estado'] = App_Model_Cliente::ESTADO_ACTIVO;
                 $data['totalVisitas'] = 1;
-                $data['idTipoUsuario'] = App_Model_Usuario::TIPO_CLIENTE;                
+                $data['idTipoUsuario'] = App_Model_User::TIPO_CLIENTE;
                 $id = $modelCliente->actualizarDatos($data);
                 
                 $this->_flashMessenger->addMessage("Cliente guardado con exito");
