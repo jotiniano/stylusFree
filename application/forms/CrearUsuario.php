@@ -6,7 +6,7 @@ class App_Form_CrearUsuario extends App_Form
         parent::init();
         
         // name
-        $e = new Zend_Form_Element_Text('nombre');
+        $e = new Zend_Form_Element_Text('nombreUsuario');
         $e->setLabel('Nombre');
         $e->setRequired();
         $v = new Zend_Validate_StringLength(array('min'=>1,'max'=>45));
@@ -14,7 +14,7 @@ class App_Form_CrearUsuario extends App_Form
         $this->addElement($e);
 
         // lastname
-        $e = new Zend_Form_Element_Text('apellido');
+        $e = new Zend_Form_Element_Text('apellidoUsuario');
         $e->setLabel('Apellidos');
         $v = new Zend_Validate_StringLength(array('min'=>1,'max'=>45));
         $e->addValidator($v);
@@ -23,6 +23,7 @@ class App_Form_CrearUsuario extends App_Form
         // usuario
         $e = new Zend_Form_Element_Text('usuario');
         $e->setLabel('Usuario');
+        $e->setRequired();
         $v = new Zend_Validate_StringLength(array('min'=>1,'max'=>45));
         $e->addValidator($v);
         $this->addElement($e);
@@ -46,7 +47,7 @@ class App_Form_CrearUsuario extends App_Form
         
         
         // submit
-        $e = new Zend_Form_Element_Submit('submit');
+        $e = new Zend_Form_Element_Submit('guardar');
         $e->setLabel('Add');
         $e->setAttrib('class', 'btn primary');
         $this->addElement($e);

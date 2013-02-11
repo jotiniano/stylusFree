@@ -27,19 +27,19 @@
                         <label for="dni" class="span5 no-margin">Usuario :</label>
                         <div class="span4 no-margin">
                             <?php echo $this->form->usuario->setAttrib('class', 'span12')->setAttrib('maxlength', '8')->renderViewHelper();?>
-                            <?php if ($this->form->usuario->hasErrors()) echo "Ingresa campo valido";?>
+                            <?php if ($this->form->usuario->hasErrors()) echo "Ingresa campo válido";?>
                         </div>
                         <div class="clear"></div>
                         <label for="fechaN" class="span5 no-margin">Clave:</label>
                         <div class="span4 no-margin">
-                            <?php echo $this->form->clave->setAttrib('class', 'span12')->setAttrib('maxlength', '20')->renderViewHelper();?>
-                            <?php if ($this->form->clave->hasErrors()) echo "Ingresa campo valido";?>
+                            <?php echo $this->form->pwd->setAttrib('class', 'span12')->setAttrib('maxlength', '20')->renderViewHelper();?>
+                            <?php if ($this->form->pwd->hasErrors()) echo "Ingresa campo valido";?>
                         </div>
                         <div class="clear"></div>
                         <label for="email" class="span5 no-margin">Tipo Usuario:</label>
                         <div class="span4 no-margin">
                             <?php echo $this->form->tipoUsuario->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
-                            <?php if ($this->form->tipoUsuario->hasErrors()) echo "Ingresa campo valido";?>
+                            <?php if ($this->form->tipoUsuario->hasErrors()) echo "Ingresa campo válido";?>
                         </div>
                         
                         <?php echo $this->form->csrf; ?>
