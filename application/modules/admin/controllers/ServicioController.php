@@ -13,6 +13,12 @@ class Admin_ServicioController extends App_Controller_Action
         parent::init();
         $this->mServicio = new App_Model_Servicio();
         $this->indexUrl = $this->view->url(array('controller'=>'servicio','action'=>'index'),null,true);
+         $auth = Zend_Auth::getInstance();
+        if (!$auth->hasIdentity()) {
+            echo $this->_redirect($this->view->url(array("module" => "admin",
+                        controller => "auth",
+                        action => "index")));
+        }
     }
     
     public function indexAction()

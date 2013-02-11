@@ -13,7 +13,14 @@ class Admin_UserController extends App_Controller_Action
         parent::init();
         $this->mUser = new App_Model_User();
         $this->indexUrl = $this->view->url(array('controller'=>'user','action'=>'index'),null,true);
+        $auth = Zend_Auth::getInstance();
+        if (!$auth->hasIdentity()) {
+            echo $this->_redirect($this->view->url(array("module" => "admin",
+                        controller => "auth",
+                        action => "index")));
+        }
     }
+    
     
     public function indexAction()
     {
