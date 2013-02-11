@@ -51,12 +51,33 @@ class App_Model_Producto extends App_Db_Table_Abstract {
     public function lista() {
         $query = $this->getAdapter()
                 ->select()->from(array('p' => $this->_name))
-                ->where('p.estado = ?', App_Model_Producto::ESTADO_ACTIVO);
+                ->where('p.estado = ?', App_Model_Producto::ESTADO_ACTIVO)
+                ->limit(50);
 
         return $this->getAdapter()->fetchAll($query);
     }
 
     public function actualizarDatos($datos) {
         return $this->_guardar($datos);
+    }
+    
+    public function buscarProductos(array $data = array()) {
+
+        $db = $this->getAdapter();
+
+        $select = $db->select()
+                ->from(array('p' => $this->_name), $this->_getCols())
+                ->where('p.estado = ?', self::ESTADO_ACTIVO);
+
+        if (isset ($data['idProducto']) and !empty($data['idProducto']))
+            $select->where('p.idProducto = ?', $data['idProducto']);
+
+        if (isset($data["nombreProducto"]) and !empty($data["nombreProducto"]))
+            $select->where("p.nombreProducto like ?", "%{$data["nombreProducto"]}%");        
+        
+        $select->order('idProducto')
+                ->limit(50);
+
+        return $db->fetchAll($select);
     }
 }
