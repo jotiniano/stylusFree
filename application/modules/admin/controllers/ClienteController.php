@@ -3,9 +3,17 @@ class Admin_ClienteController extends App_Controller_Action
 {
     protected $_mCliente;
 
-    public function init() 
+    
+    public function init()
     {
-       parent::init();
+        parent::init();
+        /* Initialize action controller here */
+        $auth = Zend_Auth::getInstance();
+        if (!$auth->hasIdentity()) {
+            echo $this->_redirect($this->view->url(array("module" => "admin",
+                        controller => "auth",
+                        action => "index")));
+        }
     }
     
     public function indexAction()

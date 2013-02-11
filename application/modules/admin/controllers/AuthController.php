@@ -69,7 +69,10 @@ class Admin_AuthController extends App_Controller_Action
     public function logoutAction()
     {
         Zend_Auth::getInstance()->clearIdentity();
-        $this->_helper->redirector->gotoRoute(array(), 'login', true);
+         $this->_redirect($this->view->url(array("module" => "admin",
+                            "controller" => "Index",
+                            "action" => "index")));
+
     }
 }
 
