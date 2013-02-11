@@ -71,41 +71,78 @@ class Admin_ProductoController extends App_Controller_Action
     
     public function editarAction()
     {   
-        $modelCliente = new App_Model_Cliente();
-        $form = new App_Form_CrearCliente();
+        $modelProducto = new App_Model_Producto();
+        $form = new App_Form_CrearProducto();
         $id = $this->_getParam('id');
-        $cliente = $modelCliente->getClientesPorId($id);
-        $form->populate($cliente);        
+        $producto = $modelProducto->getProductosPorId($id);
+        $form->populate($producto);        
          
-        if($this->getRequest()->isPost()){            
+        if($this->getRequest()->isPost()){
             $data = $this->getRequest()->getPost();
-            $data['idCliente'] = $id;
+            $data['idProducto'] = $id;            
             if ($form->isValid($data)) {                
-                $id = $modelCliente->actualizarDatos($data);
-                $this->_flashMessenger->addMessage("Cliente editado con éxito");
-                $this->_redirect('/cliente/');
-                
-            } else {
-                $form->populate($data);                
+                $modelProducto = new App_Model_Producto();
+                $data['usuarioRegistro'] = $this->view->authData->idUsuario;                
+                $cond = array_key_exists("fotoAnt", $data);                
+                if (!$cond) {
+                    $foto = $form->foto->getFileName();                    
+                    if (!empty ($foto)) {
+                        $data['foto'] = $id . ".jpeg";
+
+                        $config = Zend_Registry::get('config');
+                        $ruta = $config->app->mediaRoot;
+
+                        $form->foto->addFilter(
+                                'Rename', array(
+                            'target' => $ruta . $id . ".jpeg",
+                            'overwrite' => true)
+                        );
+                        $form->foto->receive();
+                    }
+                }                
+                $id = $modelProducto->actualizarDatos($data);
+                    
+                    
+                $id = $modelProducto->actualizarDatos($data);
+                $this->_flashMessenger->addMessage("Producto editado con éxito");
+                $this->_redirect('/producto/');
+            
+            } else {                
+                $form->populate($data);
+                $this->_flashMessenger->addMessage("Revice sus campos");
             }
         }
+        $this->view->ruta = $this->config->app->mediaRoot;
         $this->view->form = $form;
+        $this->view->producto = $producto;
     }
     
     
     public function eliminarAction()
-    {
-        //if ($this->isAuth){        
-        $modelCliente = new App_Model_Cliente();
-        $id = $this->_getParam('id');
+    {        
+        $modelProducto = new App_Model_Producto();
+        $id = $this->_getParam('id');        
         $data = array(
-            'idCliente' => $id,
-            'estado' => App_Model_Cliente::ESTADO_ELIMINADO
-        );        
-        $modelCliente->actualizarDatos($data);
-        $this->_flashMessenger->addMessage("Cliente eliminado con exito");
-        $this->_redirect('/cliente');
-        //}
+            'idProducto' => $id,
+            'estado' => App_Model_Producto::ESTADO_ELIMINADO
+        );
+        
+        $modelProducto->actualizarDatos($data);
+        $this->_flashMessenger->addMessage("Producto eliminado con éxito");
+        $this->_redirect('/producto');
+    }
+    public function eliminarfotoAction()
+    {
+        $modelProducto = new App_Model_Producto();
+        $id = $this->_getParam('id');        
+        $data = array(
+            'idProducto' => $id,
+            'foto' => ''
+        );
+        
+        $modelProducto->actualizarDatos($data);
+        $this->_flashMessenger->addMessage("Imagen eliminada con éxito");
+        $this->_redirect('/producto/editar/id/'.$id);
     }
 
 }

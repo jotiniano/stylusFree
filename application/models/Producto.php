@@ -43,7 +43,8 @@ class App_Model_Producto extends App_Db_Table_Abstract {
     public function getProductosPorId($id) {
         $query = $this->getAdapter()->select()
                 ->from($this->_name)
-                ->where('id = ?', $id);
+                ->where('estado = ?', App_Model_Producto::ESTADO_ACTIVO)
+                ->where('idProducto = ?', $id);
 
         return $this->getAdapter()->fetchRow($query);
     }
