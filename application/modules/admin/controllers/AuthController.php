@@ -8,14 +8,11 @@ class Admin_AuthController extends App_Controller_Action
         $this->view->headScript()->appendFile($this->view->s('/js/auth.js'));            
     }
 
-    public function indexAction(){
-        
-        
-     Zend_Layout::getMvcInstance()->setLayout('login');
-     $form = new App_Form_Login();
-     $this->view->formLogin = $form; 
-     
-      //CSS
+
+    public function indexAction()
+    {
+        //////CSS
+
         $this->view->headLink()->appendStylesheet(
             $this->getConfig()->app->mediaUrl . '/css/screen.css'
         );
@@ -32,29 +29,29 @@ class Admin_AuthController extends App_Controller_Action
             $this->getConfig()->app->mediaUrl . '/js/formularios/jquery.validate.js'
         );
         
-     
-     /*   
-      $this->view->idBody = 'login-bg';
-      $formulario = new Application_Form_Login();
-      $formulario->removeDecorators();
-      $formulario->customDecoratorFile("/form-custom/_formLogin.phtml");
-                  
-      if ($this->getRequest()->isPost()) {
-           if ($formulario->isValid($this->_getAllParams()) && 
-                    $this->autentificateUser($this->_getParam('Login'), 
-                            $this->_getParam('Password'))) {
-                
+        Zend_Layout::getMvcInstance()->setLayout('login');
+        $this->view->idBody = 'login-bg';
+        $form = new App_Form_Login();
+       
+        if( $this->_request->isPost() ){
+            
+           
+            if ($this->autentificateUser($this->_getParam('usuario'), $this->_getParam('pwd'))) {
+                ;
                 $this->_redirect($this->view->url(array("module" => "admin",
-                            "controller" => "panel",
+                            "controller" => "index",
                             "action" => "index")));
             } else {
-                echo "error"; exit();
+                echo "error";
+                exit();
             }
-            
+
         }
-        $this->view->formLoginAdmin = $formulario;
-       */ 
+        $this->view->formLogin = $form;
     }
+
+
+
     
     public function loginAction()
     {
@@ -72,7 +69,10 @@ class Admin_AuthController extends App_Controller_Action
     public function logoutAction()
     {
         Zend_Auth::getInstance()->clearIdentity();
-        $this->_helper->redirector->gotoRoute(array(), 'login', true);
+         $this->_redirect($this->view->url(array("module" => "admin",
+                            "controller" => "Index",
+                            "action" => "index")));
+
     }
 }
 

@@ -6,19 +6,19 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="brand" href="#">Project STYLUS</a>
+          <a class="brand" href="#">Spa System</a>
           <div class="nav-collapse collapse">
             <? if($this->isAuth): ?>
                 <p class="navbar-text pull-right">
                     Bienvenido
-                    <a href="#"><?=$this->authData->email?></a>
-                    <a href="<?=$this->url(array(),'logout',true);?>">[Cerrar Sesión]</a>
+                    <a href="#"><?php echo $this->authData->nombreUsuario." ".$this->authData->apellidoUsuario;?></a>
+                    <a href="/admin/auth/logout">[Cerrar Sesión]</a>
                 </p>
             <? endif; ?>
             <ul class="nav">
-              <li class="active"><a href="#">STYLUS</a></li>
-              <li><a href="#">Link</a></li>
-              <li><a href="#">Link</a></li>
+              <li class="active"><a href="#"></a></li>
+              <li><a href="#"></a></li>
+              <li><a href="#"></a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

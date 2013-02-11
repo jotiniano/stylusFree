@@ -5,15 +5,14 @@
  *
  * @author James
  */
-class App_Model_Usuario extends App_Db_Table_Abstract {
+class App_Model_Servicio extends App_Db_Table_Abstract {
 
-    protected $_name = 'usuario';
+    protected $_name = 'servicio';
 
     const ESTADO_ACTIVO = 1;
     const ESTADO_ELIMINADO = 0;
-    const TABLA_CLIENTE = 'usuario';
-    const TIPO_CLIENTE = 4;
-
+    const TABLA_SERVICIO = 'servicio';
+    
     /**
      * @param array $datos
      * @param string $condicion para el caso de actualizacion
@@ -44,4 +43,14 @@ class App_Model_Usuario extends App_Db_Table_Abstract {
     public function actualizarDatos($datos) {
         return $this->_guardar($datos);
     }
+    
+      public function lista() {
+        $query = $this->getAdapter()
+                ->select()->from(array('servicio' => $this->_name));
+                
+                
+        return $this->getAdapter()->fetchAll($query);
+    }
+    
+    
 }

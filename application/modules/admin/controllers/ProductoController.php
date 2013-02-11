@@ -1,13 +1,10 @@
 <?php
-class Admin_ClienteController extends App_Controller_Action
+class Admin_ProductoController extends App_Controller_Action
 {
-    protected $_mCliente;
 
-    
-    public function init()
+    public function init() 
     {
-        parent::init();
-        /* Initialize action controller here */
+       parent::init();
         $auth = Zend_Auth::getInstance();
         if (!$auth->hasIdentity()) {
             echo $this->_redirect($this->view->url(array("module" => "admin",
@@ -17,17 +14,16 @@ class Admin_ClienteController extends App_Controller_Action
     }
     
     public function indexAction()
-    {        
-        //$this->_flashMessenger->addMessage("Ejemplo");
-        $form = new App_Form_BuscarCliente();
-        $modelCliente = new App_Model_Cliente();
+    {   
+        $form = new App_Form_BuscarProducto();
+        $modelProducto = new App_Model_Producto();
         
-        $result = $modelCliente->lista();
+        $result = $modelProducto->lista();
         
         if($this->getRequest()->isPost()){
             $data = $this->getRequest()->getPost();
             $form->populate($data);
-            $result = $modelCliente->buscarClientes($data);
+            $result = $modelProducto->buscarProductos($data);
         }
         $this->view->form = $form;
         $this->view->result = $result; 
@@ -35,9 +31,9 @@ class Admin_ClienteController extends App_Controller_Action
     
     public function crearAction()
     {        
-        $form = new App_Form_CrearCliente();
+        $form = new App_Form_CrearProducto();
         $this->view->form = $form; 
-        if($this->getRequest()->isPost()){            
+        if($this->getRequest()->isPost()){
             
             $data = $this->getRequest()->getPost();
             
@@ -47,7 +43,7 @@ class Admin_ClienteController extends App_Controller_Action
                 $data['fechaUltimaVisita'] = $fecha;
                 $data['estado'] = App_Model_Cliente::ESTADO_ACTIVO;
                 $data['totalVisitas'] = 1;
-                $data['idTipoUsuario'] = App_Model_User::TIPO_CLIENTE;
+                $data['idTipoUsuario'] = App_Model_User::TIPO_CLIENTE;                
                 $id = $modelCliente->actualizarDatos($data);
                 
                 $this->_flashMessenger->addMessage("Cliente guardado con exito");

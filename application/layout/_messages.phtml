@@ -2,10 +2,10 @@
 
 <div id="fmsgs">
     <? foreach ($this->fmsgs as $msg): ?>
-        <div class="alert-message fade in <?= $msg->level == 'debug' ? 'error block-message' : $msg->level ?>">
-            <a href="#" class="close">×</a>
+        <div class="alert fade in <?= $msg->level == 'debug' ? 'error block-message' : $msg->level ?>">
+            <!--<a href="#" class="close">×</a>-->
+            <a class="close" data-dismiss="alert" href="#">&times;</a>
             <p><?= $msg->message ?></p>
         </div>            
     <? endforeach; ?>
 </div>
-

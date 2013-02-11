@@ -44,7 +44,7 @@ class App_Model_Cliente extends App_Db_Table_Abstract {
     public function getClientesPorId($id) {
         $query = $this->getAdapter()->select()
                 ->from($this->_name)
-                ->where('id = ?', $id);        
+                ->where('idCliente = ?', $id);        
 
         return $this->getAdapter()->fetchRow($query);
     }
@@ -70,7 +70,7 @@ class App_Model_Cliente extends App_Db_Table_Abstract {
         $select = $db->select()
                 ->from(array('u' => $this->_name), $this->_getCols())
                 ->where('u.estado = ?', self::ESTADO_ACTIVO)
-                ->where('u.idTipoUsuario = ?', App_Model_Usuario::TIPO_CLIENTE);
+                ->where('u.idTipoUsuario = ?', App_Model_User::TIPO_CLIENTE);
 
         if (isset ($data['idCliente']) and !empty($data['idCliente']))
             $select->where('u.idCliente = ?', $data["idCliente"]);

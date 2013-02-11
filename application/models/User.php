@@ -3,55 +3,85 @@
 /**
  * Description of User
  *
- * @author free
+ * @author James
  */
-class App_Model_User extends App_Db_Table_Abstract
-{
-    protected $_name = 'user';
-    
-    const ROLE_ADMIN = 'admin';
-    const ROLE_USER = 'user';
-    
-    public static function getRoles() {
-        return array(
-            self::ROLE_ADMIN => 'Admin',
-            self::ROLE_USER => 'User'
-        );
+class App_Model_User extends App_Db_Table_Abstract {
+
+    protected $_name = 'usuario';
+
+    const ESTADO_ACTIVO = 1;
+    const ESTADO_ELIMINADO = 0;
+    const TABLA_CLIENTE = 'usuario';
+    const TIPO_CLIENTE = 4;
+
+    /**
+     * @param array $datos
+     * @param string $condicion para el caso de actualizacion
+     * @return int Identificador de la columna
+     */
+    private function _guardar($datos, $condicion = NULL) {
+        $id = 0;
+        if (!empty($datos['idUsuario'])) {
+            $id = (int) $datos['idUsuario'];
+        }
+        unset($datos['idUsuario']);
+        $datos = array_intersect_key($datos, array_flip($this->_getCols()));
+
+        if ($id > 0) {
+            $condicion = '';
+            if (!empty($condicion)) {
+                $condicion = ' AND ' . $condicion;
+            }
+
+            $cantidad = $this->update($datos, 'idUsuario = ' . $id . $condicion);
+            $id = ($cantidad < 1) ? 0 : $id;
+        } else {
+            $id = $this->insert($datos);
+        }
+        return $id;
+    }
+
+    public function actualizarDatos($datos) {
+        return $this->_guardar($datos);
     }
     
-    public function create($values, $by){
-        $extra = array(
-            'pwd' => App_Auth_Adapter_DbTable_Salted::generatePassword($values['pwd']),
-            'active' => '1',
-            'created_at' => date(DATE_DB),
-            'created_by' => $by
-        );
-        $this->insert($extra + $values);
+      public function lista() {
+        /*$query = $this->getAdapter()
+                ->select()->from(array('c' => $this->_name))
+                ->where('c.estado = ?', App_Model_User::ESTADO_ACTIVO);
+        */
+        $query = "SELECT * FROM
+                    tipousuario t
+                        INNER JOIN usuario u
+                            ON (t.idTipoUsuario = u.idTipoUsuario)
+                    where u.estado = 1";
+        
+
+        return $this->getAdapter()->fetchAll($query);
     }
     
     
-    public function test(){
-        $p = 9;
-        return $this->cache(function() use ($p) {
-            return rand(0,$p);
-        }, 'test');
+     public function buscarUsuario(array $data = array()) {
+
+        $db = $this->getAdapter();
+
+        $select = $db->select()
+                ->from(array('u' => $this->_name), $this->_getCols())
+                ->where('u.estado = ?', self::ESTADO_ACTIVO)
+                ->where('u.idTipoUsuario = ?', App_Model_User::TIPO_CLIENTE);
+        
+        if (isset ($data['idUsuario']) and !empty($data['idUsuario']))
+            $select->where('u.idUsuario = ?', $data["idUsuario"]);
+
+        if (isset($data["nombreUsuario"]) and !empty($data["nombreUsuario"])) {
+            $concat = new Zend_Db_Expr("CONCAT(TRIM(u.nombreUsuario), ' ', TRIM(u.apellidoUsuario))");
+            $select->where("$concat like ?", "%{$data["nombreUsuario"]}%");
+        }        
+        
+        $select->order('idUsuario')
+                ->limit(50);
+
+        return $db->fetchAll($select);
     }
     
-    public function listarUsuarios(){
-        $p = 99;
-        return $this->cache(function() use ($p) {
-            // implementacion de la funcion real
-            return $this->getAdapter()->fetchAll("SELECT * FROM user"); // ...
-        }, 'listarUsuarios');
-    }
-    
-    public function getUsuarioById($id){
-        $p = 99;
-        return $this->cache(function() use ($p,$id) {
-            // implementacion de la funcion real
-            $r = rand(0,$p);
-            $sql = $this->getAdapter()->select()->from('user')->where('id=?',$id);
-            return $this->getAdapter()->fetchAll($sql);            
-        }, 'usuario_ID', $id);
-    }    
 }

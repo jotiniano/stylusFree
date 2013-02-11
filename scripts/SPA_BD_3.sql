@@ -1,0 +1,1 @@
+insert into `usuario`(`idUsuario`,`nombreUsuario`,`apellidoUsuario`,`fechaRegistro`,`usuario`,`clave`,`idTipoUsuario`,`estado`) values ( NULL,'Steve','Villano Esteban',NULL,'jsteve','123456','1','1');

@@ -4,24 +4,20 @@
           
           <div>
                 <ul class="breadcrumb">                    
-                    <li><a href="/cliente/crear">Agregar Cliente</a></li>
+                    <li><a href="/producto/crear">Agregar Producto</a></li>
                 </ul>
               <form class="well inline" method="post" enctype="multipart/form-data" >
-                      <h3>Buscar Clientes</h3>
+                      <h3>Buscar Productos</h3>
                       <hr>                      
                       <div class="row-fluid">
                           <div class="span2">
-                              <h4>Cod. Cliente</h4>
-                              <?php echo $this->form->idCliente?>
+                              <h4>Cod. Producto</h4>
+                              <?php echo $this->form->idProducto?>
                            </div>
                           <div class="span3">
-                              <h4>Nombre</h4>
-                              <?php echo $this->form->nombre?>
+                              <h4>Descripción</h4>
+                              <?php echo $this->form->nombreProducto?>
                            </div>
-                          <div class="span3">
-                              <h4>Email</h4>
-                              <?php echo $this->form->email?>
-                           </div>                          
                           <div class="span3">
                               <?php echo $this->form->buscar?>
                            </div>
@@ -35,23 +31,14 @@
                            Código
                        </th>
                        <th>
-                           Nombre
+                           Descripción
                        </th>
                        <th>
-                           Apellido
+                           Precio
                        </th>
                        <th>
-                           Número de Visitas
-                       </th>
-                       <th>
-                           Última visita
-                       </th>
-                       <th>                          
-                          Teléfono
-                       </th>
-                       <th>                          
-                          Email
-                       </th>
+                           Fecha de Registro
+                       </th>                       
                        <th>
                           Acciones
                        </th>
@@ -62,29 +49,20 @@
                      foreach ($this->result as $res):?>
                      <tr>
                        <td>
-                         <?php echo $res["idCliente"]; ?>
+                         <?php echo $res["idProducto"]; ?>
                        </td>
                        <td>
-                         <?php echo $res["nombreCliente"]; ?>
+                         <?php echo $res["nombreProducto"]; ?>
                        </td>
                        <td>
-                         <?php echo $res["apellidoCliente"]; ?>
+                         <?php echo $res["precio"]; ?>
                        </td>
                        <td>
-                         <?php echo $res["totalVisitas"]; ?>
-                       </td>
-                       <td>
-                         <?php echo $res["fechaUltimaVisita"]; ?>
-                       </td>
-                       <td>
-                         <?php echo $res["telefono"]; ?>
-                       </td>
-                       <td>
-                         <?php echo $res["correo"]; ?>
+                         <?php echo $res["fechaRegistro"]; ?>
                        </td>                       
                        <td>
-                           <a href="/cliente/editar/id/<?php echo $res["idCliente"]; ?>" title="Editar">Editar</a> |
-                           <a href="/cliente/eliminar/id/<?php echo $res["idCliente"]; ?>" title="Editar">Eliminar</a>
+                           <a href="/producto/editar/id/<?php echo $res["idProducto"]; ?>" title="Editar">Editar</a> |
+                           <a href="/producto/eliminar/id/<?php echo $res["idProducto"]; ?>" title="Editar">Eliminar</a>
                        </td>
                      </tr>
                          <?php endforeach; ?>

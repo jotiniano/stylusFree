@@ -124,5 +124,40 @@ class App_Controller_Action extends Zend_Controller_Action
         $session = new Zend_Session_Namespace();
         return $session;
     }
+    
+    function autentificateUser($usuario, $password) {
+        $authAdapter = new Zend_Auth_Adapter_DbTable();
+        $authAdapter
+            ->setTableName('usuario')
+            ->setIdentityColumn('usuario')
+            ->setCredentialColumn('clave');
+
+        $authAdapter
+            ->setIdentity($usuario)
+        //    ->setCredential(sha1($form->getValue('Clave')));
+                ->setCredential($password);
+
+        $auth = Zend_Auth::getInstance();
+
+        $result = $auth->authenticate($authAdapter);
+        
+        if(  $result->isValid() ){
+        $storage = Zend_Auth::getInstance()->getStorage();
+        $bdResultRow = $authAdapter->getResultRowObject();
+        $storage->write($bdResultRow);
+        return TRUE;
+                /*$this->_redirect($this->view->url(array("module" => "admin",
+                    "controller" => "Perfil",
+                    "action" => "index")));*/
+        }else{
+        return FALSE;
+        
+            /*$this->_redirect($this->view->url(array("module" => "default",
+                    "controller" => "Index",
+                    "action" => "index")));*/
+        }
+        
+       
+    }
 
 }
