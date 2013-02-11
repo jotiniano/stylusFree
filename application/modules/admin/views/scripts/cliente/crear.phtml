@@ -32,7 +32,9 @@
                         <div class="clear"></div>
                         <label for="fechaN" class="span5 no-margin">Fecha nacimiento:</label>
                         <div class="span4 no-margin">
-                            <?php echo $this->form->fechaNacimiento->setAttrib('class', 'span12')->setAttrib('maxlength', '20')->renderViewHelper();?>
+                            <?php echo $this->form->fechaNacimiento->setAttrib('class', 'span12')->setAttrib('maxlength', '20')
+                                    ->setAttrib('id', 'fechaReserva')->renderViewHelper();
+                            ?>
                         </div>
                         <div class="clear"></div>
                         <label for="email" class="span5 no-margin">Correo:</label>

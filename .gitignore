@@ -6,4 +6,5 @@ logs/*
 cache
 cache/*
 !cache/empty
+/public/elements/productos/*
 
