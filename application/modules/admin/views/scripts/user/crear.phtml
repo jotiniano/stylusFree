@@ -1,6 +1,6 @@
 <ul class="breadcrumb">    
     <li>
-        <a href="/clientes">Clientes</a> <span class="divider">/</span>
+        <a href="/usuario">Usuarios</a> <span class="divider">/</span>
     </li>    
 </ul>
 <div id="content_wrapper">
@@ -8,7 +8,7 @@
          <div class="inner">
              <form action="" method="post" enctype="multipart/form-data" class="well">
                 <div class="header">
-                    <h3>Detalles del cliente</h3>
+                    <h3>Registrar Usuario</h3>
                 </div>
                 <div class="row-fluid">
                     <div class="span6">
@@ -24,17 +24,24 @@
                             <?php if ($this->form->apellidoUsuario->hasErrors()) echo "Ingresa Apellido";?>
                         </div>
                         <div class="clear"></div>
-                        <label for="usuario" class="span5 no-margin">Usuario :</label>
+                        <label for="dni" class="span5 no-margin">Usuario :</label>
                         <div class="span4 no-margin">
-                            <?php echo $this->form->usuario->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
-                            <?php if ($this->form->usuario->hasErrors()) echo "Ingresa Usuario";?>
+                            <?php echo $this->form->usuario->setAttrib('class', 'span12')->setAttrib('maxlength', '8')->renderViewHelper();?>
+                            <?php if ($this->form->usuario->hasErrors()) echo "Ingresa campo valido";?>
                         </div>
                         <div class="clear"></div>
-                        <label for="password" class="span5 no-margin">Clave:</label>
+                        <label for="fechaN" class="span5 no-margin">Clave:</label>
                         <div class="span4 no-margin">
-                            <?php echo $this->form->pwd->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
-                            <?php if ($this->form->pwd->hasErrors()) echo "Ingresa Password";?>
+                            <?php echo $this->form->clave->setAttrib('class', 'span12')->setAttrib('maxlength', '20')->renderViewHelper();?>
+                            <?php if ($this->form->clave->hasErrors()) echo "Ingresa campo valido";?>
                         </div>
+                        <div class="clear"></div>
+                        <label for="email" class="span5 no-margin">Tipo Usuario:</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->tipoUsuario->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            <?php if ($this->form->tipoUsuario->hasErrors()) echo "Ingresa campo valido";?>
+                        </div>
+                        
                         <?php echo $this->form->csrf; ?>
                     </div>
                     <div class="clear"></div>
