@@ -14,26 +14,45 @@
                     <div class="span6">
                         <label for="nombre" class="span5 no-margin">Nombre :</label>
                         <div class="span4 no-margin">
-                            <?php echo $this->form->nombreUsuario->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
-                            <?php if ($this->form->nombreUsuario->hasErrors()) echo "Ingresa Nombre válido";?>
+                            <?php echo $this->form->nombreCliente->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            <?php if ($this->form->nombreCliente->hasErrors()) echo "Ingresa Nombre válido";?>
                         </div>
                         <div class="clear"></div>
                         <label for="apellido" class="span5 no-margin">Apellidos :</label>
                         <div class="span4 no-margin">
-                            <?php echo $this->form->apellidoUsuario->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
-                            <?php if ($this->form->apellidoUsuario->hasErrors()) echo "Ingresa Apellido";?>
+                            <?php echo $this->form->apellidoCliente->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            <?php if ($this->form->apellidoCliente->hasErrors()) echo "Ingresa Apellido";?>
                         </div>
                         <div class="clear"></div>
-                        <label for="usuario" class="span5 no-margin">Usuario :</label>
+                        <label for="dni" class="span5 no-margin">DNI :</label>
                         <div class="span4 no-margin">
-                            <?php echo $this->form->usuario->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
-                            <?php if ($this->form->usuario->hasErrors()) echo "Ingresa Usuario";?>
+                            <?php echo $this->form->dni->setAttrib('class', 'span12')->setAttrib('maxlength', '8')->renderViewHelper();?>
+                            <?php if ($this->form->dni->hasErrors()) echo "Ingresa campo valido";?>
                         </div>
                         <div class="clear"></div>
-                        <label for="password" class="span5 no-margin">Clave:</label>
+                        <label for="fechaN" class="span5 no-margin">Fecha nacimiento:</label>
                         <div class="span4 no-margin">
-                            <?php echo $this->form->pwd->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
-                            <?php if ($this->form->pwd->hasErrors()) echo "Ingresa Password";?>
+                            <?php echo $this->form->fechaNacimiento->setAttrib('class', 'span12')->setAttrib('maxlength', '20')->renderViewHelper();?>
+                        </div>
+                        <div class="clear"></div>
+                        <label for="email" class="span5 no-margin">Correo:</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->correo->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                        </div>
+                        <div class="clear"></div>
+                        <label for="telefono" class="span5 no-margin">Número telefónico:</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->telefono->setAttrib('class', 'span12')->setAttrib('maxlength', '10')->renderViewHelper();?>
+                        </div>    
+                        <div class="clear"></div>
+                        <label for="celular" class="span5 no-margin">Celular:</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->celular->setAttrib('class', 'span12')->setAttrib('maxlength', '12')->renderViewHelper();?>
+                        </div>
+                        <div class="clear"></div>
+                        <label for="direccion" class="span5 no-margin">Dirección:</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->direccion->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
                         </div>
                         <?php echo $this->form->csrf; ?>
                     </div>
