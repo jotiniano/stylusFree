@@ -26,7 +26,7 @@
                         <div class="clear"></div>
                         <label for="dni" class="span5 no-margin">Foto :</label>
                         <div class="span4 no-margin">
-                            <?php echo $this->form->foto->setAttrib('class', 'span12')->renderViewHelper();?>                            
+                            <?php echo $this->form->foto;?>
                         </div>
                         <div class="clear"></div>                        
                         <?php echo $this->form->csrf; ?>
@@ -35,7 +35,7 @@
                                         
                 </div>
                 <div class="form-actions">
-                    <?php echo $this->form->guardar->setAttrib('class', 'btn pull-right')?>                    
+                    <?php echo $this->form->guardar->setAttrib('class', 'btn pull-right')?>
                 </div>
         </form>
     </div>
