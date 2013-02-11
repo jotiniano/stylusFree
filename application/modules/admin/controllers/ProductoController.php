@@ -25,9 +25,9 @@ class Admin_ProductoController extends App_Controller_Action
     
     public function crearAction()
     {        
-        $form = new App_Form_CrearCliente();
+        $form = new App_Form_CrearProducto();
         $this->view->form = $form; 
-        if($this->getRequest()->isPost()){            
+        if($this->getRequest()->isPost()){
             
             $data = $this->getRequest()->getPost();
             
