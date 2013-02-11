@@ -32,7 +32,7 @@
                         <div class="clear"></div>
                         <label for="fechaN" class="span5 no-margin">Fecha nacimiento:</label>
                         <div class="span4 no-margin">
-                            <?php echo $this->form->fechaNacimiento->setAttrib('class', 'span12')->setAttrib('maxlength', '20')->renderViewHelper();?>
+                            <?php echo $this->form->fechaNacimiento->setAttribs(array('class'=>'span12','id'=>'fechaReserva'))->setAttrib('maxlength', '20')->renderViewHelper();?>
                         </div>
                         <div class="clear"></div>
                         <label for="email" class="span5 no-margin">Correo:</label>
@@ -66,3 +66,13 @@
     </div>
  </div>
 </div>
+
+<script>
+$(document).ready(function(){
+    $('#fechaReserva').datepicker({
+        format: 'yyyy-mm-dd',
+        todayBtn: 'linked',
+        language: 'es'
+    });
+});
+</script>
