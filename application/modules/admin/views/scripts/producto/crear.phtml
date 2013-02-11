@@ -21,7 +21,9 @@
                         <div class="clear"></div>
                         <label for="precio" class="span5 no-margin">Precio :</label>
                         <div class="span4 no-margin">                            
-                            <?php echo $this->form->precio->setAttrib('class', 'span12')->renderViewHelper();?>                            
+                            <?php echo $this->form->precio->setAttrib('class', 'span12')->renderViewHelper();?>
+                            <?php if ($this->form->precio->hasErrors()) echo "Ingresa campo válido";?>
+                            
                         </div>
                         <div class="clear"></div>
                         <label for="dni" class="span5 no-margin">Foto :</label>
