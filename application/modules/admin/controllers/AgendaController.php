@@ -9,21 +9,34 @@ class Admin_AgendaController extends App_Controller_Action
        parent::init();
         $auth = Zend_Auth::getInstance();
         if (!$auth->hasIdentity()) {
-            echo $this->_redirect($this->view->url(array("module" => "admin",
+            echo $this->_redirect(
+                $this->view->url(
+                    array(
+                        "module" => "admin",
                         controller => "auth",
-                        action => "index")));
+                        action => "index"
+                    )
+                )
+            );
         }
     }
     
     public function indexAction()
     {
-        $p = $this->_getParam("action");
-        if ($p=="er") {
-            $this->_flashMessenger->addMessage("Reserva Eliminada con Exito");
+        
+
+
+        $r = new App_Model_Reserva();
+        $listado = "";
+        $reservas = $r->listarReserva();
+        foreach ($reservas as $key => $value) {
+            $listado[$key]["title"] = $value["idReserva"]."|".$value["nombres"]." ".$value["apellidos"];
+            $listado[$key]["start"] = date('D, d M y H:i:s', strtotime($value["fechaIni"]))." 0000";
+            $listado[$key]["end"] = date('D, d M y H:i:s', strtotime($value["fechaFin"]))." 0000";
+            $listado[$key]["allDay"] = false;
         }
-        if ($p=="ar") {
-            $this->_flashMessenger->addMessage("Reserva Agregada con Exito");
-        }
+
+        $this->view->reservas = json_encode($listado);
 
         //CSS
         $this->view->headLink()->appendStylesheet(
@@ -68,7 +81,15 @@ class Admin_AgendaController extends App_Controller_Action
             $this->getConfig()->app->mediaUrl . '/js/dateHelper.js'
         );
 
-        //$this->_flashMessenger->addMessage("Ejemplo");
+        //Mensajes
+        $p = $this->_getParam("ac");
+        
+        if ($p=="er") {
+            $this->_flashMessenger->addMessage("Reserva Eliminada con Exito");
+        }
+        if ($p=="ar") {
+            $this->_flashMessenger->addMessage("Reserva Agregada con Exito");
+        }
     }
     
     public function nuevaReservaAction()
@@ -85,21 +106,29 @@ class Admin_AgendaController extends App_Controller_Action
         $this->_helper->viewRenderer->setNoRender();
         $this->_helper->layout->disableLayout();
         $buscar = $this->_getParam("query");
-        /*$repoUser = new App_Model_Cliente();
-        $lista = $repoUser->listUsernames($buscar);
-        $usernames = "";
-        foreach ($lista as $item) {
-            $usernames[]["value"] = $item->getUsername();
-        }*/
-        $clientes[0]["id"] = "1";
-        $clientes[0]["value"] = "Solman Vaisman";
-        
+        $c = new App_Model_Cliente();
+        $lista = $c->listarByQuery($buscar);
+        $clientes = "";
+        foreach ($lista as $index=>$item) {
+
+            $clientes[$index]["id"] = $item["idCliente"];
+            $clientes[$index]["value"] = $item["nombreCliente"]." ".$item["apellidoCliente"];;
+        }
         echo json_encode($clientes);
     }
+
     public function eliminarReservaAction()
     {
-        $this->_redirect('/agenda?action=er');
+        $r = new App_Model_Reserva();
+        $idReserva = $this->_getParam("idReserva");
+        if (isset($idReserva)) {
+            $r->eliminarReserva($idReserva);
+            $this->_redirect('/agenda?ac=er');
+        } else {
+            $this->_redirect('/agenda');
+        }
     }
+
     public function registrarReservaAction()
     {
         $this->_helper->viewRenderer->setNoRender();
@@ -111,15 +140,32 @@ class Admin_AgendaController extends App_Controller_Action
         $horaFin = $this->_getParam("hora_reserva_fin");
         $descripcion = $this->_getParam("descripcion");
         $idcliente = $this->_getParam("idcliente");
-        
-        //Agregar la Reserva
+
+        if (isset($idcliente)) {
+            //Agregar la Reserva
+            $nfi = explode("-", $fechaIni);
+            $nff = explode("-", $fechaFin);
 
 
-        //Fin Agregar Reserva
-        
-        $result["status"] = "false";
-        $result["url"] = "agenda?action=ar";
-        echo json_encode($result);
+            $data["fechaIni"] = $nfi[2]."-".$nfi[1]."-".$nfi[0]." ".$horaIni;
+            $data["fechaFin"] = $nff[2]."-".$nff[1]."-".$nff[0]." ".$horaFin;
+            $data["descripcion"] = $descripcion;
+            $data["idCliente"] = $idcliente;
+            $data["idUsuario"] = $this->view->authData->idUsuario;
+
+           
+
+            $r = new App_Model_Reserva();
+            $idReserva = $r->insertarReserva($data);
+
+            //Fin Agregar Reserva
+            
+            $result["status"] = "true";
+            $result["url"] = "agenda?ac=ar";
+            echo json_encode($result);
+        } else {
+            $result["status"] = "false";
+        }
     }
 
 

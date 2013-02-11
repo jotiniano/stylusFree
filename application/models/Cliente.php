@@ -5,7 +5,8 @@
  *
  * @author James
  */
-class App_Model_Cliente extends App_Db_Table_Abstract {
+class App_Model_Cliente extends App_Db_Table_Abstract
+{
 
     protected $_name = 'cliente';
 
@@ -18,7 +19,8 @@ class App_Model_Cliente extends App_Db_Table_Abstract {
      * @param string $condicion para el caso de actualizacion
      * @return int Identificador de la columna
      */
-    private function _guardar($datos, $condicion = NULL) {
+    private function _guardar($datos, $condicion = NULL) 
+    {
         $id = 0;
         if (!empty($datos['idCliente'])) {
             $id = (int) $datos['idCliente'];
@@ -41,7 +43,8 @@ class App_Model_Cliente extends App_Db_Table_Abstract {
         return $id;
     }
 
-    public function getClientesPorId($id) {
+    public function getClientesPorId($id) 
+    {
         $query = $this->getAdapter()->select()
                 ->from($this->_name)
                 ->where('idCliente = ?', $id);        
@@ -49,7 +52,8 @@ class App_Model_Cliente extends App_Db_Table_Abstract {
         return $this->getAdapter()->fetchRow($query);
     }
 
-    public function lista() {
+    public function lista() 
+    {
         $query = $this->getAdapter()
                 ->select()->from(array('c' => $this->_name))
                 ->where('c.estado = ?', App_Model_Cliente::ESTADO_ACTIVO)
@@ -59,11 +63,13 @@ class App_Model_Cliente extends App_Db_Table_Abstract {
         return $this->getAdapter()->fetchAll($query);
     }
 
-    public function actualizarDatos($datos) {
+    public function actualizarDatos($datos) 
+    {
         return $this->_guardar($datos);
     }
     
-    public function buscarClientes(array $data = array()) {
+    public function buscarClientes(array $data = array()) 
+    {
 
         $db = $this->getAdapter();
 
@@ -87,6 +93,19 @@ class App_Model_Cliente extends App_Db_Table_Abstract {
                 ->limit(50);
 
         return $db->fetchAll($select);
+    }
+
+    public function listarByQuery($q) 
+    {
+        $query = $this->getAdapter()
+                ->select()->from(array('c' => $this->_name))
+                ->where('c.estado = ?', App_Model_Cliente::ESTADO_ACTIVO)
+                ->orwhere("c.nombreCliente = ?", "'%".$q."%'")
+                ->orwhere("c.apellidoCliente like ?", "'%".$q."%'")
+                ->orwhere("c.dni like ?", "'%".$q."%'")
+                ->order('apellidoCliente');
+
+        return $this->getAdapter()->fetchAll($query);
     }
 
     

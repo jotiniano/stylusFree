@@ -3,7 +3,7 @@
   <div class="controls">
     <input id="clienteReserva" data-provide="typeahead" type="text" id="input" class="span11">
     <span class="help-inline">
-    	<a href="#nuevoClienteReserva" class="btn">
+    	<a href="/cliente/crear" class="btn">
     		<span class="icon-plus"></span>
     	</a>
     </span>
@@ -93,16 +93,12 @@ $(document).ready(function(){
 	$('#horaReserva').timepicker({
 		showMeridian : false,
 		minuteStep   : 30,
-		showSeconds  : false,
-		showInputs: false,
-        disableFocus: true
+		showSeconds  : false
 	});
 	$('#horaReservaFin').timepicker({
 		showMeridian : false,
 		minuteStep   : 30,
-		showSeconds  : false,
-		showInputs: false,
-        disableFocus: true
+		showSeconds  : false
 	});
 
 	//Fecha de Reserva
@@ -123,11 +119,12 @@ $(document).ready(function(){
 	    },
 	    onselect: function (obj) {
 	    	$("#idCliente").val(obj.id);
+	    	$("#clienteReserva").parents(".control-group").removeClass("error").addClass("success");
 	    }
 	});
 
-	
-	
+
+
 
 });
 </script>
