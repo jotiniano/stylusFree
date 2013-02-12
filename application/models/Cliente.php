@@ -13,7 +13,7 @@ class App_Model_Cliente extends App_Db_Table_Abstract
     const ESTADO_ACTIVO = 1;
     const ESTADO_ELIMINADO = 0;
     const TABLA_CLIENTE = 'cliente';
-
+    
     /**
      * @param array $datos
      * @param string $condicion para el caso de actualizacion

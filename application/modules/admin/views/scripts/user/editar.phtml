@@ -1,93 +1,56 @@
-  <div>
-        <!-- row of columns -->
-        <div class="row-fluid">
-          
-          <div>
-                <ul class="breadcrumb">                    
-                    <li><a href="/usuario/crear">Agregar Usuario</a></li>
-                </ul>
-              <form class="well inline" method="post" enctype="multipart/form-data" >
-                      <h3>Buscar Usuario</h3>
-                      <hr>                      
-                      <div class="row-fluid">
-                          <div class="span2">
-                              <h4>Cod. Usuario</h4>
-                              <?php echo $this->form->idUsuario;?>
-                           </div>
-                          <div class="span3">
-                              <h4>Nombre</h4>
-                              <?php echo $this->form->nombreUsuario;?>
-                           </div>
-                          <div class="span3">
-                              <h4>Usuario</h4>
-                              <?php echo $this->form->usuario;?>
-                           </div>                          
-                          <div class="span3">
-                              <?php echo $this->form->buscar?>
-                           </div>
-                      </div>
-                 </form>
-                 <div id="message"></div>
-                 <table class="table table-bordered">                     
-                   <thead>
-                     <tr>                       
-                       <th>
-                            Código
-                       </th>
-                       <th>
-                           Nombre
-                       </th>
-                       <th>
-                           Apellido
-                       </th>
-                       <th>
-                           Usuario
-                       </th>
-                       <th>
-                           Tipo
-                       </th>
-                       <th>                          
-                          Estado
-                       </th>
-                       <th>
-                          Acciones
-                       </th>
-                     </tr>
-                   </thead>
-                   <tbody>
-                     <?php
-                     foreach ($this->result as $res):?>
-                     <tr>
-                      <td>
-                         <?php echo $res["idUsuario"]; ?>
-                       </td>
-                       <td>
-                         <?php echo $res["nombreUsuario"]; ?>
-                       </td>
-                       <td>
-                         <?php echo $res["apellidoUsuario"]; ?>
-                       </td>
-                       <td>
-                         <?php echo $res["usuario"]; ?>
-                       </td>
-                       <td>
-                         <?php echo $res["descripcion"]; ?>
-                       </td>
-                       <td>
-                         <?php if($res["estado"]==1):
-                             echo  "Activo"; 
-                             else:
-                                 "Inactivo";
-                             endif; ?>
-                       </td>
-                       <td>
-                           <a href="/usuario/editarUsuario/id/<?php echo $res["idUsuario"]; ?>" title="Editar">Editar</a> |
-                           <a href="/usuario/eliminarUsuario/id/<?php echo $res["idUsuario"]; ?>" title="Editar">Eliminar</a>
-                       </td>
-                     </tr>
-                         <?php endforeach; ?>
-                   </tbody>
-                 </table>
-         </div>
-        </div>                
-  </div>
+<ul class="breadcrumb">    
+    <li>
+        <a href="/user">Usuarios</a> <span class="divider">/</span>
+    </li>    
+</ul>
+<div id="content_wrapper">
+     <div id="content">
+         <div class="inner">
+             <form action="" method="post" enctype="multipart/form-data" class="well">
+                <div class="header">
+                    <h3>Registrar Usuario</h3>
+                </div>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <label for="nombre" class="span5 no-margin">Nombre :</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->nombreUsuario->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            <?php if ($this->form->nombreUsuario->hasErrors()) echo "Ingresa Nombre válido";?>
+                        </div>
+                        <div class="clear"></div>
+                        <label for="apellido" class="span5 no-margin">Apellidos :</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->apellidoUsuario->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            <?php if ($this->form->apellidoUsuario->hasErrors()) echo "Ingresa Apellido";?>
+                        </div>
+                        <div class="clear"></div>
+                        <label for="dni" class="span5 no-margin">Usuario :</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->usuario->setAttrib('class', 'span12')->setAttrib('maxlength', '8')->renderViewHelper();?>
+                            <?php if ($this->form->usuario->hasErrors()) echo "Ingresa Usuario";?>
+                        </div>
+                        <div class="clear"></div>
+                        <label for="fechaN" class="span5 no-margin">Clave:</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->clave->setAttrib('class', 'span12')->setAttrib('maxlength', '30')->renderViewHelper();?>
+                            <?php if ($this->form->clave->hasErrors()) echo "Ingresa Password";?>
+                        </div>
+                        <div class="clear"></div>
+                        <label for="email" class="span5 no-margin">Tipo Usuario:</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->tipoUsuario->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            
+                        </div>
+                        
+                        <?php echo $this->form->csrf; ?>
+                    </div>
+                    <div class="clear"></div>
+                                        
+                </div>
+                <div class="form-actions">
+                    <?php echo $this->form->guardar->setAttrib('class', 'btn pull-right')?>                    
+                </div>
+        </form>
+    </div>
+ </div>
+</div>

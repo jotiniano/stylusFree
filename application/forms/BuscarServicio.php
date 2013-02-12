@@ -1,20 +1,20 @@
 <?php
 
-class App_Form_BuscarUsuario extends App_Form
+class App_Form_BuscarServicio extends App_Form
 {
     public function init() {
         
         parent::init();
         
-        $e = new Zend_Form_Element_Text('idUsuario');
+        $e = new Zend_Form_Element_Text('idServicio');
         $e->setAttrib('class', 'span8');
         $this->addElement($e);
         
-        $e = new Zend_Form_Element_Text('nombreUsuario');
+        $e = new Zend_Form_Element_Text('descripcionServicio');
         $e->setAttrib('class', 'span8');
         $this->addElement($e);
         
-        $e = new Zend_Form_Element_Text('usuario');
+        $e = new Zend_Form_Element_Text('precio');
         $e->setAttrib('class', 'span8');
         $this->addElement($e);        
         

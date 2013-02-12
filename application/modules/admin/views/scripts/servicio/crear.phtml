@@ -1,54 +1,44 @@
-<ul class="breadcrumb">    
+<ul class="breadcrumb">
     <li>
-        <a href="/usuario">Usuarios</a> <span class="divider">/</span>
-    </li>    
+        <a href="/servicio">Listado de Servicio</a> <span class="divider">/</span>
+    </li>
 </ul>
 <div id="content_wrapper">
      <div id="content">
          <div class="inner">
              <form action="" method="post" enctype="multipart/form-data" class="well">
                 <div class="header">
-                    <h3>Registrar Usuario</h3>
+                    <h3>Crear Servicio</h3>
                 </div>
+                 </br>
                 <div class="row-fluid">
                     <div class="span6">
-                        <label for="nombre" class="span5 no-margin">Nombre :</label>
+                        <label for="nombre" class="span5 no-margin">Serivicio:</label>
                         <div class="span4 no-margin">
-                            <?php echo $this->form->nombreUsuario->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
-                            <?php if ($this->form->nombreUsuario->hasErrors()) echo "Ingresa Nombre válido";?>
+                            <?php echo $this->form->descripcionServicio->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            <?php if ($this->form->descripcionServicio->hasErrors()) echo "Ingresa un Servicio";?>
                         </div>
                         <div class="clear"></div>
-                        <label for="apellido" class="span5 no-margin">Apellidos :</label>
-                        <div class="span4 no-margin">
-                            <?php echo $this->form->apellidoUsuario->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
-                            <?php if ($this->form->apellidoUsuario->hasErrors()) echo "Ingresa Apellido";?>
+                        <label for="precio" class="span5 no-margin">Precio :</label>
+                        <div class="span4 no-margin">                            
+                            <?php echo $this->form->precio->setAttrib('class', 'span12')->renderViewHelper();?>
+                            <?php if ($this->form->precio->hasErrors()) echo "Ingrese Precio";?>
+                            
                         </div>
                         <div class="clear"></div>
-                        <label for="dni" class="span5 no-margin">Usuario :</label>
+                        <label for="email" class="span5 no-margin">Tipo Moneda:</label>
                         <div class="span4 no-margin">
-                            <?php echo $this->form->usuario->setAttrib('class', 'span12')->setAttrib('maxlength', '8')->renderViewHelper();?>
-                            <?php if ($this->form->usuario->hasErrors()) echo "Ingresa campo válido";?>
+                            <?php echo $this->form->idTipoMoneda->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            <?php if ($this->form->idTipoMoneda->hasErrors()) echo "Seleccione Moneda";?>
                         </div>
-                        <div class="clear"></div>
-                        <label for="fechaN" class="span5 no-margin">Clave:</label>
-                        <div class="span4 no-margin">
-                            <?php echo $this->form->pwd->setAttrib('class', 'span12')->setAttrib('maxlength', '20')->renderViewHelper();?>
-                            <?php if ($this->form->pwd->hasErrors()) echo "Ingresa campo valido";?>
-                        </div>
-                        <div class="clear"></div>
-                        <label for="email" class="span5 no-margin">Tipo Usuario:</label>
-                        <div class="span4 no-margin">
-                            <?php echo $this->form->tipoUsuario->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
-                            <?php if ($this->form->tipoUsuario->hasErrors()) echo "Ingresa campo válido";?>
-                        </div>
-                        
+                        <div class="clear"></div>                        
                         <?php echo $this->form->csrf; ?>
                     </div>
                     <div class="clear"></div>
                                         
                 </div>
                 <div class="form-actions">
-                    <?php echo $this->form->guardar->setAttrib('class', 'btn pull-right')?>                    
+                    <?php echo $this->form->guardar->setAttrib('class', 'btn pull-right')?>
                 </div>
         </form>
     </div>

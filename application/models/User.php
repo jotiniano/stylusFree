@@ -8,12 +8,15 @@
 class App_Model_User extends App_Db_Table_Abstract {
 
     protected $_name = 'usuario';
+    protected $_nameTipoUsuario = 'tipoUsuario';
+    
 
     const ESTADO_ACTIVO = 1;
     const ESTADO_ELIMINADO = 0;
-    const TABLA_CLIENTE = 'usuario';
+    const TABLA_USUARIO = 'usuario';
     const TIPO_CLIENTE = 4;
-
+    
+    
     /**
      * @param array $datos
      * @param string $condicion para el caso de actualizacion
@@ -44,8 +47,19 @@ class App_Model_User extends App_Db_Table_Abstract {
     public function actualizarDatos($datos) {
         return $this->_guardar($datos);
     }
+   
     
-      public function lista() {
+    public function getUsuarioPorId($id) 
+    {
+        $query = $this->getAdapter()->select()
+                ->from($this->_name)
+                ->where('idUsuario = ?', $id);        
+
+        return $this->getAdapter()->fetchRow($query);
+    }
+    
+    
+    public function lista() {
         /*$query = $this->getAdapter()
                 ->select()->from(array('c' => $this->_name))
                 ->where('c.estado = ?', App_Model_User::ESTADO_ACTIVO);
@@ -66,13 +80,24 @@ class App_Model_User extends App_Db_Table_Abstract {
         $db = $this->getAdapter();
 
         $select = $db->select()
-                ->from(array('u' => $this->_name), $this->_getCols())
-                ->where('u.estado = ?', self::ESTADO_ACTIVO)
-                ->where('u.idTipoUsuario = ?', App_Model_User::TIPO_CLIENTE);
+                
+                ->from(array('u'=>$this->_name),array(
+                    'u.idUsuario',
+                    'u.nombreUsuario',
+                    'u.apellidoUsuario',
+                    'u.fechaRegistro',
+                    'u.usuario',
+                    'u.estado',
+                    'tu.idTipoUsuario',
+                    'tu.descripcion',
+                    ))
+             
+                ->join(array('tu'=>$this->_nameTipoUsuario), 'tu.idTipoUsuario = u.idTipoUsuario','')
+                ->where('u.estado = ?', self::ESTADO_ACTIVO);
         
-        if (isset ($data['idUsuario']) and !empty($data['idUsuario']))
+        if (isset ($data['idUsuario']) and !empty($data['idUsuario'])){
             $select->where('u.idUsuario = ?', $data["idUsuario"]);
-
+        }
         if (isset($data["nombreUsuario"]) and !empty($data["nombreUsuario"])) {
             $concat = new Zend_Db_Expr("CONCAT(TRIM(u.nombreUsuario), ' ', TRIM(u.apellidoUsuario))");
             $select->where("$concat like ?", "%{$data["nombreUsuario"]}%");
