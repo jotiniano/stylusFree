@@ -1,22 +1,20 @@
     <div>
-        <!-- row of columns -->
-        <div class="row-fluid">
-          
+        <div class="row-fluid">          
           <div>
                 <ul class="breadcrumb">                    
-                    <li><a href="/producto/crear">Agregar Producto</a></li>
+                    <li><a href="/ticket/nuevo">Nuevo Ticket</a></li>
                 </ul>
               <form class="well inline" method="post" enctype="multipart/form-data" >
-                      <h3>Buscar Productos</h3>
+                      <h3>Listado Tickets Atendidos por Usuario</h3>
                       <hr>                      
                       <div class="row-fluid">
                           <div class="span2">
-                              <h4>Cod. Producto</h4>
-                              <?php echo $this->form->idProducto?>
+                              <h4>Cod. Usuario</h4>
+                              <?php echo $this->form->idUsuario?>
                            </div>
                           <div class="span3">
-                              <h4>Descripción</h4>
-                              <?php echo $this->form->nombreProducto?>
+                              <h4>Nombre Usuario</h4>
+                              <?php echo $this->form->nombre?>
                            </div>
                           <div class="span3">
                               <?php echo $this->form->buscar?>
@@ -28,19 +26,19 @@
                    <thead>
                      <tr>                                                
                        <th>
-                           Código
+                           Cod.
                        </th>
                        <th>
-                           Descripción
+                           Cliente
                        </th>
                        <th>
-                           Precio
+                           Fecha atención
                        </th>
                        <th>
-                           Fecha de Registro
+                           Atendido por
                        </th>                       
                        <th>
-                          Acciones
+                          Monto
                        </th>
                      </tr>
                    </thead>
@@ -49,20 +47,19 @@
                      foreach ($this->result as $res):?>
                      <tr>
                        <td>
-                         <?php echo $res["idProducto"]; ?>
+                         <?php echo $res["idTicket"]; ?>
                        </td>
                        <td>
-                         <?php echo $res["nombreProducto"]; ?>
+                         <?php echo $res["nombreCliente"] . " " . $res["apellidoCliente"]; ?>
                        </td>
                        <td>
-                         <?php echo $res["precio"]; ?>
+                         <?php echo $res["fechaCreacion"]; ?>
                        </td>
                        <td>
-                         <?php echo $res["fechaRegistro"]; ?>
+                         <?php echo $res["nombreUsuario"] . " " . $res["apellidoUsuario"]; ?>
                        </td>                       
                        <td>
-                           <a href="/producto/editar/id/<?php echo $res["idProducto"]; ?>" title="Editar">Editar</a> |
-                           <a href="/producto/eliminar/id/<?php echo $res["idProducto"]; ?>" title="Editar">Eliminar</a>
+                           <?php echo $res["total"]; ?>
                        </td>
                      </tr>
                          <?php endforeach; ?>
