@@ -68,6 +68,13 @@ class Admin_ClienteController extends App_Controller_Action
     
     public function editarAction()
     {   
+        //datepicker
+        $this->view->headLink()->appendStylesheet(
+            $this->getConfig()->app->mediaUrl . '/css/datepicker-bootstrap/datepicker.css'
+        );
+        $this->view->headScript()->appendFile(
+            $this->getConfig()->app->mediaUrl . '/js/datepicker-bootstrap/bootstrap-datepicker.js'
+        );
         $modelCliente = new App_Model_Cliente();
         $form = new App_Form_CrearCliente();
         $id = $this->_getParam('id');

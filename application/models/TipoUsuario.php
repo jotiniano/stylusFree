@@ -13,10 +13,10 @@ class App_Model_TipoUsuario extends App_Db_Table_Abstract {
 
     
     function getTipoUsuario(){
-        $smt = $this->_name->select()
-                ->query();
-        $result = $smt->fetch();
-        $smt->closeCursor();
-        return $result;
+         $query = $this->getAdapter()
+                ->select()->from(array('tipoUsuario' => $this->_name));
+         return $this->getAdapter()->fetchAll($query);
+        
+        
     }
 }

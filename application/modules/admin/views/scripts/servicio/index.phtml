@@ -1,0 +1,80 @@
+  <div>
+        <!-- row of columns -->
+        <div class="row-fluid">
+          
+          <div>
+                <ul class="breadcrumb">                    
+                    <li><a href="/servicio/crear">Agregar Servicio</a></li>
+                </ul>
+              <form class="well inline" method="post" enctype="multipart/form-data" >
+                      <h3>Buscar Servicio</h3>
+                      <hr>                      
+                      <div class="row-fluid">
+                          <div class="span2">
+                              <h4>Cod. Servicio</h4>
+                              <?php echo $this->form->idServicio;?>
+                           </div>
+                          <div class="span3">
+                              <h4>Nombre Servicio</h4>
+                              <?php echo $this->form->descripcionServicio;?>
+                           </div>
+                          <div class="span3">
+                              <h4>Precio</h4>
+                              <?php echo $this->form->precio;?>
+                           </div>                          
+                          <div class="span3">
+                              <?php echo $this->form->buscar?>
+                           </div>
+                      </div>
+                 </form>
+                 <div id="message"></div>
+                 <table class="table table-bordered">                     
+                   <thead>
+                     <tr>                       
+                       <th>
+                            Código
+                       </th>
+                       <th>
+                           Servicio
+                       </th>
+                       <th>
+                           Precio
+                       </th>
+                       <th>
+                           Moneda
+                       </th>
+                       
+                       <th>
+                          Acciones
+                       </th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <?php
+                     foreach ($this->result as $res):?>
+                     <tr>
+                      <td>
+                         <?php echo $res["idServicio"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["descripcionServicio"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["precio"]; ?>
+                       </td>
+                       <td>
+                         <?php if($res["idTipoMoneda"]==1){
+                             echo "Soles";
+                         }else{echo "Dolar";} ?>
+                       </td>
+                       <td>
+                           <a href="/admin/servicio/editar/id/<?php echo $res["idServicio"]; ?>" title="Editar">Editar</a> |
+                           <a href="/admin/servicio/eliminar/id/<?php echo $res["idServicio"]; ?>" title="Editar">Eliminar</a>
+                       </td>
+                     </tr>
+                         <?php endforeach; ?>
+                   </tbody>
+                 </table>
+         </div>
+        </div>                
+  </div>

@@ -1,6 +1,6 @@
 <ul class="breadcrumb">    
     <li>
-        <a href="/clientes">Clientes</a> <span class="divider">/</span>
+        <a href="/cliente">Clientes</a> <span class="divider">/</span>
     </li>    
 </ul>
 <div id="content_wrapper">
@@ -69,3 +69,14 @@
     </div>
  </div>
 </div>
+
+<script>
+$(document).ready(function(){
+    $('#fechaReserva').datepicker({
+        format: 'yyyy-mm-dd',
+        todayBtn: 'linked',
+        language: 'es'
+    });
+});
+</script>
+

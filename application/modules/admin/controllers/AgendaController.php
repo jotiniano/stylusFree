@@ -30,7 +30,7 @@ class Admin_AgendaController extends App_Controller_Action
         $listado = "";
         $reservas = $r->listarReserva();
         foreach ($reservas as $key => $value) {
-            $listado[$key]["title"] = $value["idReserva"]."|".$value["nombres"]." ".$value["apellidos"];
+            $listado[$key]["title"] = $value["idReserva"]."|".$value["nombre"]." ".$value["apellidos"];
             $listado[$key]["start"] = date('D, d M y H:i:s', strtotime($value["fechaIni"]))." 0000";
             $listado[$key]["end"] = date('D, d M y H:i:s', strtotime($value["fechaFin"]))." 0000";
             $listado[$key]["allDay"] = false;

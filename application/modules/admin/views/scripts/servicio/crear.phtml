@@ -1,0 +1,46 @@
+<ul class="breadcrumb">
+    <li>
+        <a href="/servicio">Listado de Servicio</a> <span class="divider">/</span>
+    </li>
+</ul>
+<div id="content_wrapper">
+     <div id="content">
+         <div class="inner">
+             <form action="" method="post" enctype="multipart/form-data" class="well">
+                <div class="header">
+                    <h3>Crear Servicio</h3>
+                </div>
+                 </br>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <label for="nombre" class="span5 no-margin">Serivicio:</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->descripcionServicio->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            <?php if ($this->form->descripcionServicio->hasErrors()) echo "Ingresa un Servicio";?>
+                        </div>
+                        <div class="clear"></div>
+                        <label for="precio" class="span5 no-margin">Precio :</label>
+                        <div class="span4 no-margin">                            
+                            <?php echo $this->form->precio->setAttrib('class', 'span12')->renderViewHelper();?>
+                            <?php if ($this->form->precio->hasErrors()) echo "Ingrese Precio";?>
+                            
+                        </div>
+                        <div class="clear"></div>
+                        <label for="email" class="span5 no-margin">Tipo Moneda:</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->idTipoMoneda->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            <?php if ($this->form->idTipoMoneda->hasErrors()) echo "Seleccione Moneda";?>
+                        </div>
+                        <div class="clear"></div>                        
+                        <?php echo $this->form->csrf; ?>
+                    </div>
+                    <div class="clear"></div>
+                                        
+                </div>
+                <div class="form-actions">
+                    <?php echo $this->form->guardar->setAttrib('class', 'btn pull-right')?>
+                </div>
+        </form>
+    </div>
+ </div>
+</div>
