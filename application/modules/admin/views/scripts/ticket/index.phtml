@@ -1,0 +1,73 @@
+    <div>
+        <!-- row of columns -->
+        <div class="row-fluid">
+          
+          <div>
+                <ul class="breadcrumb">                    
+                    <li><a href="/producto/crear">Agregar Producto</a></li>
+                </ul>
+              <form class="well inline" method="post" enctype="multipart/form-data" >
+                      <h3>Buscar Productos</h3>
+                      <hr>                      
+                      <div class="row-fluid">
+                          <div class="span2">
+                              <h4>Cod. Producto</h4>
+                              <?php echo $this->form->idProducto?>
+                           </div>
+                          <div class="span3">
+                              <h4>Descripción</h4>
+                              <?php echo $this->form->nombreProducto?>
+                           </div>
+                          <div class="span3">
+                              <?php echo $this->form->buscar?>
+                           </div>
+                      </div>
+                 </form>
+                 <div id="message"></div>
+                 <table class="table table-bordered">                     
+                   <thead>
+                     <tr>                                                
+                       <th>
+                           Código
+                       </th>
+                       <th>
+                           Descripción
+                       </th>
+                       <th>
+                           Precio
+                       </th>
+                       <th>
+                           Fecha de Registro
+                       </th>                       
+                       <th>
+                          Acciones
+                       </th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <?php
+                     foreach ($this->result as $res):?>
+                     <tr>
+                       <td>
+                         <?php echo $res["idProducto"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["nombreProducto"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["precio"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["fechaRegistro"]; ?>
+                       </td>                       
+                       <td>
+                           <a href="/producto/editar/id/<?php echo $res["idProducto"]; ?>" title="Editar">Editar</a> |
+                           <a href="/producto/eliminar/id/<?php echo $res["idProducto"]; ?>" title="Editar">Eliminar</a>
+                       </td>
+                     </tr>
+                         <?php endforeach; ?>
+                   </tbody>
+                 </table>
+         </div>
+        </div>                
+  </div>

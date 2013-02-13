@@ -65,7 +65,6 @@ class Admin_ProductoController extends App_Controller_Action
             } else {
                 $this->_flashMessenger->addMessage("Verifique sus datos");
                 $form->populate($data);
-                var_dump($form->getErrorMessages());
             }
         }
     }
@@ -110,8 +109,7 @@ class Admin_ProductoController extends App_Controller_Action
             
             } else {                
                 $form->populate($data);
-                $this->_flashMessenger->addMessage("Verifique sus datos");
-                var_dump($form->getErrors());
+                $this->_flashMessenger->addMessage("Verifique sus datos");                
             }
         }
         $this->view->ruta = $this->config->app->mediaRoot;
