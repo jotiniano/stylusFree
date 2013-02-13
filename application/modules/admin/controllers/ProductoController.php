@@ -65,6 +65,7 @@ class Admin_ProductoController extends App_Controller_Action
             } else {
                 $this->_flashMessenger->addMessage("Verifique sus datos");
                 $form->populate($data);
+                var_dump($form->getErrorMessages());
             }
         }
     }
@@ -78,9 +79,11 @@ class Admin_ProductoController extends App_Controller_Action
         $form->populate($producto);        
          
         if($this->getRequest()->isPost()){
-            $data = $this->getRequest()->getPost();
+            $data = $this->getRequest()->getPost();            
             $data['idProducto'] = $id;            
-            if ($form->isValid($data)) {                
+            if ($form->isValidPartial(
+                    array('nombreProducto' => $data['nombreProducto'], 
+                        'precio' => $data['precio']))) {
                 $modelProducto = new App_Model_Producto();
                 $data['usuarioRegistro'] = $this->view->authData->idUsuario;                
                 $cond = array_key_exists("fotoAnt", $data);                
@@ -101,15 +104,14 @@ class Admin_ProductoController extends App_Controller_Action
                     }
                 }                
                 $id = $modelProducto->actualizarDatos($data);
-                    
-                    
-                $id = $modelProducto->actualizarDatos($data);
+                
                 $this->_flashMessenger->addMessage("Producto editado con éxito");
                 $this->_redirect('/producto/');
             
             } else {                
                 $form->populate($data);
-                $this->_flashMessenger->addMessage("Revice sus campos");
+                $this->_flashMessenger->addMessage("Verifique sus datos");
+                var_dump($form->getErrors());
             }
         }
         $this->view->ruta = $this->config->app->mediaRoot;

@@ -35,11 +35,14 @@
                                 <input type="hidden" id="foto" name="fotoAnt" value="<?php echo $this->producto['fotoAnt']?>"/>
                             <?php }else {
                             echo $this->form->foto;
+                            if ($this->form->foto->hasErrors()) echo "Imagen inválida";
+                            
                             }
                             ?>
                         </div>
                         <div class="clear"></div>                        
                         <?php echo $this->form->csrf; ?>
+                        <?php if ($this->form->csrf->hasErrors()) echo "Intentalo nuevamente";?>
                     </div>
                     <div class="clear"></div>
                                         

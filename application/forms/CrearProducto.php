@@ -18,6 +18,8 @@ class App_Form_CrearProducto extends App_Form
         
         $e = new Zend_Form_Element_Text('precio');
         $e->setRequired(true);
+        $v = new Zend_Validate_Float();
+        $e->addValidator($v);
         $e->setFilters(array("StripTags", "StringTrim", "HtmlEntities"));
         $e->setAttrib('class', 'span8');
         $this->addElement($e);
@@ -32,9 +34,8 @@ class App_Form_CrearProducto extends App_Form
         $e->setLabel('Guardar')->setAttrib('class', 'btn pull-right');
         $this->addElement($e);
         
-        $this->addElement('hash', 'csrf', array(
-                    'ignore' => true,
-                ));
+        $this->addElement('hash', 'csrf');
+        
          foreach($this->getElements() as $e) {
             $e->removeDecorator('DtDdWrapper');
             $e->removeDecorator('Label');

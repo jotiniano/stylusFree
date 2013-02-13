@@ -29,9 +29,11 @@
                         <label for="dni" class="span5 no-margin">Foto :</label>
                         <div class="span4 no-margin">
                             <?php echo $this->form->foto;?>
+                            <?php if ($this->form->foto->hasErrors()) echo "Imagen inválida";?>
                         </div>
                         <div class="clear"></div>                        
                         <?php echo $this->form->csrf; ?>
+                        <?php if ($this->form->csrf->hasErrors()) echo "Intentalo nuevamente";?>
                     </div>
                     <div class="clear"></div>
                                         
