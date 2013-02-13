@@ -43,22 +43,25 @@ class Admin_ProductoController extends App_Controller_Action
                 $data['fechaRegistro'] = $fecha;
                 $data['usuarioRegistro'] = $this->view->authData->idUsuario;
                 $data['estado'] = App_Model_Producto::ESTADO_ACTIVO;                
-                $id = $modelProducto->actualizarDatos($data);                
-                $config = Zend_Registry::get('config');
-                $ruta = $config->app->mediaRoot;
+                $id = $modelProducto->actualizarDatos($data);
                 
-                $form->foto->addFilter(
-                           'Rename',
-                           array(
-                               'target' => $ruta . $id . ".jpeg",
-                               'overwrite' => true)
-                       );
+                $foto = $form->foto->getFileName();
+                if (!empty ($foto)) {
+                    $config = Zend_Registry::get('config');
+                    $ruta = $config->app->mediaRoot;
+
+                    $form->foto->addFilter(
+                            'Rename', array(
+                        'target' => $ruta . $id . ".jpeg",
+                        'overwrite' => true)
+                    );
+                    $form->foto->receive();
+                    $data['idProducto'] = $id;
+                    $data['foto'] = $id . ".jpeg";
+                    $modelProducto->actualizarDatos($data);                    
+                }
                 
-                $form->foto->receive();                
-                $data['idProducto']= $id;
-                $data['foto'] = $id . ".jpeg";
                 
-                $modelProducto->actualizarDatos($data);
                 $this->_flashMessenger->addMessage("Guardado con éxito");
                 $this->_redirect('/producto');
                 
@@ -85,7 +88,8 @@ class Admin_ProductoController extends App_Controller_Action
                         'precio' => $data['precio']))) {
                 $modelProducto = new App_Model_Producto();
                 $data['usuarioRegistro'] = $this->view->authData->idUsuario;                
-                $cond = array_key_exists("fotoAnt", $data);                
+                $cond = array_key_exists("fotoAnt", $data);
+                
                 if (!$cond) {
                     $foto = $form->foto->getFileName();                    
                     if (!empty ($foto)) {
