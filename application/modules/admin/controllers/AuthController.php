@@ -42,8 +42,10 @@ class Admin_AuthController extends App_Controller_Action
                             "controller" => "index",
                             "action" => "index")));
             } else {
-                echo "error";
-                exit();
+                $this->_flashMessenger->addMessage("Verifique sus credenciales");
+                $this->_redirect($this->view->url(array("module" => "admin",
+                "controller" => "auth",
+                "action" => "index")));
             }
 
         }
