@@ -11,6 +11,7 @@ class Admin_ProductoController extends App_Controller_Action
                         controller => "auth",
                         action => "index")));
         }
+        $this->view->activeProducto = 'class="active"';
     }
     
     public function indexAction()

@@ -14,6 +14,7 @@ class Admin_ClienteController extends App_Controller_Action
                         controller => "auth",
                         action => "index")));
         }
+        $this->view->activeCliente = 'class="active"';
     }
     
     public function indexAction()

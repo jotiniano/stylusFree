@@ -19,6 +19,8 @@ class Admin_UserController extends App_Controller_Action
                         controller => "auth",
                         action => "index")));
         }
+        
+         $this->view->activeUsuario = 'class="active"';
     }
     
     

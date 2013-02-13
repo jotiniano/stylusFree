@@ -19,6 +19,7 @@ class Admin_ServicioController extends App_Controller_Action
                         controller => "auth",
                         action => "index")));
         }
+        $this->view->activeServicio = 'class="active"';
     }
     
     public function indexAction()
