@@ -14,15 +14,15 @@ class Admin_TicketController extends App_Controller_Action
     
     public function indexAction()
     {
-        $form = new App_Form_BuscarProducto();
-        $modelProducto = new App_Model_Producto();
+        $form = new App_Form_BuscarTicket();
+        $modelTicket = new App_Model_Ticket();
         
-        $result = $modelProducto->lista();
+        $result = $modelTicket->lista();
         
         if($this->getRequest()->isPost()){
             $data = $this->getRequest()->getPost();
             $form->populate($data);
-            $result = $modelProducto->buscarProductos($data);
+            $result = $modelTicket->lista($data);
         }
         $this->view->form = $form;
         $this->view->result = $result; 

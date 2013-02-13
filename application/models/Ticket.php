@@ -3,7 +3,8 @@
 /**
  * Description of User
  *
- * @author James
+ * @author James 
+ * @email james.otiniano@gmail.com
  */
 class App_Model_Ticket extends App_Db_Table_Abstract {
 
@@ -12,31 +13,39 @@ class App_Model_Ticket extends App_Db_Table_Abstract {
     const ESTADO_ACTIVO = 1;
     const ESTADO_ELIMINADO = 0;
     const TABLA_TICKET = 'ticket';
-
-    /**
-     * @param array $datos
-     * @param string $condicion para el caso de actualizacion
-     * @return int Identificador de la columna
-     */
-    private function _guardar($datos, $condicion = NULL) {
-        $id = 0;
-        if (!empty($datos['id'])) {
-            $id = (int) $datos['id'];
-        }
-        unset($datos['id']);
-        $datos = array_intersect_key($datos, array_flip($this->_getCols()));
-
-        if ($id > 0) {
-            $condicion = '';
-            if (!empty($condicion)) {
-                $condicion = ' AND ' . $condicion;
+    
+    public function lista($data = NULL) 
+    {
+        $query = $this->getAdapter()
+                ->select()->from(
+                    array('t' => $this->_name)                    
+                )
+                ->join(
+                        array('u' => App_Model_User::TABLA_USUARIO), 
+                        't.idUsuario = u.idUsuario', 
+                        array('nombreUsuario', 'apellidoUsuario', 
+                            'idTipoUsuario')
+                )
+                ->join(
+                        array('c' => App_Model_Cliente::TABLA_CLIENTE), 
+                        'c.idCliente = t.idCliente', 
+                        array('nombreCliente', 'apellidoCliente', 
+                            'idTipoUsuario')
+                );
+        
+        if ($data) {
+            if (isset($data['idUsuario']) and !empty($data['idUsuario'])) {
+                $query->where('u.idUsuario = ?', $data["idUsuario"]);
             }
-
-            $cantidad = $this->update($datos, 'id = ' . $id . $condicion);
-            $id = ($cantidad < 1) ? 0 : $id;
-        } else {
-            $id = $this->insert($datos);
+            if (isset($data["nombre"]) and !empty($data["nombre"])) {
+                $concat = new Zend_Db_Expr("CONCAT(TRIM(u.nombreUsuario), ' ', TRIM(u.apellidoUsuario))");
+                $query->where("$concat like ?", "%{$data["nombre"]}%");
+            }
         }
-        return $id;
+        
+        $query->limit(100);
+
+        return $this->getAdapter()->fetchAll($query);
     }
+    
 }
