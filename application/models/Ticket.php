@@ -14,6 +14,14 @@ class App_Model_Ticket extends App_Db_Table_Abstract {
     const ESTADO_ELIMINADO = 0;
     const TABLA_TICKET = 'ticket';
     
+    /* para los reportes */
+    
+    public function buscarTicketxFecha(){
+        
+    }
+    
+    
+    
     public function lista($data = NULL) 
     {
         $query = $this->getAdapter()
