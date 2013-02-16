@@ -79,6 +79,7 @@ class App_Model_Servicio extends App_Db_Table_Abstract {
                     's.descripcionServicio',
                     's.precio',
                     's.idTipoMoneda',
+                     's.apuntes',
                     ))
                 ->where('idServicio= ?', $id);        
 

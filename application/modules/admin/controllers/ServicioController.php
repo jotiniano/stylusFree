@@ -53,6 +53,7 @@ class Admin_ServicioController extends App_Controller_Action
                 $data['precio'] = $data['precio'];
                 $data['fechaRegistro'] = $fechaRegistro;
                 $data['estado'] = App_Model_Servicio::ESTADO_ACTIVO;
+                $data['apuntes'] = $data['apuntes'];
                 $modeloServicio->actualizarDatos($data);
                 
                 $this->_flashMessenger->addMessage("Sservicio guardado con exito");

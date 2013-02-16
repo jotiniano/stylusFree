@@ -31,6 +31,12 @@
                             <?php echo $this->form->idTipoMoneda->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
                             <?php if ($this->form->idTipoMoneda->hasErrors()) echo "Seleccione Moneda";?>
                         </div>
+                         <div class="clear"></div>
+                        <label for="email" class="span5 no-margin">Descripcion:</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->apuntes->setAttrib('class', 'span12')->setAttrib('cols', '5')->setAttrib('height', '5')->renderViewHelper();?>
+                            <?php if ($this->form->apuntes->hasErrors()) echo "Ingrese los apuntes respectivos";?>
+                        </div>
                         <div class="clear"></div>                        
                         <?php echo $this->form->csrf; ?>
                     </div>

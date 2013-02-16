@@ -33,6 +33,13 @@ class App_Form_CrearServicio extends App_Form
         $e->setLabel('Guardar')->setAttrib('class', 'btn pull-right');
         $this->addElement($e);
         
+        
+        $e = new Zend_Form_Element_Textarea('apuntes');
+        
+        $e->setFilters(array("StripTags", "StringTrim"));
+        $e->setRequired(true);
+        $this->addElement($e);
+        
         $this->addElement('hash', 'csrf', array(
                     'ignore' => true,
                 ));
