@@ -86,9 +86,11 @@ class Admin_AgendaController extends App_Controller_Action
         
         if ($p=="er") {
             $this->_flashMessenger->addMessage("Reserva Eliminada con Exito");
+            $this->_redirect("/agenda");
         }
         if ($p=="ar") {
             $this->_flashMessenger->addMessage("Reserva Agregada con Exito");
+            $this->_redirect("/agenda");
         }
     }
     
