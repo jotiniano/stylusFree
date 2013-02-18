@@ -66,5 +66,32 @@ class App_Model_Reserva extends App_Db_Table_Abstract
         );
     }
 
+    public function getReserva($idReserva) 
+    {
+        $query = $this->getAdapter()
+                ->select()->from(
+                    array('r' => $this->_name),
+                    array(
+                        "idReserva"     => "r.idReserva",
+                        "idCliente"     => "r.idCliente",
+                        "nombre"        => "c.nombreCliente",
+                        "apellidos"     => "c.apellidoCliente",
+                        "fechaIni"      => "r.fechaInicio",
+                        "fechaFin"      => "r.fechaFin",
+                        "descripcion"   => "r.descripcion"
+                    )
+                )
+                ->join(
+                    array('c' => 'cliente'),
+                    'r.idCliente = c.idCliente',
+                    array()
+                )
+                ->where('c.estado = ?', App_Model_Cliente::ESTADO_ACTIVO)
+                ->where('r.estado = ?', App_Model_Reserva::ESTADO_ACTIVO)
+                ->where('r.idReserva = ?', $idReserva);
+                
+        return $this->getAdapter()->fetchAll($query);
+    }
+
 
 }

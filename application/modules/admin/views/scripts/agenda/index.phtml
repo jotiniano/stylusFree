@@ -77,6 +77,26 @@
 				var titulo = calEvent.title;
 				var id = titulo.split("|");
 				$("#idReserva").val(id[0]);
+				$("#btnGenerarTicket").attr("href", "/ticket/generar-ticket?idreserva="+id[0]);
+
+
+				$("#contentEliminarReserva .contenido").html("");
+				$("#contentEliminarReserva .contenido").addClass("loading");
+
+				var datos = {
+					idreserva : id[0]
+				}
+
+				$.ajax({
+                       url: "/agenda/editar-reserva",
+                       type: 'post',
+                       data: datos,
+                       dataType: 'html',
+                       success: function(response) {
+                       		$("#contentEliminarReserva .contenido").removeClass("loading");
+                       		$("#contentEliminarReserva .contenido").html(response);
+                       }
+                 });
 					
 				
 		    },
@@ -134,13 +154,18 @@
 		$(this).parents(".control-group").removeClass("success").addClass("error");
 		$("#idCliente").val("");
 	});
+
+
+
 	//Eliminar
 	$("#btnEliminarReserva").live("click", function(){
 		$("#modalEliminarReserva").find("form").submit();
 	});
 
+
+
 		
-	});
+});
 
 </script>
 <style type='text/css'>
@@ -175,10 +200,11 @@
 <div id="modalEliminarReserva" class="modal hide fade">
   <div class="modal-header">
     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h3>Eliminar Reserva</h3>
+    <h3>Editar Reserva</h3>
   </div>
   <div class="modal-body" id="contentEliminarReserva">
-  	Desea Eliminar esta Reserva?
+  	<div class="contenido">
+  	</div>
   	 <form action="/agenda/eliminar-reserva" method="post">
   		<input type="hidden" name="idReserva" id="idReserva" />
      </form>
@@ -186,5 +212,7 @@
   <div class="modal-footer">
     <a href="#" class="btn" onClick="$('#modalEliminarReserva .close').click()">Cancelar</a>
     <a id="btnEliminarReserva" href="#" class="btn btn-primary">Eliminar</a>
+
+    <a id="btnGenerarTicket" href="#" class="btn btn-success" style="float:left">Generar Ticket</a>
   </div>
 </div>
