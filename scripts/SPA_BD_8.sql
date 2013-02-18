@@ -1,0 +1,1 @@
+create table `spa`.`usuarioServicio`( `idUsuarioServicio` int(11) NOT NULL AUTO_INCREMENT , `idUsario` int(11) , `idServicio` int(11) , `fechaRegistro` datetime , PRIMARY KEY (`idUsuarioServicio`))  ;
