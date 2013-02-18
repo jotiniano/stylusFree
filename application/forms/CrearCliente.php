@@ -22,6 +22,7 @@ class App_Form_CrearCliente extends App_Form
         
         $e = new Zend_Form_Element_Text('fechaNacimiento');
         $e->setAttrib('class', 'span8');
+        $e->setRequired(true);
         $e->setFilters(array("StripTags", "StringTrim"));
         $this->addElement($e);        
         
@@ -30,6 +31,7 @@ class App_Form_CrearCliente extends App_Form
         $e->setFilters(array("StripTags", "StringTrim"));
         $v = new Zend_Validate_EmailAddress();
         $e->addValidator($v);
+        $e->setRequired(true);
         $e->addFilter(new Zend_Filter_HtmlEntities());
         $this->addElement($e);
         

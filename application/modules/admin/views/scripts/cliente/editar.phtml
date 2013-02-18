@@ -33,11 +33,13 @@
                         <label for="fechaN" class="span5 no-margin">Fecha nacimiento:</label>
                         <div class="span4 no-margin">
                             <?php echo $this->form->fechaNacimiento->setAttribs(array('class'=>'span12','id'=>'fechaReserva'))->setAttrib('maxlength', '20')->renderViewHelper();?>
+                            <?php if ($this->form->fechaNacimiento->hasErrors()) echo "Ingresa Fecha Nacimiento";?>
                         </div>
                         <div class="clear"></div>
                         <label for="email" class="span5 no-margin">Correo:</label>
                         <div class="span4 no-margin">
                             <?php echo $this->form->correo->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            <?php if ($this->form->correo->hasErrors()) echo "Ingresa campo válido";?>
                         </div>
                         <div class="clear"></div>
                         <label for="telefono" class="span5 no-margin">Número telefónico:</label>

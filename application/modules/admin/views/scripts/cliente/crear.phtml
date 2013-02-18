@@ -35,16 +35,20 @@
                             <?php echo $this->form->fechaNacimiento->setAttrib('class', 'span12')->setAttrib('maxlength', '20')
                                     ->setAttrib('id', 'fechaReserva')->renderViewHelper();
                             ?>
+                            <?php if ($this->form->fechaNacimiento->hasErrors()) echo "Ingresa Fecha Nacimiento";?>
+                            
                         </div>
                         <div class="clear"></div>
                         <label for="email" class="span5 no-margin">Correo:</label>
                         <div class="span4 no-margin">
                             <?php echo $this->form->correo->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            <?php if ($this->form->correo->hasErrors()) echo "Ingresa campo válido";?>
                         </div>
                         <div class="clear"></div>
                         <label for="telefono" class="span5 no-margin">Número telefónico:</label>
                         <div class="span4 no-margin">
                             <?php echo $this->form->telefono->setAttrib('class', 'span12')->setAttrib('maxlength', '10')->renderViewHelper();?>
+                            
                         </div>    
                         <div class="clear"></div>
                         <label for="celular" class="span5 no-margin">Celular:</label>
