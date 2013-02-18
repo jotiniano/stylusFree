@@ -1,0 +1,79 @@
+  <div>
+        <!-- row of columns -->
+        <div class="row-fluid">
+          
+          <div>
+                <ul class="breadcrumb">                    
+                    <li><a href="/usuario-servicio/crear">Agregar servicios a un usuario</a></li>
+                </ul>
+              <form class="well inline" method="post" enctype="multipart/form-data" >
+                      <h3>Buscar Usuario por Servicio</h3>
+                      <hr>                      
+                      <div class="row-fluid">
+                          <div class="span3">
+                              <h4>Usuario</h4>
+                              <?php echo $this->form->nombreUsuario;?>
+                           </div>
+                          <div class="span3">
+                              <h4>Servicio</h4>
+                              <?php echo $this->form->descripcionServicio;?>
+                           </div>                          
+                          <div class="span3">
+                              <?php echo $this->form->buscar?>
+                           </div>
+                      </div>
+                 </form>
+                 <div id="message"></div>
+                 <table class="table table-bordered">                     
+                   <thead>
+                     <tr>                       
+                       <th>
+                            Código
+                       </th>
+                       <th>
+                           Usuario
+                       </th>
+                       <th>
+                           Servicio
+                       </th>
+                       <th>
+                           Precio Servicio
+                       </th>
+                       <th>
+                           Comision
+                       </th>
+                       <th>
+                          Acciones
+                       </th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <?php
+                     foreach ($this->result as $res):?>
+                     <tr>
+                      <td>
+                         <?php echo $res["idUsuarioServicio"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["nombreUsuario"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["descripcionServicio"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["precio"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["comision"]; ?>
+                       </td>
+                       <td>
+                           <a href="/admin/usuario-servicio/editar/id/<?php echo $res["idUsuarioServicio"]; ?>" title="Editar">Editar</a> |
+                           <a href="/admin/usuario-servicio/eliminar/id/<?php echo $res["idUsuarioServicio"]; ?>" title="Editar">Eliminar</a>
+                       </td>
+                     </tr>
+                         <?php endforeach; ?>
+                   </tbody>
+                 </table>
+         </div>
+        </div>                
+  </div>
