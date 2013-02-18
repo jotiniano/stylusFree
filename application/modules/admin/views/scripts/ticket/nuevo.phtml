@@ -1,47 +1,101 @@
-<ul class="breadcrumb">
+<ul class="breadcrumb">    
     <li>
-        <a href="/producto">Listado Productos</a> <span class="divider">/</span>
-    </li>
+        <a href="/agenda">Ir Agenda</a> <span class="divider">/</span>
+    </li>    
 </ul>
-<div id="content_wrapper">
-     <div id="content">
-         <div class="inner">
-             <form action="" method="post" enctype="multipart/form-data" class="well">
-                <div class="header">
-                    <h3>Detalles del Producto</h3>
-                </div>
-                 </br>
-                <div class="row-fluid">
-                    <div class="span6">
-                        <label for="nombre" class="span5 no-margin">Descripción Producto :</label>
-                        <div class="span4 no-margin">
-                            <?php echo $this->form->nombreProducto->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
-                            <?php if ($this->form->nombreProducto->hasErrors()) echo "Ingresa Nombre válido";?>
-                        </div>
-                        <div class="clear"></div>
-                        <label for="precio" class="span5 no-margin">Precio :</label>
-                        <div class="span4 no-margin">                            
-                            <?php echo $this->form->precio->setAttrib('class', 'span12')->renderViewHelper();?>
-                            <?php if ($this->form->precio->hasErrors()) echo "Ingresa campo válido";?>
-                            
-                        </div>
-                        <div class="clear"></div>
-                        <label for="dni" class="span5 no-margin">Foto :</label>
-                        <div class="span4 no-margin">
-                            <?php echo $this->form->foto;?>
-                            <?php if ($this->form->foto->hasErrors()) echo "Imagen inválida";?>
-                        </div>
-                        <div class="clear"></div>                        
-                        <?php echo $this->form->csrf; ?>
-                        <?php if ($this->form->csrf->hasErrors()) echo "Intentalo nuevamente";?>
-                    </div>
-                    <div class="clear"></div>
-                                        
-                </div>
-                <div class="form-actions">
-                    <?php echo $this->form->guardar->setAttrib('class', 'btn pull-right')?>
-                </div>
-        </form>
+
+<form class="form-horizontal">
+
+    <div class="control-group">
+        <label class="control-label" for="inputName">Cliente : </label>
+        <div class="controls">
+            <input id="clienteReserva" data-provide="typeahead" type="text" id="input" class="span5" placeholder="Ingrese Cliente">
+            <span class="help-inline">
+                <a href="/cliente/crear" class="btn">
+                    <span class="icon-plus"></span>
+                </a>
+            </span>
+        </div>
     </div>
- </div>
-</div>
+    <input type="hidden" value="" id="idCliente">
+
+    <div class="control-group">
+        <label class="control-label" for="inputAtendido">Atendido por : </label>
+        <div class="controls">
+            <select name ="idUsuario" id="idUsuario" class="span4">
+                <option>User 1</option>
+            </select>
+        </div>
+    </div>
+    
+    <div class="control-group">
+        <label class="control-label" for="inputServicio">Servicio : </label>
+        <div class="controls">
+            <select name ="idServicio" id="idServicio" class="span3">
+                <option>Servicio Uno</option>
+            </select>
+            <input type="text" id="precio" name="precio" placeholder="Precio Sugerido"/>
+            <span class="help-inline">
+                <a href="#" class="btn">
+                    <span>Agregar Servicio</span>
+                </a>
+            </span>
+        </div>
+    </div>
+    
+    <br/>
+    <br/>
+    <table class="table table-condensed">
+        <caption class="alert">Servicios Brindados</caption>
+  <thead>
+    <tr>
+      <th>item</th>
+      <th>Servicio</th>
+      <th>Precio</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Corte</td>
+      <td>10.00</td>
+    </tr>
+  </tbody>
+</table>
+
+
+<br/>
+    <br/>
+    <div class="control-group">
+        <div class="controls">    
+            <button type="submit" class="btn">Generar Ticket</button>
+        </div>
+    </div>
+    
+</form>
+
+<style>
+    .typeahead {
+        z-index: 1100;
+    }
+</style>
+
+<script>
+    $(document).ready(function() {
+        //BuscarCliente
+        $('#clienteReserva').typeahead({
+            source: function(typeahead, query) {
+                if (query.length < 1)
+                    return [];
+                $.post('/agenda/listar-clientes', { query: query}, function(data) {
+                    return typeahead.process(JSON.parse(data));
+                });
+            },
+            onselect: function(obj) {
+                $("#idCliente").val(obj.id);
+                $("#clienteReserva").parents(".control-group").removeClass("error").addClass("success");
+            }
+        });
+
+    });
+</script>
