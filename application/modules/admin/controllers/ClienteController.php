@@ -14,6 +14,7 @@ class Admin_ClienteController extends App_Controller_Action
                         controller => "auth",
                         action => "index")));
         }
+        $this->view->activeCliente = 'class="active"';
     }
     
     public function indexAction()
@@ -80,9 +81,10 @@ class Admin_ClienteController extends App_Controller_Action
         $id = $this->_getParam('id');
         $cliente = $modelCliente->getClientesPorId($id);
         $form->populate($cliente);        
-         
+        $fecha =  $form->fechaNacimiento->getValue(); 
+        if ($fecha == 0) $form->fechaNacimiento->setValue("");
         if($this->getRequest()->isPost()){            
-            $data = $this->getRequest()->getPost();
+            $data = $this->getRequest()->getParams();            
             $data['idCliente'] = $id;
             if ($form->isValid($data)) {                
                 $id = $modelCliente->actualizarDatos($data);

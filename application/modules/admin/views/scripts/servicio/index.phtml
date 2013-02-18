@@ -1,21 +1,27 @@
-    <div>
-        <div class="row-fluid">          
+  <div>
+        <!-- row of columns -->
+        <div class="row-fluid">
+          
           <div>
                 <ul class="breadcrumb">                    
-                    <li><a href="/ticket/nuevo">Nuevo Ticket</a></li>
+                    <li><a href="/servicio/crear">Agregar Servicio</a></li>
                 </ul>
               <form class="well inline" method="post" enctype="multipart/form-data" >
-                      <h3>Listado Tickets Atendidos por Usuario</h3>
+                      <h3>Buscar Servicio</h3>
                       <hr>                      
                       <div class="row-fluid">
                           <div class="span2">
-                              <h4>Cod. Usuario</h4>
-                              <?php echo $this->form->idUsuario?>
+                              <h4>Cod. Servicio</h4>
+                              <?php echo $this->form->idServicio;?>
                            </div>
                           <div class="span3">
-                              <h4>Nombre Usuario</h4>
-                              <?php echo $this->form->nombre?>
+                              <h4>Nombre Servicio</h4>
+                              <?php echo $this->form->descripcionServicio;?>
                            </div>
+                          <div class="span3">
+                              <h4>Precio</h4>
+                              <?php echo $this->form->precio;?>
+                           </div>                          
                           <div class="span3">
                               <?php echo $this->form->buscar?>
                            </div>
@@ -24,21 +30,22 @@
                  <div id="message"></div>
                  <table class="table table-bordered">                     
                    <thead>
-                     <tr>                                                
+                     <tr>                       
                        <th>
-                           Cod.
+                            Código
                        </th>
                        <th>
-                           Cliente
+                           Servicio
                        </th>
                        <th>
-                           Fecha atención
+                           Precio
                        </th>
                        <th>
-                           Atendido por
-                       </th>                       
+                           Moneda
+                       </th>
+                       
                        <th>
-                          Monto
+                          Acciones
                        </th>
                      </tr>
                    </thead>
@@ -46,20 +53,23 @@
                      <?php
                      foreach ($this->result as $res):?>
                      <tr>
-                       <td>
-                         <?php echo $res["idTicket"]; ?>
+                      <td>
+                         <?php echo $res["idServicio"]; ?>
                        </td>
                        <td>
-                         <?php echo $res["nombreCliente"] . " " . $res["apellidoCliente"]; ?>
+                         <?php echo $res["descripcionServicio"]; ?>
                        </td>
                        <td>
-                         <?php echo $res["fechaCreacion"]; ?>
+                         <?php echo $res["precio"]; ?>
                        </td>
                        <td>
-                         <?php echo $res["nombreUsuario"] . " " . $res["apellidoUsuario"]; ?>
-                       </td>                       
+                         <?php if($res["idTipoMoneda"]==1){
+                             echo "Soles";
+                         }else{echo "Dolar";} ?>
+                       </td>
                        <td>
-                           <?php echo $res["total"]; ?>
+                           <a href="/admin/servicio/editar/id/<?php echo $res["idServicio"]; ?>" title="Editar">Editar</a> |
+                           <a href="/admin/servicio/eliminar/id/<?php echo $res["idServicio"]; ?>" title="Editar">Eliminar</a>
                        </td>
                      </tr>
                          <?php endforeach; ?>

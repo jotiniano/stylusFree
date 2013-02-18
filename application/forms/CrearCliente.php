@@ -10,16 +10,14 @@ class App_Form_CrearCliente extends App_Form
         $e->setAttrib('class', 'span8');  
         $this->addElement($e);
         
-        $e = new Zend_Form_Element_Text('nombreCliente');
-        $e->setAttrib('class', 'span8');
+        $e = new Zend_Form_Element_Text('nombreCliente');        
         $e->setFilters(array("StripTags", "StringTrim"));
         $e->setRequired(true);
         $this->addElement($e);
         
         $e = new Zend_Form_Element_Text('apellidoCliente');
         $e->setRequired(true);
-        $e->setFilters(array("StripTags", "StringTrim"));
-        $e->setAttrib('class', 'span8');
+        $e->setFilters(array("StripTags", "StringTrim"));        
         $this->addElement($e);
         
         $e = new Zend_Form_Element_Text('fechaNacimiento');
@@ -55,7 +53,7 @@ class App_Form_CrearCliente extends App_Form
         
         
         $e = new Zend_Form_Element_Text('direccion');
-        $e->setAttrib('class', 'span8');
+        //$e->setAttrib('class', 'span8');
         $e->setFilters(array("StripTags", "StringTrim"));
         $this->addElement($e);
         
@@ -66,11 +64,11 @@ class App_Form_CrearCliente extends App_Form
         $this->addElement('hash', 'csrf', array(
                     'ignore' => true,
                 ));
+        
          foreach($this->getElements() as $e) {
-            $e->removeDecorator('DtDdWrapper');
-            $e->removeDecorator('Label');
-            $e->removeDecorator('HtmlTag');
-        } 
+            $e->clearDecorators();
+            $e->addDecorator("ViewHelper");
+         }
         
         
         

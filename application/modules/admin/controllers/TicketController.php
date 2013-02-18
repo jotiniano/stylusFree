@@ -13,9 +13,19 @@ class Admin_TicketController extends App_Controller_Action
     }
     
     public function indexAction()
-    {   
-        //$this->_helper->layout->setLayout('layout-prueba');        
-        $this->_flashMessenger->addMessage("ticket");
+    {
+        $form = new App_Form_BuscarTicket();
+        $modelTicket = new App_Model_Ticket();
+        
+        $result = $modelTicket->lista();
+        
+        if($this->getRequest()->isPost()){
+            $data = $this->getRequest()->getPost();
+            $form->populate($data);
+            $result = $modelTicket->lista($data);
+        }
+        $this->view->form = $form;
+        $this->view->result = $result; 
     }
 
 }

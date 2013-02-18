@@ -19,6 +19,8 @@ class Admin_UserController extends App_Controller_Action
                         controller => "auth",
                         action => "index")));
         }
+        
+         $this->view->activeUsuario = 'class="active"';
     }
     
     
@@ -45,20 +47,20 @@ class Admin_UserController extends App_Controller_Action
         if($this->getRequest()->isPost()){            
             
             $data = $this->getRequest()->getPost();
-            
+           
             if ($form->isValid($data)) {
                 $modeloUsuario = new App_Model_User();
                 $fechaRegistro = Zend_Date::now()->toString('YYYY-MM-dd HH:mm:ss');
-                $data['nombreUsuario'] = $params['nombre'];
-                $data['apellidoUsuario'] = $params['apellido'];
+                $data['nombreUsuario'] = $data['nombreUsuario'];
+                $data['apellidoUsuario'] = $data['apellidoUsuario'];
                 $data['fechaRegistro'] = $fechaRegistro;
-                $data['usuario'] =  $params['usuario'];
-                $data['clave'] =  $params['clave'];
-                $data['idTipoUsuario'] =  '2';
+                $data['usuario'] =  $data['usuario'];
+                $data['clave'] =  $data['pwd'];
+                $data['idTipoUsuario'] =  $data['tipoUsuario'];
                 $data['estado'] = App_Model_User::ESTADO_ACTIVO;
                 $modeloUsuario->actualizarDatos($data);
                 
-                $this->_flashMessenger->addMessage("Cliente guardado con exito");
+                $this->_flashMessenger->addMessage("Usuario guardado con exito");
                 $this->_redirect($this->indexUrl);
                 
             } else {
@@ -66,13 +68,28 @@ class Admin_UserController extends App_Controller_Action
             }
         }
         
-        
-        
-        
     }
     
     public function editarAction(){
-        
+        $modeloUsuario = new App_Model_User();
+        $form = new App_Form_CrearUsuario();
+        $id = $this->_getParam('id');
+        $usuario = $modeloUsuario->getUsuarioPorId($id);
+        $form->populate($usuario);        
+         
+        if($this->getRequest()->isPost()){            
+            $data = $this->getRequest()->getPost();
+            $data['idUsuario'] = $id;
+            if ($form->isValid($data)) {                
+                $id = $modeloUsuario->actualizarDatos($data);
+                $this->_flashMessenger->addMessage("Usuario editado con éxito");
+                $this->_redirect('/user/');
+                
+            } else {
+                $form->populate($data);                
+            }
+        }
+        $this->view->form = $form;
     }
     
     public function eliminarAction(){

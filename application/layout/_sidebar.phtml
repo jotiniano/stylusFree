@@ -2,23 +2,29 @@
 <ul class="nav nav-list">
     
       <li class="nav-header">Dashboard</li>
-      <li class="active"><a href="#">Link</a></li>              
-      <li><a href="#">Principal</a></li>
-      <li><a href="#">Reporte de Tickets</a></li>
-      <li><a href="#">Reporte de Productos</a></li>
-      
+                  
       <li class="nav-header">Mantenimientos</li>
-      <li><a href="/admin/user/">Usuario</a></li>
-      <li><a href="/cliente/">Clientes</a></li>
-      <li><a href="/producto">Productos</a></li>
-      <li><a href="#">Servicios</a></li>
+      <li <?php echo $this->activeUsuario;?>><a href="/user/">Usuarios</a></li>
+      <li <?php echo $this->activeCliente;?>><a href="/cliente/">Clientes</a></li>
+      <li <?php echo $this->activeProducto;?>><a href="/producto">Productos</a></li>
+      <li <?php echo $this->activeServicio;?>><a href="/servicio">Servicios</a></li>
 
       <li class="nav-header">Reservas</li>
-      <li><a href="/agenda">Mostrar Agenda</a></li>
+      <li <?php echo $this->activeAgenda;?>><a href="/agenda">Mostrar Agenda</a></li>
 
       <li class="nav-header">Tickets</li>
-      <li><a href="/agenda">Mostrar Agenda</a></li>
-      <li><a href="#">Listar Ticket</a></li>
+
+      <li <?php echo $this->activeTicket;?>><a href="/agenda">Mostrar Agenda</a></li>
+      <li <?php echo $this->activeListaTicket;?>><a href="#">Listar Ticket</a></li>
+      <li><a href="/ticket">Tickets Atendidos</a></li>
+      <li><a href="/ticket/nuevo">Nuevo Ticket</a></li>
+      
+      <li class="nav-header">Reportes</li>
+      <li <?php echo $this->activeReporte;?>><a href="/reporte">Reporte de Tickets</a></li>
+      <!-- <li <?php echo $this->activeReporteProducto;?>><a href="#">Reporte de Productos</a></li>-->
+
+
+
 </ul>
 </div>
 

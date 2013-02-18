@@ -1,6 +1,6 @@
 <ul class="breadcrumb">
     <li>
-        <a href="/producto">Listado Productos</a> <span class="divider">/</span>
+        <a href="/servicio">Listado de Servicio</a> <span class="divider">/</span>
     </li>
 </ul>
 <div id="content_wrapper">
@@ -8,32 +8,37 @@
          <div class="inner">
              <form action="" method="post" enctype="multipart/form-data" class="well">
                 <div class="header">
-                    <h3>Detalles del Producto</h3>
+                    <h3>Crear Servicio</h3>
                 </div>
                  </br>
                 <div class="row-fluid">
                     <div class="span6">
-                        <label for="nombre" class="span5 no-margin">Descripción Producto :</label>
+                        <label for="nombre" class="span5 no-margin">Servicio:</label>
                         <div class="span4 no-margin">
-                            <?php echo $this->form->nombreProducto->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
-                            <?php if ($this->form->nombreProducto->hasErrors()) echo "Ingresa Nombre válido";?>
+                            <?php echo $this->form->descripcionServicio->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            <?php if ($this->form->descripcionServicio->hasErrors()) echo "Ingresa un Servicio";?>
                         </div>
                         <div class="clear"></div>
                         <label for="precio" class="span5 no-margin">Precio :</label>
                         <div class="span4 no-margin">                            
                             <?php echo $this->form->precio->setAttrib('class', 'span12')->renderViewHelper();?>
-                            <?php if ($this->form->precio->hasErrors()) echo "Ingresa campo válido";?>
+                            <?php if ($this->form->precio->hasErrors()) echo "Ingrese Precio";?>
                             
                         </div>
                         <div class="clear"></div>
-                        <label for="dni" class="span5 no-margin">Foto :</label>
+                        <label for="email" class="span5 no-margin">Tipo Moneda:</label>
                         <div class="span4 no-margin">
-                            <?php echo $this->form->foto;?>
-                            <?php if ($this->form->foto->hasErrors()) echo "Imagen inválida";?>
+                            <?php echo $this->form->idTipoMoneda->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            <?php if ($this->form->idTipoMoneda->hasErrors()) echo "Seleccione Moneda";?>
+                        </div>
+                        <div class="clear"></div>
+                        <label for="email" class="span5 no-margin">Descripcion:</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->apuntes->setAttrib('class', 'span12')->setAttrib('cols', '5')->setAttrib('height', '5')->renderViewHelper();?>
+                            <?php if ($this->form->apuntes->hasErrors()) echo "Ingrese los apuntes respectivos";?>
                         </div>
                         <div class="clear"></div>                        
                         <?php echo $this->form->csrf; ?>
-                        <?php if ($this->form->csrf->hasErrors()) echo "Intentalo nuevamente";?>
                     </div>
                     <div class="clear"></div>
                                         

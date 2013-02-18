@@ -1,6 +1,6 @@
 <ul class="breadcrumb">    
     <li>
-        <a href="/clientes">Clientes</a> <span class="divider">/</span>
+        <a href="/cliente">Clientes</a> <span class="divider">/</span>
     </li>    
 </ul>
 <div id="content_wrapper">
@@ -14,13 +14,13 @@
                     <div class="span6">
                         <label for="nombre" class="span5 no-margin">Nombre :</label>
                         <div class="span4 no-margin">
-                            <?php echo $this->form->nombreCliente->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            <?php echo $this->form->nombreCliente->setAttrib('maxlength', '50')->renderViewHelper();?>
                             <?php if ($this->form->nombreCliente->hasErrors()) echo "Ingresa Nombre válido";?>
                         </div>
                         <div class="clear"></div>
                         <label for="apellido" class="span5 no-margin">Apellidos :</label>
                         <div class="span4 no-margin">
-                            <?php echo $this->form->apellidoCliente->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            <?php echo $this->form->apellidoCliente->setAttrib('maxlength', '50')->renderViewHelper();?>
                             <?php if ($this->form->apellidoCliente->hasErrors()) echo "Ingresa Apellido";?>
                         </div>
                         <div class="clear"></div>
@@ -52,9 +52,10 @@
                         <div class="clear"></div>
                         <label for="direccion" class="span5 no-margin">Dirección:</label>
                         <div class="span4 no-margin">
-                            <?php echo $this->form->direccion->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            <?php echo $this->form->direccion->setAttrib('maxlength', '50')->renderViewHelper();?>
                         </div>
                         <?php echo $this->form->csrf; ?>
+                        <?php if ($this->form->csrf->hasErrors()) echo "Intentalo nuevamente";?>
                     </div>
                     <div class="clear"></div>
                                         

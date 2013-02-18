@@ -20,10 +20,10 @@ class App_Model_Servicio extends App_Db_Table_Abstract {
      */
     private function _guardar($datos, $condicion = NULL) {
         $id = 0;
-        if (!empty($datos['id'])) {
-            $id = (int) $datos['id'];
+        if (!empty($datos['idServicio'])) {
+            $id = (int) $datos['idServicio'];
         }
-        unset($datos['id']);
+        unset($datos['idServicio']);
         $datos = array_intersect_key($datos, array_flip($this->_getCols()));
 
         if ($id > 0) {
@@ -32,7 +32,7 @@ class App_Model_Servicio extends App_Db_Table_Abstract {
                 $condicion = ' AND ' . $condicion;
             }
 
-            $cantidad = $this->update($datos, 'id = ' . $id . $condicion);
+            $cantidad = $this->update($datos, 'idServicio= ' . $id . $condicion);
             $id = ($cantidad < 1) ? 0 : $id;
         } else {
             $id = $this->insert($datos);
@@ -46,11 +46,44 @@ class App_Model_Servicio extends App_Db_Table_Abstract {
     
       public function lista() {
         $query = $this->getAdapter()
-                ->select()->from(array('servicio' => $this->_name));
-                
-                
+                ->select()->from(array('servicio' => $this->_name))
+                ->where('servicio.estado = ?', App_Model_Producto::ESTADO_ACTIVO);
         return $this->getAdapter()->fetchAll($query);
     }
     
+    
+    public function buscarServicio(array $data = array()) {
+        $db = $this->getAdapter();
+
+        $select = $db->select()
+                ->from(array('servicio' => $this->_name), $this->_getCols())
+                ->where('servicio.estado = ?', self::ESTADO_ACTIVO);
+
+        if (isset ($data['idServicio']) and !empty($data['idServicio']))
+            $select->where('servicio.idServicio = ?', $data['idServicio']);
+
+        if (isset($data["descripcionServicio"]) and !empty($data["descripcionServicio"]))
+            $select->where("servicio.descripcionServicio like ?", "%{$data["descripcionServicio"]}%");        
+        
+        $select->order('idServicio')
+                ->limit(50);
+
+        return $db->fetchAll($select);
+    }
+    
+     public function getServicioPorId($id) 
+    {
+        $query = $this->getAdapter()->select()
+                 ->from(array('s'=>$this->_name),array(
+                    's.idServicio',
+                    's.descripcionServicio',
+                    's.precio',
+                    's.idTipoMoneda',
+                     's.apuntes',
+                    ))
+                ->where('idServicio= ?', $id);        
+
+        return $this->getAdapter()->fetchRow($query);
+    }
     
 }

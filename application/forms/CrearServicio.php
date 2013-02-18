@@ -1,16 +1,16 @@
 <?php
 
-class App_Form_CrearProducto extends App_Form
+class App_Form_CrearServicio extends App_Form
 {
     public function init() {
         
         parent::init();
         
-        $e = new Zend_Form_Element_Text('idProducto');
+        $e = new Zend_Form_Element_Text('idServicio');
         $e->setAttrib('class', 'span8');  
         $this->addElement($e);
         
-        $e = new Zend_Form_Element_Text('nombreProducto');
+        $e = new Zend_Form_Element_Text('descripcionServicio');
         $e->setAttrib('class', 'span8');
         $e->setFilters(array("StripTags", "StringTrim"));
         $e->setRequired(true);
@@ -18,24 +18,31 @@ class App_Form_CrearProducto extends App_Form
         
         $e = new Zend_Form_Element_Text('precio');
         $e->setRequired(true);
-        $v = new Zend_Validate_Float();
-        $e->addValidator($v);
         $e->setFilters(array("StripTags", "StringTrim", "HtmlEntities"));
         $e->setAttrib('class', 'span8');
         $this->addElement($e);
         
-        $e = new Zend_Form_Element_File('foto');        
-        $config = Zend_Registry::get('config');
-        $ruta = $config->app->mediaRoot;
-        $e->setDestination($ruta);
+        $e = new Zend_Form_Element_Select('idTipoMoneda');
+        $e->addMultiOption('', 'Seleccione');
+        $e->addMultiOption('1', 'Soles');
+        $e->addMultiOption('2', 'Dolares');
+        $e->setRequired();
         $this->addElement($e);
         
         $e = new Zend_Form_Element_Submit('guardar');
         $e->setLabel('Guardar')->setAttrib('class', 'btn pull-right');
         $this->addElement($e);
         
-        $this->addElement('hash', 'csrf');
         
+        $e = new Zend_Form_Element_Textarea('apuntes');
+        
+        $e->setFilters(array("StripTags", "StringTrim"));
+        $e->setRequired(true);
+        $this->addElement($e);
+        
+        $this->addElement('hash', 'csrf', array(
+                    'ignore' => true,
+                ));
          foreach($this->getElements() as $e) {
             $e->removeDecorator('DtDdWrapper');
             $e->removeDecorator('Label');
