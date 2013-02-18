@@ -23,9 +23,6 @@ class Admin_AgendaController extends App_Controller_Action
     
     public function indexAction()
     {
-        
-
-
         $r = new App_Model_Reserva();
         $listado = "";
         $reservas = $r->listarReserva();
@@ -86,9 +83,11 @@ class Admin_AgendaController extends App_Controller_Action
         
         if ($p=="er") {
             $this->_flashMessenger->addMessage("Reserva Eliminada con Exito");
+            $this->_redirect("/agenda");
         }
         if ($p=="ar") {
             $this->_flashMessenger->addMessage("Reserva Agregada con Exito");
+            $this->_redirect("/agenda");
         }
     }
     
@@ -99,6 +98,22 @@ class Admin_AgendaController extends App_Controller_Action
         $this->view->start = $this->_getParam('start');
         $this->view->end = $this->_getParam('end');
         $this->view->allDay = $this->_getParam('allDay');
+    }
+
+    public function editarReservaAction()
+    {
+        $this->_helper->layout()->disableLayout();
+        $idreserva = $this->_getParam('idreserva');
+
+        $r = new App_Model_Reserva();
+        $reserva = $r->getReserva($idreserva);
+
+        $this->view->idreserva = $idreserva;
+        $this->view->reserva = $reserva;
+
+        $this->view->start  = $reserva[0]["fechaIni"];
+        $this->view->end    = $reserva[0]["fechaFin"];
+        $this->view->allDay = false;
     }
 
     public function listarClientesAction()
