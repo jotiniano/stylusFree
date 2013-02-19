@@ -120,6 +120,17 @@ class App_Model_User extends App_Db_Table_Abstract {
 
         return $db->fetchAll($select);
     }
+    
+    public function getUsuarioWork() 
+    {        
+        $query = "SELECT u.idUsuario as usuario, concat(u.nombreUsuario, ' ', u.apellidoUsuario) as nombre
+            FROM tipousuario t
+                        INNER JOIN usuario u
+                            ON (t.idTipoUsuario = u.idTipoUsuario)
+                    where u.estado = 1 and t.idTipoUsuario = 3";        
+
+        return $this->getAdapter()->fetchAll($query);
+    }
 
    
    

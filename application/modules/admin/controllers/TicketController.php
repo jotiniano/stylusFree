@@ -28,10 +28,33 @@ class Admin_TicketController extends App_Controller_Action
         $this->view->result = $result; 
     }
     
-    public function nuevoAction()
+    public function index2Action()
     {
+        $this->view->headScript()->appendFile(
+                $this->getConfig()->app->mediaUrl . '/js/admin/ticket.js'
+        );
+        $form = new App_Form_RegistrarIngresos();
         
+        $this->view->form = $form;
         
+        if ($this->_request->isPost()) {
+            var_dump($this->_getAllParams());
+            exit;
+        }
+    }
+
+
+    public function nuevoAction()
+    {   
+        $modelUsuario = new App_Model_User();
+        $this->view->users = $modelUsuario->getUsuarioWork();
+        
+        $modelServicio = new App_Model_Servicio();
+        $this->view->servicios = $modelServicio->getServicioPorId();        
+        
+        $this->view->headScript()->appendFile(
+                $this->getConfig()->app->mediaUrl . '/js/admin/ticket.js'
+        );
         //Javascripts
         $this->view->headScript()->appendFile(
             $this->getConfig()->app->mediaUrl . '/js/fullcalendar/jquery-ui-1.8.23.custom.min.js'

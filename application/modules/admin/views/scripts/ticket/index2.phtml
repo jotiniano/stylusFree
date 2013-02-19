@@ -1,0 +1,138 @@
+<div id="contentIngresos" class="left">
+    <h4>Ingresos</h4>
+
+    <form id="frmIngresos" method="post" action="">
+        <div class="clearfix">
+            <label for="alumno">Alumno</label>
+            <div class="input">               
+                <?=$this->form->nombreAlumno->setAttribs(array("class"=>"xlarge", "disabled"=>"disabled"))->renderViewHelper()?>
+                <a class="btn primary" id="linkModalBuscarAlumno" >Buscar Alumno</a>
+            </div>
+        </div>
+        
+        <div class="clearfix">
+            <label for="idTipoConcepto">Tipo Concepto:</label>
+            <div class="input">               
+                <?=$this->form->idTipoConcepto->setAttribs(array("class"=>"xlarge"))->renderViewHelper()?>
+            </div>
+        </div>
+        
+        <div class="clearfix">
+            <label for="idConcepto">Concepto:</label>
+            <div class="input">               
+                <?=$this->form->idConcepto->setAttribs(array("class"=>"xlarge disabled", "disabled"=>"disabled"))->renderViewHelper()?>
+            </div>
+        </div>
+        
+        <div class="clearfix">
+            <label for="idConcepto">Costo:</label>
+            <div class="input">               
+                <h5 id="costoConcepto" style="line-height: 28px">S/.<span>0</span></h5>
+            </div>
+        </div>
+        
+        <div class="well">
+            <div class="clearfix">
+                <label for="idMedioPago">Medio de Pago:</label>
+                <div class="input">               
+                    <?=$this->form->idMedioPago->setAttribs(array("class"=>"xlarge"))->renderViewHelper()?>
+                </div>
+            </div>
+            <div class="clearfix">
+                <label for="importe">Importe:</label>
+                <div class="input">               
+                    <?=$this->form->importe->setAttribs(array("class"=>"small"))->renderViewHelper()?>
+                </div>
+            </div>
+            <div id="panelInstitucionFinanciera" class="hide">
+                <div class="clearfix">
+                    <label for="idBanco">Banco:</label>
+                    <div class="input">               
+                        <?=$this->form->idBanco->setAttribs(array("class"=>"xlarge"))->renderViewHelper()?>
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <label for="idCuentaBancaria">Cuenta Bancaria:</label>
+                    <div class="input">               
+                        <?=$this->form->idCuentaBancaria->setAttribs(array("class"=>"xlarge"))->renderViewHelper()?>
+                    </div>
+                </div>
+                <div class="clearfix">
+                    <label for="numeroOperacion">Nro Operacion:</label>
+                    <div class="input">               
+                        <?=$this->form->numeroOperacion->setAttribs(array("class"=>"xlarge"))->renderViewHelper()?>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="clearfix">
+                <div class="input">
+                    <a class="btn primary" id="btnAgregarDetalleIngreso"> Agregar Pago </a>
+                </div>
+            </div>
+            
+        </div>
+        
+        
+        <div id="idPanelTablaDetalleIngreso">
+                <table class="zebra-striped">
+                    <thead>
+                        <tr>
+                            <td>Medio de Pago</td>
+                            <td>Monto</td>
+                            <td>Importe</td>
+                            <td>Saldo</td>
+                            <td>Banco</td>
+                            <td>Cta. Bancaria</td>
+                            <td>Nro. Operacion</td>
+                            <td>Acciones</td>
+                        </tr>
+                    </thead>
+                    <tbody class="">
+                        <tr class="hide modelo">
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <a class="eliminarDetalleIngreso"> Eliminar</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        
+        
+        <div class="actions">
+                <input class="btn primary" type="submit" name="Guardar Cambios" />
+                <a class="btn"> Cancelar </a>
+                
+            </div>
+        
+        
+        
+        
+    </form>
+    
+</div>
+
+
+
+
+<div class="modal hide fade in" id="modalBuscarAlumno">
+	 <div class="modal-header">
+            <a href="#" class="close">&times;</a>
+            <h3>Buscar Alumno</h3>
+         </div>
+	 <div class="modal-body">
+           <p>
+               Cargar el form
+	  </p>
+         </div>
+	<div class="modal-footer">
+              <a href="#" class="btn secondary" id="btnDeleteCerrar" onclick="$('#modalBuscarAlumno').modal('hide')">Cerrar</a>
+        </div>
+</div>

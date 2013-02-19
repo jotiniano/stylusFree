@@ -4,7 +4,7 @@
     </li>    
 </ul>
 
-<form class="form-horizontal">
+<form class="form-horizontal" id="frmTicket" novalidate="novalidate">
 
     <div class="control-group">
         <label class="control-label" for="inputName">Cliente : </label>
@@ -23,7 +23,14 @@
         <label class="control-label" for="inputAtendido">Atendido por : </label>
         <div class="controls">
             <select name ="idUsuario" id="idUsuario" class="span4">
-                <option>User 1</option>
+                <option value="-1">--Seleccionar--</option>
+                <?php 
+                $user = $this->users;
+                foreach ($user as $item):
+                ?>
+                <option value="<?php echo $item['usuario']?>"> <?php echo $item['nombre']?></option>
+                
+                <?php endforeach; ?>
             </select>
         </div>
     </div>
@@ -32,11 +39,18 @@
         <label class="control-label" for="inputServicio">Servicio : </label>
         <div class="controls">
             <select name ="idServicio" id="idServicio" class="span3">
-                <option>Servicio Uno</option>
+                <option value="-1">--Seleccionar--</option>
+                <?php 
+                $ser = $this->servicios;
+                foreach ($ser as $item):
+                ?>
+                <option value="<?php echo $item['idServicio']?>" data="<?php echo $item['precio']?>"> <?php echo $item['descripcionServicio']?></option>
+                
+                <?php endforeach; ?>
             </select>
             <input type="text" id="precio" name="precio" placeholder="Precio Sugerido"/>
             <span class="help-inline">
-                <a href="#" class="btn">
+                <a class="btn" id="agregarItem">
                     <span>Agregar Servicio</span>
                 </a>
             </span>
@@ -45,23 +59,29 @@
     
     <br/>
     <br/>
-    <table class="table table-condensed">
-        <caption class="alert">Servicios Brindados</caption>
-  <thead>
-    <tr>
-      <th>item</th>
-      <th>Servicio</th>
-      <th>Precio</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Corte</td>
-      <td>10.00</td>
-    </tr>
-  </tbody>
-</table>
+    
+    <div id="idPanelTablaDetalleIngreso">
+                <table class="table table-condensed">
+                    <caption class="alert">Servicios Brindados</caption>
+                    <thead>
+                        <tr>
+                            <th>Servicio</th>
+                            <th>Precio</th>                            
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="">
+                        <tr class="hide modelo">
+                            
+                            <th></th>
+                            <th></th>                            
+                            <th>
+                                <a class="eliminarDetalleIngreso"> Eliminar</a>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
 
 <br/>
