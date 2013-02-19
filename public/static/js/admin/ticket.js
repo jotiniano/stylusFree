@@ -1,5 +1,18 @@
 $(function(){
     
+    $('#clienteReserva').typeahead({
+            source: function(typeahead, query) {
+                if (query.length < 1)
+                    return [];
+                $.post('/agenda/listar-clientes', { query: query}, function(data) {
+                    return typeahead.process(JSON.parse(data));
+                });
+            },
+            onselect: function(obj) {
+                $("#otroCliente").val(obj.id);                
+            }
+        });
+    
     var url = "/admin/ingresos/buscar-alumno";
     
     
@@ -72,6 +85,7 @@ $(function(){
                 $("th:eq(2)", row).html(inputWorkerValor+inputWorker);
                 $(tabla+' tbody>tr:first').addClass("hide");
             });
+            
         },
         deleteRowTableIngreso : function() {
            $(".eliminarDetalleIngreso").live("click", function(e){
