@@ -28,6 +28,22 @@ class Admin_TicketController extends App_Controller_Action
         $this->view->result = $result; 
     }
     
+    public function index2Action()
+    {
+                $this->view->headScript()->appendFile(
+            $this->mediaUrl . '/js/admin/ingresos.js'
+        );
+        $form = new App_Form_RegistrarIngresos();
+        
+        $this->view->form = $form;
+        
+        if ($this->_request->isPost()) {
+            var_dump($this->_getAllParams());
+            exit;
+        }
+    }
+
+
     public function nuevoAction()
     {
         $form = new App_Form_BuscarTicket();
