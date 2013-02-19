@@ -46,6 +46,8 @@ class Admin_TicketController extends App_Controller_Action
 
     public function nuevoAction()
     {   
+        //$m = new App_Model_UsuarioServicio();
+        //$m->getUsuariosPorServicio(1);exit;
         $modelUsuario = new App_Model_User();
         $this->view->users = $modelUsuario->getUsuarioWork();
         
@@ -67,6 +69,11 @@ class Admin_TicketController extends App_Controller_Action
         $this->view->headScript()->appendFile(
             $this->getConfig()->app->mediaUrl . '/js/bootstrap-typeahead-new.js'
         );
+        
+        if ($this->_request->isPost()) {
+            $data = $this->_getAllParams();
+            var_dump($data);exit;
+        }
 
     }
 
