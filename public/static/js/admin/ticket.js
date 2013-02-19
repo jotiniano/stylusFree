@@ -6,32 +6,20 @@ $(function(){
     var ingresos = {
         
         init : function() {
-           this.medioPagoHide("#idMedioPago");
-           //this.ComboDependiente("#nivel", "#grado", "-- Seleccionar --", "/admin/grados/get-grados-por-nivel-ajax", "id", "descripcion");
-           this.ComboDependiente("#idServicio", "#precio");
-           this.ComboDependienteTipo("#idTipoConcepto", "#idConcepto", "-- Seleccionar --", "/admin/concepto/get-concepto-ajax", "id", "descripcion");
-           this.ComboDependienteBanco("#idBanco", "#idCuentaBancaria", "-- Seleccionar --", "/admin/cuenta-bancaria/get-cuenta-bancaria-ajax", "id", "numerocuenta");
+           this.ComboDependiente("#idServicio", "#idUsuario", "-- Seleccionar --", "/admin/user/get-usuarios", "idUsuario", "nombreUsuario");
            this.appendTableIngresos("#agregarItem", "#idPanelTablaDetalleIngreso");
            this.deleteRowTableIngreso();           
         },        
-        ComboDependiente : function (c, p) {
-            $(c).live("change blur", function(){
-                //var data = $(c).attr("value").toString();
-                //var data = $(c).attr('data');
-                //alert(data);
-            });
-       }
-        ,
-        ComboDependienteTipo : function (c, cd, def, url, fieldv, fields) {
-            $(c).bind("change blur", function(){
+        ComboDependiente : function (c, cd, def, url, fieldv, fields) {
+            $(c).live("change blur", function(){                
                 var actual = $(this);
-                if (actual.val()!=0) {                    
-                    $(cd).removeAttr("disabled");
-                    $(cd).attr("disabled", "disabled");
-                    $(cd).html("<option>Cargando...</option>");
-                    $("#idMedioPago").val(0);
-                    $("#idMedioPago").change();
+                
+                if (actual.val() != 0) {
+                    var precio = $("#servicio").attr("precio");
+                    $("#idPrecio").val(precio);
                     
+                    
+                    $(cd).removeAttr("disabled");
                     $.ajax({
                         url: url,
                         type: 'post',
@@ -39,19 +27,16 @@ $(function(){
                            id : actual.val()
                         },
                         dataType: 'json',
-                        success: function(response){                            
-                            if (response.status==true) {
-                                var data = response.data;
+                        
+                        success: function(data){                                
                                 $(cd).html("");
-                                $.each(data, function(index, value){
-                                    $(cd).append("<option value='"+value[fieldv]+"'>"+value[fields]+"</option>");
-                                    
+                                $.each(data, function(index, value){                                    
+                                    $(cd).append("<option id='user'  data ='"+ value[fields]+"' value='"+value[fieldv]+"'>"+value[fields]+"</option>");
                                 });
-                                $(cd).removeAttr("disabled")
-                            }
-                        }
+                        }                         
                     });
-                } else {
+                    
+                } else {                    
                     $(cd).html("");
                     $(cd).append("<option value='0'>"+def+"</option>");
                     $(cd).attr("disabled", "disabled");
@@ -59,52 +44,6 @@ $(function(){
                 }
             });
        },
-       ComboDependienteBanco : function (c, cd, def, url, fieldv, fields) {
-            $(c).bind("change blur", function(){
-                var actual = $(this);
-                var concepto = $("#idConcepto");
-                if (actual.val()!=0) {                    
-                    $(cd).removeAttr("disabled");
-                    $.ajax({
-                        url: url,
-                        type: 'post',
-                        data: {
-                           id : actual.val(),
-                           idc : concepto.val()
-                        },
-                        dataType: 'json',
-                        success: function(response){                            
-                            if (response.status==true) {
-                                var data = response.data;
-                                $(cd).html("");
-                                $.each(data, function(index, value){
-                                    $(cd).append("<option value='"+value[fieldv]+"'>"+value[fields]+"</option>");
-                                    
-                                });
-                            }
-                        }
-                    });
-                } else {
-                    $(cd).html("");
-                    $(cd).append("<option value='0'>"+def+"</option>");
-                    $(cd).attr("disabled", "disabled");
-                    
-                }
-            });
-       },
-        medioPagoHide : function(content) {
-            $(content).bind("change", function(){
-                var medio = $(this).val();
-                if (medio == 1) {
-                    $("#panelInstitucionFinanciera").removeClass("hide");
-                } else {
-                    $("#panelInstitucionFinanciera").addClass("hide");
-                }
-                    
-                
-                
-            });
-        },
         appendTableIngresos : function(btn, tabla) {
             $(btn).bind("click", function(){
                 var row = $(tabla+' tbody>tr:last').removeClass("hide").clone(true);
@@ -112,11 +51,16 @@ $(function(){
                 
                 //Obteniendo valores
                 var servicio     = $("#idServicio").val();                
-                var precio     = $("#precio").val();
+                var precio     = $("#idPrecio").val();                
+                var idworker     = $("#idUsuario").val();
+                
                 
                 //MEDIO PAGO
                 var inputMediopago = "<input type='hidden' name='detalleServicio[]' value='"+servicio+"' />";
                 var inputMediopagoValor = $("#idServicio option:selected").text();
+                //worker
+                var inputWorker = "<input type='hidden' name='detalleWorker[]' value='"+idworker+"' />";
+                var inputWorkerValor = $("#idUsuario option:selected").text();
                 
                 //COSTO
                 var inputCosto = "<input type='hidden' name='detalleCosto[]' value='"+precio+"' />";
@@ -125,6 +69,7 @@ $(function(){
                      
                 $("th:eq(0)", row).html(inputMediopagoValor+inputMediopago);
                 $("th:eq(1)", row).html(inputCostoValor+inputCosto);
+                $("th:eq(2)", row).html(inputWorkerValor+inputWorker);
                 $(tabla+' tbody>tr:first').addClass("hide");
             });
         },
@@ -142,9 +87,4 @@ $(function(){
     
     
     
-});
-$("#frmTicket").validate({   
-  rules: {
-    precio: "required"
-  }
 });
