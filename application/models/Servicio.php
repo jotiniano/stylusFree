@@ -90,7 +90,9 @@ class App_Model_Servicio extends App_Db_Table_Abstract {
                     's.precio',
                     's.idTipoMoneda',
                      's.apuntes',
-                    ));
+                    ))
+            ->where('estado = ?', 1);
+        
         if ($id) {
             $query->where('idServicio= ?', $id)->order('s.descripcionServicio asc');
             return $this->getAdapter()->fetchRow($query);
