@@ -9,13 +9,15 @@ class App_Model_User extends App_Db_Table_Abstract {
 
     protected $_name = 'usuario';
     protected $_nameTipoUsuario = 'tipoUsuario';
+    protected $_nameUsuarioServicio = 'usuarioServicio';
+    protected $_nameServicio = 'servicio';
     
 
     const ESTADO_ACTIVO = 1;
     const ESTADO_ELIMINADO = 0;
     const TABLA_USUARIO = 'usuario';
     const TIPO_CLIENTE = 4;
-    
+    const TIPO_USUARIO_ESTILISTA = 3;
     
     /**
      * @param array $datos
@@ -75,7 +77,7 @@ class App_Model_User extends App_Db_Table_Abstract {
     }
     
     
-     public function buscarUsuario(array $data = array()) {
+    public function buscarUsuario(array $data = array()) {
 
         $db = $this->getAdapter();
 
@@ -108,5 +110,7 @@ class App_Model_User extends App_Db_Table_Abstract {
 
         return $db->fetchAll($select);
     }
-    
+
+   
+   
 }
