@@ -7,41 +7,18 @@ $(function(){
         
         init : function() {
            this.medioPagoHide("#idMedioPago");
-           this.ComboDependiente("#nivel", "#grado", "-- Seleccionar --", "/admin/grados/get-grados-por-nivel-ajax", "id", "descripcion");
+           //this.ComboDependiente("#nivel", "#grado", "-- Seleccionar --", "/admin/grados/get-grados-por-nivel-ajax", "id", "descripcion");
+           this.ComboDependiente("#idServicio", "#precio");
            this.ComboDependienteTipo("#idTipoConcepto", "#idConcepto", "-- Seleccionar --", "/admin/concepto/get-concepto-ajax", "id", "descripcion");
            this.ComboDependienteBanco("#idBanco", "#idCuentaBancaria", "-- Seleccionar --", "/admin/cuenta-bancaria/get-cuenta-bancaria-ajax", "id", "numerocuenta");
            this.appendTableIngresos("#agregarItem", "#idPanelTablaDetalleIngreso");
            this.deleteRowTableIngreso();           
         },        
-        ComboDependiente : function (c, cd, def, url, fieldv, fields) {
-            $(c).live("change blur", function(){                
-                var actual = $(this);
-                if (actual.val()!=0) {                    
-                    $(cd).removeAttr("disabled");
-                    $.ajax({
-                        url: url,
-                        type: 'post',
-                        data: {
-                           id : actual.val()
-                        },
-                        dataType: 'json',
-                        success: function(response){                            
-                            if (response.status==true) {
-                                var data = response.data;
-                                $(cd).html("");
-                                $.each(data, function(index, value){
-                                    $(cd).append("<option value='"+value[fieldv]+"'>"+value[fields]+"</option>");
-                                    
-                                });
-                            }
-                        }
-                    });
-                } else {
-                    $(cd).html("");
-                    $(cd).append("<option value='0'>"+def+"</option>");
-                    $(cd).attr("disabled", "disabled");
-                    
-                }
+        ComboDependiente : function (c, p) {
+            $(c).live("change blur", function(){
+                //var data = $(c).attr("value").toString();
+                //var data = $(c).attr('data');
+                //alert(data);
             });
        }
         ,

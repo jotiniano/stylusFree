@@ -44,7 +44,7 @@
                 $ser = $this->servicios;
                 foreach ($ser as $item):
                 ?>
-                <option data="<?php echo $item['precio']?>" value="<?php echo $item['idServicio']?>"> <?php echo $item['descripcionServicio']?></option>
+                <option value="<?php echo $item['idServicio']?>" data="<?php echo $item['precio']?>"> <?php echo $item['descripcionServicio']?></option>
                 
                 <?php endforeach; ?>
             </select>
