@@ -18,6 +18,7 @@
         </div>
     </div>
     <input type="hidden" value="" id="idCliente">
+    <input type="hidden" value="" id="otroCliente" name="otroCliente">
     
     <input type="hidden" value="" id="idPrecio">
     
@@ -94,23 +95,3 @@
     }
 </style>
 
-<script>
-    $(document).ready(function() {
-        //BuscarCliente
-        $('#clienteReserva').typeahead({
-            source: function(typeahead, query) {
-                if (query.length < 1)
-                    return [];
-                $.post('/agenda/listar-clientes', { query: query}, function(data) {
-                    return typeahead.process(JSON.parse(data));
-                });
-            },
-            onselect: function(obj) {
-                $("#idCliente").val(obj.id);                
-                $("#clienteReserva").parents(".control-group").removeClass("error").addClass("success");
-            }
-        });
-
-    });
-
-</script>
