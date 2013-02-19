@@ -48,13 +48,14 @@ class Admin_UsuarioServicioController extends App_Controller_Action
             $data = $this->getRequest()->getPost();
            
             if ($form->isValid($data)) {
-                /*$modeloUsuario = new App_Model_UsuarioServicio();
+                $modeloUsuarioServicio = new App_Model_UsuarioServicio();
                 $fechaRegistro = Zend_Date::now()->toString('YYYY-MM-dd HH:mm:ss');
-                $data['idUsuario'] = "";
-                $data['idServicio'] = "";
-                $data['comision'] = $fechaRegistro;
-                $modeloUsuario->actualizarDatos($data);
-                */
+                $data['idUsuario'] = $data['idUsuario'];
+                $data['idServicio'] = $data['idServicio'];
+                $data['comision'] =$data['comision'];
+                $data['fechaRegistro'] = $fechaRegistro;
+                $modeloUsuarioServicio->insertUsuario($data);
+                
                 $this->_flashMessenger->addMessage("Servicio para el Usuario guardado con exito");
                 $this->_redirect($this->indexUrl);
                 

@@ -77,6 +77,16 @@ class App_Model_User extends App_Db_Table_Abstract {
     }
     
     
+      public function listarDatos() {
+         $query = $this->getAdapter()->select()
+                 ->from(array('usuario'=>$this->_name),array(
+                    'usuario.idUsuario',
+                    'usuario.usuario',)) 
+                ->where('usuario.idTipoUsuario = ?', self::TIPO_USUARIO_ESTILISTA);
+        return $this->getAdapter()->fetchAll($query);
+        
+        
+    }
     public function buscarUsuario(array $data = array()) {
 
         $db = $this->getAdapter();

@@ -51,6 +51,11 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
     }
    
     
+    public function insertUsuario($data){
+        $this->_nameServicio->insert($data);
+        return $this->_nameServicio->getAdapter()->lastInsertId();
+    }
+    
     public function getUsuarioPorId($id) 
     {
         $query = $this->getAdapter()->select()

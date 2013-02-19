@@ -6,16 +6,15 @@ class App_Form_CrearUsuarioServicio extends App_Form
         parent::init();
         
         //usuario
+        $modelUsuario = new App_Model_User();
+        $listaUsuarioEstilista = $this->fetchPairs($modelUsuario->listarDatos());
         
-        $e = new Zend_Form_Element_Select('nombreUsuario');
-        $e->addMultiOption('', 'Seleccione');
-        $e->addMultiOption('1', 'Admin');
-        $e->addMultiOption('2', 'Counter');
-        $e->addMultiOption('3', 'Estilista');
-        $e->setRequired();
-        $this->addElement($e);
-        
-        
+        $this->addElement(new Zend_Form_Element_Select('idUsuario'));
+        $this->getElement('idUsuario')->addMultiOption('', 'Seleccione Usuario');
+        $this->getElement('idUsuario')->addMultiOptions($listaUsuarioEstilista);
+        $this->getElement('idUsuario')->setAttrib('class', 'span8');
+        $this->getElement('idUsuario')->setRequired();         
+
         // servicio
         /*
         $model = new App_Model_Servicio();
@@ -29,11 +28,11 @@ class App_Form_CrearUsuarioServicio extends App_Form
         $model = new App_Model_Servicio();
         $listaServicio = $this->fetchPairs($model->listarDatos());
         
-        $this->addElement(new Zend_Form_Element_Select('descripcionServicio'));
-        $this->getElement('descripcionServicio')->addMultiOption('', 'Seleccione Servicio');
-        $this->getElement('descripcionServicio')->addMultiOptions($listaServicio);
-        $this->getElement('descripcionServicio')->setAttrib('class', 'span8');
-        $this->getElement('descripcionServicio')->setRequired();                                        
+        $this->addElement(new Zend_Form_Element_Select('idServicio'));
+        $this->getElement('idServicio')->addMultiOption('', 'Seleccione Servicio');
+        $this->getElement('idServicio')->addMultiOptions($listaServicio);
+        $this->getElement('idServicio')->setAttrib('class', 'span8');
+        $this->getElement('idServicio')->setRequired();                                        
         
 
         

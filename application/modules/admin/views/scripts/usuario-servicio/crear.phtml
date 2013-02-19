@@ -16,14 +16,14 @@
                         <div class="span8"></div>
                         <label for="nombre" class="span5 no-margin">Usuario :</label>
                         <div class="span7 no-margin">
-                            <?php echo $this->form->nombreUsuario->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
-                            <?php if ($this->form->nombreUsuario->hasErrors()) echo "Seleccione Usuario";?>
+                            <?php echo $this->form->idUsuario->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            <?php if ($this->form->idUsuario->hasErrors()) echo "Seleccione Usuario";?>
                         </div>
                         <div class="clear"></div>
                         <label for="apellido" class="span5 no-margin">Servicio :</label>
                         <div class="span7 no-margin">
-                            <?php echo $this->form->descripcionServicio->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
-                            <?php if ($this->form->descripcionServicio->hasErrors()) echo "Seleccione Servicio";?>
+                            <?php echo $this->form->idServicio->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            <?php if ($this->form->idServicio->hasErrors()) echo "Seleccione Servicio";?>
                         </div>
                         <div class="clear"></div>
                         <label for="dni" class="span5 no-margin">Comision :</label>
