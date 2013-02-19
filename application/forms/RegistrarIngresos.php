@@ -58,7 +58,7 @@ class App_Form_RegistrarIngresos extends App_Form
         $bc = array('1' => 'banco');
         $banco = new Zend_Form_Element_Select('idBanco');
         $banco->addMultiOption('0', '-- Seleccione Banco --');
-        $banco->addMultiOptions($bc->getBanco());
+        $banco->addMultiOptions($bc);
         
         $banco->setRequired(true)
             ->addFilter('Int')

@@ -30,8 +30,8 @@ class Admin_TicketController extends App_Controller_Action
     
     public function index2Action()
     {
-                $this->view->headScript()->appendFile(
-            $this->mediaUrl . '/js/admin/ingresos.js'
+        $this->view->headScript()->appendFile(
+                $this->getConfig()->app->mediaUrl . '/js/admin/ticket.js'
         );
         $form = new App_Form_RegistrarIngresos();
         
@@ -45,9 +45,16 @@ class Admin_TicketController extends App_Controller_Action
 
 
     public function nuevoAction()
-    {
+    {   
+        $modelUsuario = new App_Model_User();
+        $this->view->users = $modelUsuario->getUsuarioWork();
         
+        $modelServicio = new App_Model_Servicio();
+        $this->view->servicios = $modelServicio->getServicioPorId();        
         
+        $this->view->headScript()->appendFile(
+                $this->getConfig()->app->mediaUrl . '/js/admin/ticket.js'
+        );
         //Javascripts
         $this->view->headScript()->appendFile(
             $this->getConfig()->app->mediaUrl . '/js/fullcalendar/jquery-ui-1.8.23.custom.min.js'

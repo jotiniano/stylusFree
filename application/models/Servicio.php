@@ -81,7 +81,7 @@ class App_Model_Servicio extends App_Db_Table_Abstract {
         return $db->fetchAll($select);
     }
     
-     public function getServicioPorId($id) 
+     public function getServicioPorId($id = NULL) 
     {
         $query = $this->getAdapter()->select()
                  ->from(array('s'=>$this->_name),array(
@@ -90,10 +90,16 @@ class App_Model_Servicio extends App_Db_Table_Abstract {
                     's.precio',
                     's.idTipoMoneda',
                      's.apuntes',
-                    ))
-                ->where('idServicio= ?', $id);        
+                    ));
+        if ($id) {
+            $query->where('idServicio= ?', $id)->order('s.descripcionServicio asc');
+            return $this->getAdapter()->fetchRow($query);
+        }
+        $query->order('s.descripcionServicio asc');
+        return $this->getAdapter()->fetchAll($query);
+            
 
-        return $this->getAdapter()->fetchRow($query);
+        
     }
     
 }
