@@ -51,9 +51,9 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
     }
    
     
-    public function insertUsuario($data){
-        $this->_nameServicio->insert($data);
-        return $this->_nameServicio->getAdapter()->lastInsertId();
+    public function insertUsuarioServicio($data){
+       $s = $this->insert(array('idUsuario'=>$data['idUsuario'])); 
+       print_r($s);
     }
     
     public function getUsuarioPorId($id) 
@@ -82,39 +82,6 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
     }
     
     
-    public function buscarUsuario(array $data = array()) {
-
-        $db = $this->getAdapter();
-
-        $select = $db->select()
-                
-                ->from(array('u'=>$this->_name),array(
-                    'u.idUsuario',
-                    'u.nombreUsuario',
-                    'u.apellidoUsuario',
-                    'u.fechaRegistro',
-                    'u.usuario',
-                    'u.estado',
-                    'tu.idTipoUsuario',
-                    'tu.descripcion',
-                    ))
-             
-                ->join(array('tu'=>$this->_nameTipoUsuario), 'tu.idTipoUsuario = u.idTipoUsuario','')
-                ->where('u.estado = ?', self::ESTADO_ACTIVO);
-        
-        if (isset ($data['idUsuario']) and !empty($data['idUsuario'])){
-            $select->where('u.idUsuario = ?', $data["idUsuario"]);
-        }
-        if (isset($data["nombreUsuario"]) and !empty($data["nombreUsuario"])) {
-            $concat = new Zend_Db_Expr("CONCAT(TRIM(u.nombreUsuario), ' ', TRIM(u.apellidoUsuario))");
-            $select->where("$concat like ?", "%{$data["nombreUsuario"]}%");
-        }        
-        
-        $select->order('idUsuario')
-                ->limit(50);
-
-        return $db->fetchAll($select);
-    }
 
     /*********************************************************************/
     /************** USUARIO SERVICIO ***************************************/
