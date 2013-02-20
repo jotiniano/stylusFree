@@ -192,7 +192,9 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
             )
             ->joinInner(array('u' => $this->_name), 'us.idUsuario = u.idUsuario', array())
             ->where('us.idServicio = ?', $idServicio)
-            ->where('u.idTipoUsuario = ?', '3')            
+            ->where('u.idTipoUsuario = ?', '3')
+            ->group('idUsuario')
+            
             ;
         
         return $db->fetchAll($select);
