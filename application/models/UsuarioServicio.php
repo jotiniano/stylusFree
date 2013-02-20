@@ -70,7 +70,17 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
        
     }
     
-     
+    public function verificarUso($id){
+        $query = $this->getAdapter()->select()
+                ->from($this->_name)
+                ->where('idUsuario = ?', $id);
+        return $this->getAdapter()->fetchRow($query);
+    }
+    
+    public function eliminarUsuarioServicio($id){
+        
+    }
+    
     public  function listarUsuarioServicio(){
         $db = $this->getAdapter();
 
@@ -79,6 +89,7 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
                 ->from(array('usuarioServicio'=>$this->_nameUsuarioServicio),array(
                     'usuarioServicio.comision',
                     'usuarioServicio.idUsuarioServicio',
+                    'usuarioServicio.idUsuario as usuarioServicio',
                     'usuario.idUsuario',
                     'usuario.nombreUsuario',
                     'usuario.usuario',
