@@ -62,6 +62,8 @@ $(function(){
         appendTableIngresos : function(btn, tabla) {
             $(btn).bind("click", function(){
                 if($(this).attr("disabled")== "" || $(this).attr("disabled")== undefined){
+                    
+                $("#generar").removeAttr("disabled");
                 var row = $(tabla+' tbody>tr:last').removeClass("hide").clone(true);
                 row.insertAfter(tabla+' tbody>tr:last');
                 
