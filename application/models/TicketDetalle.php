@@ -44,7 +44,7 @@ class App_Model_TicketDetalle extends App_Db_Table_Abstract {
     }
     
     public function verificarUso($id){
-       echo $query = $this->getAdapter()->select()
+       $query = $this->getAdapter()->select()
                 ->from($this->_name)
                 ->where('idUsuario = ?', $id);
        return $this->getAdapter()->fetchRow($query);

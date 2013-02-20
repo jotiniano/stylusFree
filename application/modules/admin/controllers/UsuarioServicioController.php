@@ -74,12 +74,13 @@ class Admin_UsuarioServicioController extends App_Controller_Action
         $modeloTicketDetalle = new App_Model_TicketDetalle();
         $id = $this->_getParam('id');
         $data = $modeloTicketDetalle->verificarUso($id);
-        print_r($data);
+        //print_r($data);
+       
         if(count($data)>0){
             $this->_flashMessenger->addMessage("El usuario tiene ticket elaborados");
             $this->_redirect($this->indexUrl);
         }else{
-            $modeloUsuarioServicio->eliminarUsuarioServicio($id);
+            //$modeloUsuarioServicio->eliminarUsuarioServicio($id);
             $this->_flashMessenger->addMessage("Servicio eliminado con exito");
         }
         
