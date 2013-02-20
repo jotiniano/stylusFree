@@ -124,6 +124,21 @@ class Admin_UserController extends App_Controller_Action
         $this->view->result = $result; 
     }
     
+    public function getUsuariosAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        
+        $idServicio = $this->_getParam('id');
+        
+        $modelUserSer = new App_Model_UsuarioServicio();
+        
+        $result = $modelUserSer->getUsuariosPorServicio($idServicio);
+        
+        echo Zend_Json::encode($result);
+        
+    }
+    
 
 
 }

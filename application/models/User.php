@@ -51,11 +51,13 @@ class App_Model_User extends App_Db_Table_Abstract {
     }
    
     
-    public function getUsuarioPorId($id) 
+    public function getUsuarioPorId($id, $tipo = NULL) 
     {
         $query = $this->getAdapter()->select()
                 ->from($this->_name)
-                ->where('idUsuario = ?', $id);        
+                ->where('idUsuario = ?', $id);
+        if ($tipo)
+            $query->where ('idTipoUsuario = ?', $tipo);
 
         return $this->getAdapter()->fetchRow($query);
     }

@@ -46,6 +46,19 @@ class Admin_TicketController extends App_Controller_Action
 
     public function nuevoAction()
     {   
+        $idCliente = $this->_getParam('id', "");
+        $this->view->idCliente = $idCliente;
+        
+        $idUsuario = $this->authData->idUsuario;
+        $name = "";
+        
+        if($idCliente) {
+            $modelCliente = new App_Model_User();
+            $user = $modelCliente->getUsuarioPorId($idCliente, 3);
+            $name = $user['nombreUsuario'] . ' ' . $user['apellidoUsuario'];
+        }
+        $this->view->nombreUser = $name;
+        
         $modelUsuario = new App_Model_User();
         $this->view->users = $modelUsuario->getUsuarioWork();
         
@@ -67,6 +80,42 @@ class Admin_TicketController extends App_Controller_Action
         $this->view->headScript()->appendFile(
             $this->getConfig()->app->mediaUrl . '/js/bootstrap-typeahead-new.js'
         );
+        
+        if ($this->_request->isPost()) {
+            $data = $this->_getAllParams();            
+            
+            $modelTicket = new App_Model_Ticket();
+            $modelTicketDeta = new App_Model_TicketDetalle();
+            $total = array_sum($data["detalleCosto"]);            
+            
+            $dataTicket = array(
+                'idUsuario' => $idUsuario,
+                'fechaCreacion' => Zend_Date::now()->toString('YYYY-MM-dd HH:mm:ss'),
+                'idCliente' => $data["otroCliente"],
+                'total' => $total,
+
+            );                        
+            
+            $idTicket = $modelTicket->actualizarDatos($dataTicket);            
+            $detalle = array();
+            $tam = sizeof($data['detalleServicio']);
+            
+            for ($i = 0; $i < $tam; $i++) {
+                $detalle['idTicket'] = $idTicket;
+                $detalle['idServicio'] = $data['detalleServicio'][$i];
+                $detalle['precio'] = $data['detalleCosto'][$i];
+                $detalle['idUsuario'] = $data['detalleWorker'][$i];                
+                $modelTicketDeta->actualizarDatos($detalle);                
+                
+            }
+            
+            $this->_flashMessenger->addMessage("Ticket Generado con exito : ");
+            $this->_flashMessenger->addMessage("Total por Servicio : " . $total);            
+            
+            $this->_redirect('/ticket/nuevo');
+            
+            
+        }
 
     }
 
