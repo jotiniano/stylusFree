@@ -124,7 +124,7 @@ class Admin_TicketController extends App_Controller_Action
                 $db->rollBack();
                 $this->_flashMessenger->addMessage("Ocurrio un error intentelo nuevamente");                
             }
-            $this->_redirect('/ticket/nuevo');
+            $this->_redirect('/ticket/nuevo/id/'.$data["otroCliente"]);
             
             
         }
