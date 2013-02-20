@@ -46,21 +46,24 @@ class Admin_TicketController extends App_Controller_Action
 
     public function nuevoAction()
     {   
-        $idCliente = $this->_getParam('id', "");
-        $this->view->idCliente = $idCliente;
+        $idCliente = $this->_getParam('id', "");        
         
         $idUsuario = $this->authData->idUsuario;
         $name = "";
         
         if($idCliente) {
-            $modelCliente = new App_Model_User();
-            $user = $modelCliente->getUsuarioPorId($idCliente, 3);
-            $name = $user['nombreUsuario'] . ' ' . $user['apellidoUsuario'];
+            $modelCliente = new App_Model_Cliente();
+            $user = $modelCliente->getClientesPorId($idCliente);
+            if ($user) {
+                 $idCliente = $user['idCliente'];
+                 $name = $user['nombreCliente'] . ' ' . $user['apellidoCliente'];
+            }
         }
+        $this->view->idCliente = $idCliente;
         $this->view->nombreUser = $name;
         
-        $modelUsuario = new App_Model_User();
-        $this->view->users = $modelUsuario->getUsuarioWork();
+        //$modelUsuario = new App_Model_User();
+        //$this->view->users = $modelUsuario->getUsuarioWork();
         
         $modelServicio = new App_Model_Servicio();
         $this->view->servicios = $modelServicio->getServicioPorId();        
@@ -82,8 +85,10 @@ class Admin_TicketController extends App_Controller_Action
         );
         
         if ($this->_request->isPost()) {
-            $data = $this->_getAllParams();            
-            
+            $data = $this->_getAllParams();
+            $db = $this->getAdapter();
+            $db->beginTransaction();
+            try {
             $modelTicket = new App_Model_Ticket();
             $modelTicketDeta = new App_Model_TicketDetalle();
             $total = array_sum($data["detalleCosto"]);            
@@ -100,19 +105,26 @@ class Admin_TicketController extends App_Controller_Action
             $detalle = array();
             $tam = sizeof($data['detalleServicio']);
             
-            for ($i = 0; $i < $tam; $i++) {
-                $detalle['idTicket'] = $idTicket;
-                $detalle['idServicio'] = $data['detalleServicio'][$i];
-                $detalle['precio'] = $data['detalleCosto'][$i];
-                $detalle['idUsuario'] = $data['detalleWorker'][$i];                
-                $modelTicketDeta->actualizarDatos($detalle);                
-                
-            }
+            if ($tam > 0) {
+                for ($i = 0; $i < $tam; $i++) {
+                    $detalle['idTicket'] = $idTicket;
+                    $detalle['idServicio'] = $data['detalleServicio'][$i];
+                    $detalle['precio'] = $data['detalleCosto'][$i];
+                    $detalle['idUsuario'] = $data['detalleWorker'][$i];                
+                    $modelTicketDeta->actualizarDatos($detalle);                
+                }
+            $db->commit();
             
             $this->_flashMessenger->addMessage("Ticket Generado con exito : ");
-            $this->_flashMessenger->addMessage("Total por Servicio : " . $total);            
+            $this->_flashMessenger->addMessage("Total por Servicio : " . $total);
+            } else
+                $this->_flashMessenger->addMessage("Tiene que ingresar al menos un producto");            
             
-            $this->_redirect('/ticket/nuevo');
+            } catch (Zend_Exception $e){
+                $db->rollBack();
+                $this->_flashMessenger->addMessage("Ocurrio un error intentelo nuevamente");                
+            }
+            $this->_redirect('/ticket/nuevo/id/'.$data["otroCliente"]);
             
             
         }

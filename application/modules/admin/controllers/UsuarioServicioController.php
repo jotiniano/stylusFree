@@ -54,7 +54,7 @@ class Admin_UsuarioServicioController extends App_Controller_Action
                 $data['idServicio'] = $data['idServicio'];
                 $data['comision'] =$data['comision'];
                 $data['fechaRegistro'] = $fechaRegistro;
-                $modeloUsuarioServicio->actualizarDatos($data);
+                $modeloUsuarioServicio->insertUsuarioServicio($data);
                 
                 $this->_flashMessenger->addMessage("Servicio para el Usuario guardado con exito");
                 $this->_redirect($this->indexUrl);

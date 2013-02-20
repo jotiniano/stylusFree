@@ -6,16 +6,17 @@
  * @author Steve Villano Esteban
  */
 class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
-
+    
+    protected $_name = 'usuarioservicio';
     protected $_nameUsuario = 'usuario';
     protected $_nameTipoUsuario = 'tipoUsuario';
-    protected $_nameUsuarioServicio = 'usuarioServicio';
+    protected $_nameUsuarioServicio = 'usuarioservicio';
     protected $_nameServicio = 'servicio';
     
 
     const ESTADO_ACTIVO = 1;
     const ESTADO_ELIMINADO = 0;
-    
+    const TABLA_USUARIO_SERVICIO = 'usuarioServicio';
     const TIPO_USUARIO_ESTILISTA = 3;
     
     /**
@@ -24,6 +25,7 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
      * @return int Identificador de la columna
      */
     private function _guardar($datos, $condicion = NULL) {
+       
         $id = 0;
         if (!empty($datos['idUsuarioServicio'])) {
             echo "primer if";
@@ -31,9 +33,9 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
         }
         unset($datos['idUsuarioServicio']);
         $datos = array_intersect_key($datos, array_flip($this->_getCols()));
-        print_r($this->_getCols());
         print_r($datos);
         exit();
+        
         if ($id > 0) {
             $condicion = '';
             if (!empty($condicion)) {
@@ -54,7 +56,17 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
    
     
     public function insertUsuarioServicio($data){
-       $s = $this->insert(array('idUsuario'=>$data['idUsuario'])); 
+        
+       
+       $idUS = $this->insert(
+            array(
+                'idUsuario'     => $data['idUsuario'],
+                'idServicio'   => $data['idServicio'],
+                'comision'   => $data['comision'],
+                'fechaRegistro' => $data['fechaRegistro'],
+            )
+        );
+        return $idUS;
        
     }
     

@@ -47,7 +47,9 @@ class App_Model_Cliente extends App_Db_Table_Abstract
     {
         $query = $this->getAdapter()->select()
                 ->from($this->_name)
-                ->where('idCliente = ?', $id);        
+                ->where('idCliente = ?', $id)
+                ->where('estado = ?', '1')
+                ;
 
         return $this->getAdapter()->fetchRow($query);
     }

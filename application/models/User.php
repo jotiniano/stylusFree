@@ -57,7 +57,7 @@ class App_Model_User extends App_Db_Table_Abstract {
                 ->where('idUsuario = ?', $id);
         if ($tipo)
             $query->where ('idTipoUsuario = ?', $tipo);
-
+        
         return $this->getAdapter()->fetchRow($query);
     }
     

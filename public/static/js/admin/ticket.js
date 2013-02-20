@@ -4,7 +4,7 @@ $(function(){
             source: function(typeahead, query) {
                 if (query.length < 1)
                     return [];
-                $.post('/agenda/listar-clientes', { query: query}, function(data) {
+                $.post('/agenda/listar-clientes', {query: query}, function(data) {
                     return typeahead.process(JSON.parse(data));
                 });
             },
@@ -33,6 +33,8 @@ $(function(){
                     
                     
                     $(cd).removeAttr("disabled");
+                    $("#agregarItem").removeAttr("disabled");
+                    
                     $.ajax({
                         url: url,
                         type: 'post',
@@ -59,6 +61,9 @@ $(function(){
        },
         appendTableIngresos : function(btn, tabla) {
             $(btn).bind("click", function(){
+                if($(this).attr("disabled")== "" || $(this).attr("disabled")== undefined){
+                    
+                $("#generar").removeAttr("disabled");
                 var row = $(tabla+' tbody>tr:last').removeClass("hide").clone(true);
                 row.insertAfter(tabla+' tbody>tr:last');
                 
@@ -66,7 +71,6 @@ $(function(){
                 var servicio     = $("#idServicio").val();                
                 var precio     = $("#idPrecio").val();                
                 var idworker     = $("#idUsuario").val();
-                
                 
                 //MEDIO PAGO
                 var inputMediopago = "<input type='hidden' name='detalleServicio[]' value='"+servicio+"' />";
@@ -79,11 +83,13 @@ $(function(){
                 var inputCosto = "<input type='hidden' name='detalleCosto[]' value='"+precio+"' />";
                 var inputCostoValor = "S/."+precio;                
                 
+                
                      
                 $("th:eq(0)", row).html(inputMediopagoValor+inputMediopago);
                 $("th:eq(1)", row).html(inputCostoValor+inputCosto);
                 $("th:eq(2)", row).html(inputWorkerValor+inputWorker);
                 $(tabla+' tbody>tr:first').addClass("hide");
+                }
             });
             
         },
