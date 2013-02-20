@@ -64,10 +64,10 @@ $(document).ready(function(){
 	var sHoraFin = dateHelper.dateToTime(fecha_fin);
 
 	var f1 = new Date(
-		sFechaIni.split("/")[2], sFechaIni.split("/")[1], sFechaIni.split("/")[0], 0, 0, 0, 0
+		sFechaIni.split("/")[2], sFechaIni.split("/")[1]-1, sFechaIni.split("/")[0], 0, 0, 0, 0
 	);
 	var f2 = new Date(
-		sFechaFin.split("/")[2], sFechaFin.split("/")[1], sFechaFin.split("/")[0], 0, 0, 0, 0
+		sFechaFin.split("/")[2], sFechaFin.split("/")[1]-1, sFechaFin.split("/")[0], 0, 0, 0, 0
 	);
 
 	//fechareserva inicial
