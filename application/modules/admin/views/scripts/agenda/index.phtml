@@ -96,6 +96,16 @@
                        		$("#contentEliminarReserva .contenido").removeClass("loading");
                        		$("#contentEliminarReserva .contenido").html(response);
                        		$("#btnGenerarTicket").attr("href", "/ticket/nuevo/id/"+$("#idCliente2").val());
+                       	
+                       		var datec = new Date(calEvent.start);
+                       		var x1 = datec.getDate()+"/"+datec.getMonth()+"/"+datec.getFullYear();
+                       		var x2 = date.getDate()+"/"+date.getMonth()+"/"+date.getFullYear();
+                       		
+                       		if (x1!=x2) {
+                       			$("#btnGenerarTicket").addClass("hide");
+                       		} else {
+                       			$("#btnGenerarTicket").removeClass("hide");
+                       		}
                        }
                  });
 					
