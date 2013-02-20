@@ -46,21 +46,24 @@ class Admin_TicketController extends App_Controller_Action
 
     public function nuevoAction()
     {   
-        $idCliente = $this->_getParam('id', "");
-        $this->view->idCliente = $idCliente;
+        $idCliente = $this->_getParam('id', "");        
         
         $idUsuario = $this->authData->idUsuario;
         $name = "";
         
         if($idCliente) {
-            $modelCliente = new App_Model_User();
-            $user = $modelCliente->getUsuarioPorId($idCliente, 3);
-            $name = $user['nombreUsuario'] . ' ' . $user['apellidoUsuario'];
+            $modelCliente = new App_Model_Cliente();
+            $user = $modelCliente->getClientesPorId($idCliente);
+            if ($user) {
+                 $idCliente = $user['idCliente'];
+                 $name = $user['nombreCliente'] . ' ' . $user['apellidoCliente'];
+            }
         }
+        $this->view->idCliente = $idCliente;
         $this->view->nombreUser = $name;
         
-        $modelUsuario = new App_Model_User();
-        $this->view->users = $modelUsuario->getUsuarioWork();
+        //$modelUsuario = new App_Model_User();
+        //$this->view->users = $modelUsuario->getUsuarioWork();
         
         $modelServicio = new App_Model_Servicio();
         $this->view->servicios = $modelServicio->getServicioPorId();        
