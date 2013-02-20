@@ -3,19 +3,20 @@
 /**
  * Description of User
  *
- * @author James
+ * @author Steve Villano Esteban
  */
 class App_Model_User extends App_Db_Table_Abstract {
 
     protected $_name = 'usuario';
     protected $_nameTipoUsuario = 'tipoUsuario';
+    protected $_nameServicio = 'servicio';
     
 
     const ESTADO_ACTIVO = 1;
     const ESTADO_ELIMINADO = 0;
     const TABLA_USUARIO = 'usuario';
     const TIPO_CLIENTE = 4;
-    
+    const TIPO_USUARIO_ESTILISTA = 3;
     
     /**
      * @param array $datos
@@ -49,11 +50,13 @@ class App_Model_User extends App_Db_Table_Abstract {
     }
    
     
-    public function getUsuarioPorId($id) 
+    public function getUsuarioPorId($id, $tipo = NULL) 
     {
         $query = $this->getAdapter()->select()
                 ->from($this->_name)
-                ->where('idUsuario = ?', $id);        
+                ->where('idUsuario = ?', $id);
+        if ($tipo)
+            $query->where ('idTipoUsuario = ?', $tipo);
 
         return $this->getAdapter()->fetchRow($query);
     }
@@ -75,7 +78,17 @@ class App_Model_User extends App_Db_Table_Abstract {
     }
     
     
-     public function buscarUsuario(array $data = array()) {
+      public function listarDatos() {
+         $query = $this->getAdapter()->select()
+                 ->from(array('usuario'=>$this->_name),array(
+                    'usuario.idUsuario',
+                    'usuario.usuario',)) 
+                ->where('usuario.idTipoUsuario = ?', self::TIPO_USUARIO_ESTILISTA);
+        return $this->getAdapter()->fetchAll($query);
+        
+        
+    }
+    public function buscarUsuario(array $data = array()) {
 
         $db = $this->getAdapter();
 
@@ -109,4 +122,17 @@ class App_Model_User extends App_Db_Table_Abstract {
         return $db->fetchAll($select);
     }
     
+    public function getUsuarioWork() 
+    {        
+        $query = "SELECT u.idUsuario as usuario, concat(u.nombreUsuario, ' ', u.apellidoUsuario) as nombre
+            FROM tipousuario t
+                        INNER JOIN usuario u
+                            ON (t.idTipoUsuario = u.idTipoUsuario)
+                    where u.estado = 1 and t.idTipoUsuario = 3";        
+
+        return $this->getAdapter()->fetchAll($query);
+    }
+
+   
+   
 }

@@ -3,7 +3,7 @@
 /**
  * Description of User
  *
- * @author James
+ * @author Steve Villano Esteban
  */
 class App_Model_Servicio extends App_Db_Table_Abstract {
 
@@ -44,13 +44,23 @@ class App_Model_Servicio extends App_Db_Table_Abstract {
         return $this->_guardar($datos);
     }
     
-      public function lista() {
+    public function lista() {
         $query = $this->getAdapter()
                 ->select()->from(array('servicio' => $this->_name))
                 ->where('servicio.estado = ?', App_Model_Producto::ESTADO_ACTIVO);
         return $this->getAdapter()->fetchAll($query);
     }
     
+    public function listarDatos() {
+         $query = $this->getAdapter()->select()
+                 ->from(array('s'=>$this->_name),array(
+                    's.idServicio',
+                    's.descripcionServicio',)) ;        
+
+        return $this->getAdapter()->fetchAll($query);
+        
+        
+    }
     
     public function buscarServicio(array $data = array()) {
         $db = $this->getAdapter();
@@ -71,7 +81,7 @@ class App_Model_Servicio extends App_Db_Table_Abstract {
         return $db->fetchAll($select);
     }
     
-     public function getServicioPorId($id) 
+     public function getServicioPorId($id = NULL) 
     {
         $query = $this->getAdapter()->select()
                  ->from(array('s'=>$this->_name),array(
@@ -81,9 +91,17 @@ class App_Model_Servicio extends App_Db_Table_Abstract {
                     's.idTipoMoneda',
                      's.apuntes',
                     ))
-                ->where('idServicio= ?', $id);        
+            ->where('estado = ?', 1);
+        
+        if ($id) {
+            $query->where('idServicio= ?', $id)->order('s.descripcionServicio asc');
+            return $this->getAdapter()->fetchRow($query);
+        }
+        $query->order('s.descripcionServicio asc');
+        return $this->getAdapter()->fetchAll($query);
+            
 
-        return $this->getAdapter()->fetchRow($query);
+        
     }
     
 }
