@@ -97,7 +97,8 @@ $(function(){
                 $("th:eq(1)", row).html(inputCostoValor+inputCosto);
                 $("th:eq(2)", row).html(inputWorkerValor+inputWorker);
                 $(tabla+' tbody>tr:first').addClass("hide");
-                $("#totalfinal").html($("#totalValue").val());
+                var tfinal = parseFloat($("#totalValue").val());
+                $("#totalfinal").html(tfinal.toFixed(2));
                 }
             });
             
