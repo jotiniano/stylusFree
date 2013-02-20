@@ -71,6 +71,14 @@ $(function(){
                 var servicio     = $("#idServicio").val();                
                 var precio     = $("#idPrecio").val();                
                 var idworker     = $("#idUsuario").val();
+                var total     = $("#totalValue").val();
+                
+                if (total != "") {
+                    var sum = parseFloat($("#totalValue").val()) + parseFloat(precio);
+                    $("#totalValue").val(sum);
+                } else {
+                    $("#totalValue").val(precio);
+                }
                 
                 //MEDIO PAGO
                 var inputMediopago = "<input type='hidden' name='detalleServicio[]' value='"+servicio+"' />";
@@ -89,6 +97,7 @@ $(function(){
                 $("th:eq(1)", row).html(inputCostoValor+inputCosto);
                 $("th:eq(2)", row).html(inputWorkerValor+inputWorker);
                 $(tabla+' tbody>tr:first').addClass("hide");
+                $("#totalfinal").html($("#totalValue").val());
                 }
             });
             
