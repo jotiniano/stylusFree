@@ -78,7 +78,8 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
     }
     
     public function eliminarUsuarioServicio($id){
-        
+        $where = $this->getAdapter()->quoteInto('idUsuarioServicio =?', $id);
+        $this->delete($where);
     }
     
     public  function listarUsuarioServicio(){
