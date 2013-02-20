@@ -6,7 +6,8 @@
  * @author Steve Villano Esteban
  */
 class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
-
+    
+    protected $_name = 'usuarioservicio';
     protected $_nameUsuario = 'usuario';
     protected $_nameTipoUsuario = 'tipoUsuario';
     protected $_nameUsuarioServicio = 'usuarioservicio';
