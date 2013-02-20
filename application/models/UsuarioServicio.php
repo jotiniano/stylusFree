@@ -3,11 +3,11 @@
 /**
  * Description of User
  *
- * @author James
+ * @author Steve Villano Esteban
  */
 class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
 
-    protected $_name = 'usuario';
+    protected $_nameUsuario = 'usuario';
     protected $_nameTipoUsuario = 'tipoUsuario';
     protected $_nameUsuarioServicio = 'usuarioServicio';
     protected $_nameServicio = 'servicio';
@@ -15,8 +15,7 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
 
     const ESTADO_ACTIVO = 1;
     const ESTADO_ELIMINADO = 0;
-    const TABLA_USUARIO = 'usuario';
-    const TIPO_CLIENTE = 4;
+    
     const TIPO_USUARIO_ESTILISTA = 3;
     
     /**
@@ -27,11 +26,14 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
     private function _guardar($datos, $condicion = NULL) {
         $id = 0;
         if (!empty($datos['idUsuarioServicio'])) {
+            echo "primer if";
             $id = (int) $datos['idUsuarioServicio'];
         }
         unset($datos['idUsuarioServicio']);
         $datos = array_intersect_key($datos, array_flip($this->_getCols()));
-
+        print_r($this->_getCols());
+        print_r($datos);
+        exit();
         if ($id > 0) {
             $condicion = '';
             if (!empty($condicion)) {
@@ -53,35 +55,10 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
     
     public function insertUsuarioServicio($data){
        $s = $this->insert(array('idUsuario'=>$data['idUsuario'])); 
-       print_r($s);
+       
     }
     
-    public function getUsuarioPorId($id) 
-    {
-        $query = $this->getAdapter()->select()
-                ->from($this->_name)
-                ->where('idUsuario = ?', $id);        
-
-        return $this->getAdapter()->fetchRow($query);
-    }
-    
-    
-    public function lista() {
-        /*$query = $this->getAdapter()
-                ->select()->from(array('c' => $this->_name))
-                ->where('c.estado = ?', App_Model_User::ESTADO_ACTIVO);
-        */
-        $query = "SELECT * FROM
-                    tipousuario t
-                        INNER JOIN usuario u
-                            ON (t.idTipoUsuario = u.idTipoUsuario)
-                    where u.estado = 1";
-        
-
-        return $this->getAdapter()->fetchAll($query);
-    }
-    
-    
+  
 
     /*********************************************************************/
     /************** USUARIO SERVICIO ***************************************/
@@ -103,7 +80,7 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
                     ))
              
                 ->join(array('servicio'=>$this->_nameServicio), 'usuarioServicio.idServicio = servicio.idServicio','')
-                ->join(array('usuario'=>$this->_name), 'usuarioServicio.idUsuario = usuario.idUsuario','')
+                ->join(array('usuario'=>$this->_nameUsuario), 'usuarioServicio.idUsuario = usuario.idUsuario','')
                 ->where('usuario.idTipoUsuario = ?', self::TIPO_USUARIO_ESTILISTA);
                 $select->order('idUsuarioServicio');
                 
@@ -129,7 +106,7 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
                     ))
              
                 ->join(array('servicio'=>$this->_nameServicio), 'usuarioServicio.idServicio = servicio.idServicio','')
-                ->join(array('usuario'=>$this->_name), 'usuarioServicio.idUsuario = usuario.idUsuario','')
+                ->join(array('usuario'=>$this->_nameUsuario), 'usuarioServicio.idUsuario = usuario.idUsuario','')
                 ->where('usuario.idTipoUsuario = ?', self::TIPO_USUARIO_ESTILISTA);
         
         if (isset ($data['idUsuarioServicio']) and !empty($data['idUsuarioServicio'])){
@@ -157,7 +134,7 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
                 array('idUsuario' => 'us.idUsuario', 
                     'nombreUsuario' => "CONCAT(u.nombreUsuario, ' ', u.apellidoUsuario)")
             )
-            ->joinInner(array('u' => $this->_name), 'us.idUsuario = u.idUsuario', array())
+            ->joinInner(array('u' => $this->_nameUsuario), 'us.idUsuario = u.idUsuario', array())
             ->where('us.idServicio = ?', $idServicio)
             ->where('u.idTipoUsuario = ?', '3')
             ->group('idUsuario')

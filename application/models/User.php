@@ -3,13 +3,12 @@
 /**
  * Description of User
  *
- * @author James
+ * @author Steve Villano Esteban
  */
 class App_Model_User extends App_Db_Table_Abstract {
 
     protected $_name = 'usuario';
     protected $_nameTipoUsuario = 'tipoUsuario';
-    protected $_nameUsuarioServicio = 'usuarioServicio';
     protected $_nameServicio = 'servicio';
     
 
