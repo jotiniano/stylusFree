@@ -77,7 +77,7 @@
 				var titulo = calEvent.title;
 				var id = titulo.split("|");
 				$("#idReserva").val(id[0]);
-				$("#btnGenerarTicket").attr("href", "/ticket/generar-ticket?idreserva="+id[0]);
+				//$("#btnGenerarTicket").attr("href", "/ticket/nuevo/id/"+$("#idCliente2").val());
 
 
 				$("#contentEliminarReserva .contenido").html("");
@@ -95,6 +95,7 @@
                        success: function(response) {
                        		$("#contentEliminarReserva .contenido").removeClass("loading");
                        		$("#contentEliminarReserva .contenido").html(response);
+                       		$("#btnGenerarTicket").attr("href", "/ticket/nuevo/id/"+$("#idCliente2").val());
                        }
                  });
 					

@@ -58,11 +58,7 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
        
     }
     
-  
-
-    /*********************************************************************/
-    /************** USUARIO SERVICIO ***************************************/
-    
+     
     public  function listarUsuarioServicio(){
         $db = $this->getAdapter();
 
