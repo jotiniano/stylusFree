@@ -9,7 +9,7 @@
     <div class="control-group">
         <label class="control-label" for="inputName">Cliente : </label>
         <div class="controls">
-            <input id="clienteReserva" data-provide="typeahead" type="text" id="input" class="span5" placeholder="Ingrese Cliente" value="<?php echo $this->nombreUser?>">
+            <input id="clienteReserva" data-provide="typeahead" type="text" id="input" class="span5" placeholder="Ingrese Cliente" value="<?php echo $this->nombreUser?>" required>
             <span class="help-inline">
                 <a href="/cliente/crear" class="btn">
                     <span class="icon-plus"></span>
@@ -18,7 +18,7 @@
         </div>
     </div>
     <input type="hidden" value="" id="idCliente">
-    <input type="hidden" value="<?php echo $this->idCliente?>" id="otroCliente" name="otroCliente">
+    <input type="hidden" value="<?php echo $this->idCliente?>" id="otroCliente" name="otroCliente" required>
     
     <input type="hidden" value="" id="idPrecio">
     
@@ -43,7 +43,7 @@
                     <option value="0">-- Seleccionar --</option>
                 </select>                    
             <span class="help-inline">
-                <a class="btn" id="agregarItem">
+                <a class="btn" id="agregarItem" disabled="disabled">
                     <span>Agregar Servicio</span>
                 </a>
             </span>
