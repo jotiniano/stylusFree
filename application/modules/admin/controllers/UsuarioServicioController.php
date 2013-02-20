@@ -71,8 +71,10 @@ class Admin_UsuarioServicioController extends App_Controller_Action
     public function eliminarAction(){
         
         $modeloUsuarioServicio = new App_Model_UsuarioServicio();
+        $modeloTicketDetalle = new App_Model_TicketDetalle();
         $id = $this->_getParam('id');
-        $data = $modeloUsuarioServicio->verificarUso($id);
+        $data = $modeloTicketDetalle->verificarUso($id);
+        print_r($data);
         if(count($data)>0){
             $this->_flashMessenger->addMessage("El usuario tiene ticket elaborados");
             $this->_redirect($this->indexUrl);
