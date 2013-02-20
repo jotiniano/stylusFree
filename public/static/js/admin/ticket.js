@@ -28,7 +28,7 @@ $(function(){
                 var actual = $(this);
                 
                 if (actual.val() != 0) {
-                    var precio = $("#servicio").attr("precio");
+                    var precio = $("#idServicio option:selected").attr("precio");
                     $("#idPrecio").val(precio);
                     
                     
