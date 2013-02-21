@@ -55,7 +55,7 @@ class Admin_UserController extends App_Controller_Action
                 $data['apellidoUsuario'] = $data['apellidoUsuario'];
                 $data['fechaRegistro'] = $fechaRegistro;
                 $data['usuario'] =  $data['usuario'];
-                $data['clave'] =  $data['pwd'];
+                $data['clave'] =  $data['clave'];
                 $data['idTipoUsuario'] =  $data['tipoUsuario'];
                 $data['estado'] = App_Model_User::ESTADO_ACTIVO;
                 $modeloUsuario->actualizarDatos($data);

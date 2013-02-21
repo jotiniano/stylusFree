@@ -33,7 +33,7 @@ class App_Form_CrearUsuario extends App_Form
         $e = new Zend_Form_Element_Password('clave');
         $e->setLabel('Password');
         $e->setRequired();
-        $v = new Zend_Validate_StringLength(array('min'=>6,'max'=>30));
+        $v = new Zend_Validate_StringLength(array('min'=>5,'max'=>30));
         $e->addValidator($v);
         $this->addElement($e);
         
