@@ -71,9 +71,12 @@ class Admin_UsuarioServicioController extends App_Controller_Action
         $form = new App_Form_CrearUsuarioServicio();
         
         $id = $this->_getParam('id');
-        $servicio = $modeloUsuarioServicio->getUsuariosPorServicio($id);
-        $form->populate($servicio);        
-         
+        $idServicio = $this->_getParam('idServicio');
+        $comision = $this->_getParam('comision');
+        $form->getElement('idUsuario')->setValue($id);
+        $form->getElement('idServicio')->setValue($idServicio);
+        $form->getElement('comision')->setValue($comision);
+        
         if($this->getRequest()->isPost()){            
             
         }
