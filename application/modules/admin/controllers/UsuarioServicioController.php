@@ -66,7 +66,21 @@ class Admin_UsuarioServicioController extends App_Controller_Action
     }
     
     
-    public function editarAction(){}
+    public function editarAction(){
+        $modeloUsuarioServicio = new App_Model_UsuarioServicio();
+        $form = new App_Form_CrearUsuarioServicio();
+        
+        $id = $this->_getParam('id');
+        $servicio = $modeloUsuarioServicio->getUsuariosPorServicio($id);
+        $form->populate($servicio);        
+         
+        if($this->getRequest()->isPost()){            
+            
+        }
+        $this->view->form = $form;
+        
+        
+    }
     
     public function eliminarAction(){
         

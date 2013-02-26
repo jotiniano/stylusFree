@@ -14,6 +14,10 @@ class App_Form_BuscarCliente extends App_Form
         $e->setAttrib('class', 'span8');
         $this->addElement($e);
         
+        $e = new Zend_Form_Element_Text('apellido');
+        $e->setAttrib('class', 'span8');
+        $this->addElement($e);
+        
         $e = new Zend_Form_Element_Text('email');
         $e->setAttrib('class', 'span8');
         $this->addElement($e);        

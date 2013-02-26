@@ -49,7 +49,7 @@ class App_Form_CrearUsuarioServicio extends App_Form
         
         // submit
         $e = new Zend_Form_Element_Submit('guardar');
-        $e->setLabel('Add');
+        $e->setLabel('Grabar');
         $e->setAttrib('class', 'btn primary');
         $this->addElement($e);
         

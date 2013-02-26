@@ -90,6 +90,10 @@ class App_Model_Cliente extends App_Db_Table_Abstract
             $concat = new Zend_Db_Expr("CONCAT(TRIM(u.nombreCliente), ' ', TRIM(u.apellidoCliente))");
             $select->where("$concat like ?", "%{$data["nombre"]}%");
         }        
+        if (isset($data["apellido"]) and !empty($data["apellido"])) {
+            $concat = new Zend_Db_Expr("CONCAT(TRIM(u.nombreCliente), ' ', TRIM(u.apellidoCliente))");
+            $select->where("$concat like ?", "%{$data["apellido"]}%");
+        }        
         
         $select->order('idCliente')
                 ->limit(50);

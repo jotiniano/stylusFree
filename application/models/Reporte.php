@@ -5,18 +5,17 @@
  *
  * @author Steve Villano Esteban
  */
-class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
+class App_Model_Reporte extends App_Db_Table_Abstract {
     
-    protected $_name = 'usuarioservicio';
-    protected $_nameUsuario = 'usuario';
+    protected $_name = 'usuario';
     protected $_nameTipoUsuario = 'tipoUsuario';
-    protected $_nameUsuarioServicio = 'usuarioservicio';
-    protected $_nameServicio = 'servicio';
+    protected $_nameCliente = 'cliente';
+    protected $_nameTicket = 'ticket';
     
 
     const ESTADO_ACTIVO = 1;
     const ESTADO_ELIMINADO = 0;
-    const TABLA_USUARIO_SERVICIO = 'usuarioServicio';
+    const TABLA_USUARIO = 'usuario';
     const TIPO_USUARIO_ESTILISTA = 3;
     
     /**
@@ -70,36 +69,26 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
        
     }
     
-   
     
-    public function eliminarUsuarioServicio($id){
-        $where = $this->getAdapter()->quoteInto('idUsuarioServicio =?', $id);
-            $this->delete($where);
-    }
-    
-    public  function listarUsuarioServicio(){
+    public  function listarReporte(){
         $db = $this->getAdapter();
 
        $select = $db->select()
                 
-                ->from(array('usuarioServicio'=>$this->_name),array(
-                    'usuarioServicio.comision',
-                    'usuarioServicio.idUsuarioServicio',
-                    'usuarioServicio.idUsuario as usuarioServicio',
-                    'usuario.idUsuario',
+                ->from(array('usuario'=>$this->_name),array(
                     'usuario.nombreUsuario',
-                    'usuario.usuario',
-                    'servicio.idServicio',
-                    'servicio.descripcionServicio',
-                    'servicio.precio'
+                    'ticket.idTicket',
+                    'tipoUsuario.descripcion',
+                    'cliente.nombreCliente',
+                    'CAST(ticket.fechaCreacion AS DATE)as fechaCreacion',
+                    'ticket.total'
                     ))
              
-                ->join(array('servicio'=>$this->_nameServicio), 'usuarioServicio.idServicio = servicio.idServicio','')
-                ->join(array('usuario'=>$this->_nameUsuario), 'usuarioServicio.idUsuario = usuario.idUsuario','')
-                ->where('usuario.idTipoUsuario = ?', self::TIPO_USUARIO_ESTILISTA);
-                $select->order('idUsuarioServicio');
-                
-
+                ->join(array('ticket'=>$this->_nameTicket), 'usuario.idUsuario = ticket.idUsuario','')
+                ->join(array('cliente'=>$this->_nameCliente), 'cliente.idCliente = ticket.idCliente','')
+                ->join(array('tipoUsuario'=>$this->_nameTipoUsuario), 'tipoUsuario.idTipoUsuario = usuario.idTipoUsuario','')
+                ->where('usuario.estado = 1')
+                ->where('DATE(fechaCreacion) BETWEEN "2013-02-16" AND "2013-02-28"');
         return $db->fetchAll($select);
              
     }
@@ -159,7 +148,5 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
         return $db->fetchAll($select);
         
     }
-    
-    
 
 }
