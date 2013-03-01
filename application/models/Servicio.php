@@ -55,7 +55,8 @@ class App_Model_Servicio extends App_Db_Table_Abstract {
          $query = $this->getAdapter()->select()
                  ->from(array('s'=>$this->_name),array(
                     's.idServicio',
-                    's.descripcionServicio',)) ;        
+                    's.descripcionServicio',)) 
+                ->order('s.descripcionServicio asc');        
 
         return $this->getAdapter()->fetchAll($query);
         

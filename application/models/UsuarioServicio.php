@@ -69,8 +69,12 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
         return $idUS;
        
     }
+    public function updateUsuarioServicio($data, $idUsuarioServicio) {
+        $where = $this->getAdapter()->quoteInto('idUsuarioServicio = ?', $idUsuarioServicio);
+        $this->update($data, $where);
+       
+    }
     
-   
     
     public function eliminarUsuarioServicio($id){
         $where = $this->getAdapter()->quoteInto('idUsuarioServicio =?', $id);
@@ -97,6 +101,7 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
                 ->join(array('servicio'=>$this->_nameServicio), 'usuarioServicio.idServicio = servicio.idServicio','')
                 ->join(array('usuario'=>$this->_nameUsuario), 'usuarioServicio.idUsuario = usuario.idUsuario','')
                 ->where('usuario.idTipoUsuario = ?', self::TIPO_USUARIO_ESTILISTA);
+                
                 $select->order('idUsuarioServicio');
                 
 
@@ -158,6 +163,29 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
         
         return $db->fetchAll($select);
         
+    }
+    
+    public function getUsuarioServicioEditar($idUsuarioServicio){
+        $db = $this->getAdapter();
+
+         $select = $db->select()
+                
+                ->from(array('usuarioServicio'=>$this->_nameUsuarioServicio),array(
+                    'usuarioServicio.comision',
+                    'usuarioServicio.idUsuarioServicio',
+                    'usuario.idUsuario',
+                    'usuario.nombreUsuario',
+                    'usuario.usuario',
+                    'servicio.idServicio',
+                    'servicio.descripcionServicio',
+                    'servicio.precio'
+                    ))
+             
+                ->join(array('servicio'=>$this->_nameServicio), 'usuarioServicio.idServicio = servicio.idServicio','')
+                ->join(array('usuario'=>$this->_nameUsuario), 'usuarioServicio.idUsuario = usuario.idUsuario','')
+                ->where('usuario.idTipoUsuario = ?', self::TIPO_USUARIO_ESTILISTA)
+                ->where('usuarioServicio.idUsuarioServicio = ?', $idUsuarioServicio);
+        return $db->fetchRow($select);
     }
     
     

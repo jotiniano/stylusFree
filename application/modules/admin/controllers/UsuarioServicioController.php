@@ -68,19 +68,36 @@ class Admin_UsuarioServicioController extends App_Controller_Action
     
     public function editarAction(){
         $modeloUsuarioServicio = new App_Model_UsuarioServicio();
-        $form = new App_Form_CrearUsuarioServicio();
+        $form = new App_Form_EditarUsuarioServicio();
         
         $id = $this->_getParam('id');
-        $idServicio = $this->_getParam('idServicio');
-        $comision = $this->_getParam('comision');
-        $form->getElement('idUsuario')->setValue($id);
-        $form->getElement('idServicio')->setValue($idServicio);
-        $form->getElement('comision')->setValue($comision);
         
+        $resultado = $modeloUsuarioServicio->getUsuarioServicioEditar($id);
+        
+        $form->getElement('idUsuarioServicio')->setValue($resultado['idUsuarioServicio']);
+        $form->getElement('nombreUsuario')->setValue($resultado['nombreUsuario']);
+        $form->getElement('idServicio')->setValue($resultado['idServicio']);
+        $form->getElement('comision')->setValue($resultado['comision']);
+        $this->view->form = $form;
         if($this->getRequest()->isPost()){            
+              
+            $dato = $this->getRequest()->getPost();
+              
+            
+                $modeloUsuarioServicio = new App_Model_UsuarioServicio();
+               
+                $data['idUsuarioServicio'] = $dato['idUsuarioServicio'];
+                $data['idServicio'] = $dato['idServicio'];
+                $data['comision'] =$dato['comision'];
+               
+                $modeloUsuarioServicio->updateUsuarioServicio($data,$data['idUsuarioServicio']);
+                
+                $this->_flashMessenger->addMessage("Servicio Actualizado");
+                $this->_redirect($this->indexUrl);
+                
             
         }
-        $this->view->form = $form;
+      
         
         
     }

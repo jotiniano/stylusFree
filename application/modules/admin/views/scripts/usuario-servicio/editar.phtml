@@ -16,8 +16,9 @@
                         <div class="span8"></div>
                         <label for="nombre" class="span5 no-margin">Usuario :</label>
                         <div class="span7 no-margin">
-                            <?php echo $this->form->idUsuario->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
-                            <?php if ($this->form->idUsuario->hasErrors()) echo "Seleccione Usuario";?>
+                            <?php echo $this->form->idUsuarioServicio->setAttrib('class', 'span12')->renderViewHelper();?>
+                            <?php echo $this->form->nombreUsuario->setAttrib('class', 'span12')->setAttrib('maxlength', '50')->renderViewHelper();?>
+                            
                         </div>
                         <div class="clear"></div>
                         <label for="apellido" class="span5 no-margin">Servicio :</label>

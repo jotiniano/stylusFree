@@ -68,6 +68,9 @@ class Admin_TicketController extends App_Controller_Action
         $modelServicio = new App_Model_Servicio();
         $this->view->servicios = $modelServicio->getServicioPorId();        
         
+        $modelProdcuto = new App_Model_Producto();
+        $this->view->productos = $modelProdcuto->lista();
+        
         $this->view->headScript()->appendFile(
                 $this->getConfig()->app->mediaUrl . '/js/admin/ticket.js'
         );

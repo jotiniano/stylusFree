@@ -37,6 +37,20 @@
         </div>
     </div>
     <div class="control-group">
+        <label class="control-label" for="inputServicio">Producto : </label>
+        <div class="controls">
+            <select name ="idServicio" id="idServicio" class="span3">
+                <option value="0">--Seleccionar--</option>
+                <?php 
+                $producto = $this->productos;
+                foreach ($producto as $item):
+                ?>
+                <option id="servicio" value="<?php echo $item['idProducto']?>" precio="<?php echo $item['precio']?>"> <?php echo $item['nombreProducto']?></option>
+                <?php endforeach; ?>
+            </select>    
+        </div>
+    </div>
+    <div class="control-group">
         <label class="control-label" for="inputAtendido">Atendido por : </label>
         <div class="controls">
             <select class="xlarge disabled" id="idUsuario" name="idUsuario" disabled="disabled">
