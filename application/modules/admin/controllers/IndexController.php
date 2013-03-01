@@ -17,6 +17,7 @@ class Admin_IndexController extends App_Controller_Action
     
     public function indexAction()
     {       	
+        $this->view->idTipoUsuario = $this->authData->idTipoUsuario;
         
     }
     public function index2Action()

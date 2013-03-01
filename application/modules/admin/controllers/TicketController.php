@@ -46,6 +46,7 @@ class Admin_TicketController extends App_Controller_Action
 
     public function nuevoAction()
     {   
+        
         $idCliente = $this->_getParam('id', "");        
         
         $idUsuario = $this->authData->idUsuario;
