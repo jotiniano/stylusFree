@@ -75,8 +75,9 @@ class Admin_UserController extends App_Controller_Action
         $form = new App_Form_CrearUsuario();
         $id = $this->_getParam('id');
         $usuario = $modeloUsuario->getUsuarioPorId($id);
+        
         $form->populate($usuario);        
-         
+        $form->getElement('tipoUsuario')->setValue($usuario['idTipoUsuario']); 
         if($this->getRequest()->isPost()){            
             $data = $this->getRequest()->getPost();
             $data['idUsuario'] = $id;
