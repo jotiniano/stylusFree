@@ -12,11 +12,11 @@
                       <div class="row-fluid">
                           <div class="span2">
                               <h4>Cod. Servicio</h4>
-                              <?php echo $this->form->idServicio;?>
+                              <?php echo $this->form->idProducto;?>
                            </div>
                           <div class="span3">
                               <h4>Nombre Servicio</h4>
-                              <?php echo $this->form->descripcionServicio;?>
+                              <?php echo $this->form->nombreProducto;?>
                            </div>
                           <div class="span3">
                               <h4>Precio</h4>
@@ -54,10 +54,10 @@
                      foreach ($this->result as $res):?>
                      <tr>
                       <td>
-                         <?php echo $res["idServicio"]; ?>
+                         <?php echo $res["idProducto"]; ?>
                        </td>
                        <td>
-                         <?php echo $res["descripcionServicio"]; ?>
+                         <?php echo $res["nombreProducto"]; ?>
                        </td>
                        <td>
                          <?php echo $res["precio"]; ?>
@@ -68,8 +68,8 @@
                          }else{echo "Dolar";} ?>
                        </td>
                        <td>
-                           <a href="/admin/servicio/editar/id/<?php echo $res["idServicio"]; ?>" title="Editar">Editar</a> |
-                           <a href="/admin/servicio/eliminar/id/<?php echo $res["idServicio"]; ?>" title="Editar">Eliminar</a>
+                           <a href="/admin/servicio/editar/id/<?php echo $res["idProducto"]; ?>" title="Editar">Editar</a> |
+                           <a href="/admin/producto/eliminar/id/<?php echo $res["idProducto"]; ?>/tipo/2" title="Editar">Eliminar</a>
                        </td>
                      </tr>
                          <?php endforeach; ?>

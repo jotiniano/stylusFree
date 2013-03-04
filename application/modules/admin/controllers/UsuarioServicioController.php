@@ -76,7 +76,7 @@ class Admin_UsuarioServicioController extends App_Controller_Action
         
         $form->getElement('idUsuarioServicio')->setValue($resultado['idUsuarioServicio']);
         $form->getElement('nombreUsuario')->setValue($resultado['nombreUsuario']);
-        $form->getElement('idServicio')->setValue($resultado['idServicio']);
+        $form->getElement('idServicio')->setValue($resultado['idProducto']);
         $form->getElement('comision')->setValue($resultado['comision']);
         $this->view->form = $form;
         if($this->getRequest()->isPost()){            

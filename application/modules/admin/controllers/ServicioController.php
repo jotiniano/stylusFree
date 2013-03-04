@@ -24,18 +24,22 @@ class Admin_ServicioController extends App_Controller_Action
     
     public function indexAction()
     {
-        $form = new App_Form_BuscarServicio();
-        $modeloServicio = new App_Model_Servicio();
-        
-        $result = $modeloServicio->lista();
+        $form = new App_Form_BuscarProducto();
+       // $modeloServicio = new App_Model_Servicio();
+        $modelProducto = new App_Model_Producto();
+        $result = $modelProducto->lista($tipo = 2);
         
         if($this->getRequest()->isPost()){
             $data = $this->getRequest()->getPost();
             $form->populate($data);
-            $result = $modeloServicio->buscarServicio($data);
+            $result = $modelProducto->buscarProductos($data,$tipo = 2);
         }
         $this->view->form = $form;
         $this->view->result = $result; 
+        
+        
+        
+        
     }
     
     
@@ -44,17 +48,21 @@ class Admin_ServicioController extends App_Controller_Action
         $this->view->form = $form; 
         if($this->getRequest()->isPost()){            
             
-            $data = $this->getRequest()->getPost();
+            $dato = $this->getRequest()->getPost();
            
-            if ($form->isValid($data)) {
-                $modeloServicio = new App_Model_Servicio();
+            if ($form->isValid($dato)) {
+                //$modeloServicio = new App_Model_Servicio();
+                $modeloProducto = new App_Model_Producto();
                 $fechaRegistro = Zend_Date::now()->toString('YYYY-MM-dd HH:mm:ss');
-                $data['descripcionServicio'] = $data['descripcionServicio'];
-                $data['precio'] = $data['precio'];
+                $data['nombreProducto'] = $dato['descripcionServicio'];
+                $data['precio'] = $dato['precio'];
                 $data['fechaRegistro'] = $fechaRegistro;
-                $data['estado'] = App_Model_Servicio::ESTADO_ACTIVO;
-                $data['apuntes'] = $data['apuntes'];
-                $modeloServicio->actualizarDatos($data);
+                $data['usuarioRegistro'] = $this->view->authData->idUsuario;
+                $data['estado'] = App_Model_Producto::ESTADO_ACTIVO;
+                $data['apuntes'] = $dato['apuntes'];
+                $data['idTipoMoneda'] = $dato['idTipoMoneda'];
+                $data['tipo'] = '2';
+                $modeloProducto->actualizarDatos($data);
                 
                 $this->_flashMessenger->addMessage("Sservicio guardado con exito");
                 $this->_redirect($this->indexUrl);
@@ -78,18 +86,30 @@ class Admin_ServicioController extends App_Controller_Action
     }
     
     public function editarAction(){
-        $modeloServicio = new App_Model_Servicio();
+        //$modeloServicio = new App_Model_Servicio();
+        $modeloProducto = new App_Model_Producto();
         $form = new App_Form_CrearServicio();
         $id = $this->_getParam('id');
-        $servicio = $modeloServicio->getServicioPorId($id);
+        $servicio = $modeloProducto->getProductosPorId($id);
+       
+       // $form->populate($servicio);    
         
-        $form->populate($servicio);        
+        $form->getElement('descripcionServicio')->setValue($servicio['nombreProducto']);
+        $form->getElement('precio')->setValue($servicio['precio']);
+        $form->getElement('idTipoMoneda')->setValue($servicio['idTipoMoneda']);
+        $form->getElement('apuntes')->setValue($servicio['apuntes']);
          
         if($this->getRequest()->isPost()){            
-            $data = $this->getRequest()->getPost();
-            $data['idServicio'] = $id;
-            if ($form->isValid($data)) {                
-                $id = $modeloServicio->actualizarDatos($data);
+            $dato = $this->getRequest()->getPost();
+            $data['idProducto'] = $id;
+            if ($form->isValid($dato)) {                
+                $modeloProducto = new App_Model_Producto();
+                $data['nombreProducto'] = $dato['descripcionServicio'];
+                $data['precio'] = $dato['precio'];
+                $data['apuntes'] = $dato['apuntes'];
+                $data['idTipoMoneda'] = $dato['idTipoMoneda'];
+                
+                $id = $modeloProducto->actualizarDatos($data);
                 $this->_flashMessenger->addMessage("Servicio editado con éxito");
                 $this->_redirect('/servicio/');
                 

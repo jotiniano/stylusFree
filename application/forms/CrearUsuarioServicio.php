@@ -25,8 +25,8 @@ class App_Form_CrearUsuarioServicio extends App_Form
                           'multiOptions' => $this->fetchPairs($valor)
                             )
         );*/
-        $model = new App_Model_Servicio();
-        $listaServicio = $this->fetchPairs($model->listarDatos());
+        $model = new App_Model_Producto();
+        $listaServicio = $this->fetchPairs($model->lista($tipo=2));
         
         $this->addElement(new Zend_Form_Element_Select('idServicio'));
         $this->getElement('idServicio')->addMultiOption('', 'Seleccione Servicio');

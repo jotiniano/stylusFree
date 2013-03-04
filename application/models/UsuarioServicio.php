@@ -12,6 +12,7 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
     protected $_nameTipoUsuario = 'tipoUsuario';
     protected $_nameUsuarioServicio = 'usuarioservicio';
     protected $_nameServicio = 'servicio';
+    protected $_nameProducto = 'producto';
     
 
     const ESTADO_ACTIVO = 1;
@@ -93,12 +94,12 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
                     'usuario.idUsuario',
                     'usuario.nombreUsuario',
                     'usuario.usuario',
-                    'servicio.idServicio',
-                    'servicio.descripcionServicio',
-                    'servicio.precio'
+                    'producto.idProducto',
+                    'producto.nombreProducto',
+                    'producto.precio'
                     ))
              
-                ->join(array('servicio'=>$this->_nameServicio), 'usuarioServicio.idServicio = servicio.idServicio','')
+                ->join(array('producto'=>$this->_nameProducto), 'usuarioServicio.idServicio = producto.idProducto','')
                 ->join(array('usuario'=>$this->_nameUsuario), 'usuarioServicio.idUsuario = usuario.idUsuario','')
                 ->where('usuario.idTipoUsuario = ?', self::TIPO_USUARIO_ESTILISTA);
                 
@@ -176,12 +177,12 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
                     'usuario.idUsuario',
                     'usuario.nombreUsuario',
                     'usuario.usuario',
-                    'servicio.idServicio',
-                    'servicio.descripcionServicio',
-                    'servicio.precio'
+                    'producto.idProducto',
+                    'producto.nombreProducto',
+                    'producto.precio'
                     ))
              
-                ->join(array('servicio'=>$this->_nameServicio), 'usuarioServicio.idServicio = servicio.idServicio','')
+                ->join(array('producto'=>$this->_nameProducto), 'usuarioServicio.idServicio = producto.idProducto','')
                 ->join(array('usuario'=>$this->_nameUsuario), 'usuarioServicio.idUsuario = usuario.idUsuario','')
                 ->where('usuario.idTipoUsuario = ?', self::TIPO_USUARIO_ESTILISTA)
                 ->where('usuarioServicio.idUsuarioServicio = ?', $idUsuarioServicio);

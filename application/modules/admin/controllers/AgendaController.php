@@ -13,8 +13,8 @@ class Admin_AgendaController extends App_Controller_Action
                 $this->view->url(
                     array(
                         "module" => "admin",
-                        controller => "auth",
-                        action => "index"
+                        "controller"=> "auth",
+                        "action" => "index"
                     )
                 )
             );

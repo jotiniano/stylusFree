@@ -8,6 +8,7 @@ class App_Controller_Action extends Zend_Controller_Action
      */
     protected $_hash = null;
     
+    
     /**
      *
      * @var App_Controller_Action_Helper_FlashMessengerCustom
@@ -16,9 +17,9 @@ class App_Controller_Action extends Zend_Controller_Action
 
     public function init() 
     {
+        
         $this->_flashMessenger = $this->_helper->getHelper('FlashMessengerCustom');
         $this->view->fmsgs = $this->_flashMessenger->getMessages();
-
         $this->_hash = new Zend_Form_Element_Hash('csrf_hash', array('salt' => 'exitsalt'));
         $this->_hash->setTimeout(3600);
         $this->_hash->initCsrfToken();
@@ -26,7 +27,11 @@ class App_Controller_Action extends Zend_Controller_Action
         $this->view->csrfhash = $csrfhash;
         defined('CSRF_HASH')
                 || define('CSRF_HASH', $csrfhash);
+        $this->_identityAdmin = Zend_Auth::getInstance()->getIdentity();
+        $this->view->idTipoUsuario = $this->_identityAdmin->idTipoUsuario;
+        
         parent::init();
+        
     }
 
     /**

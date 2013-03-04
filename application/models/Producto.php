@@ -49,11 +49,11 @@ class App_Model_Producto extends App_Db_Table_Abstract {
         return $this->getAdapter()->fetchRow($query);
     }
 
-    public function lista() {
+    public function lista($tipo) {
         $query = $this->getAdapter()
                 ->select()->from(array('p' => $this->_name))
                 ->where('p.estado = ?', App_Model_Producto::ESTADO_ACTIVO)
-                ->limit(50);
+                 ->where('p.tipo = ?',$tipo);
 
         return $this->getAdapter()->fetchAll($query);
     }
@@ -62,13 +62,14 @@ class App_Model_Producto extends App_Db_Table_Abstract {
         return $this->_guardar($datos);
     }
     
-    public function buscarProductos(array $data = array()) {
+    public function buscarProductos(array $data = array(),$tipo) {
 
         $db = $this->getAdapter();
 
         $select = $db->select()
                 ->from(array('p' => $this->_name), $this->_getCols())
-                ->where('p.estado = ?', self::ESTADO_ACTIVO);
+                ->where('p.estado = ?', self::ESTADO_ACTIVO)
+                ->where('p.tipo = ?',$tipo);
 
         if (isset ($data['idProducto']) and !empty($data['idProducto']))
             $select->where('p.idProducto = ?', $data['idProducto']);
@@ -76,8 +77,11 @@ class App_Model_Producto extends App_Db_Table_Abstract {
         if (isset($data["nombreProducto"]) and !empty($data["nombreProducto"]))
             $select->where("p.nombreProducto like ?", "%{$data["nombreProducto"]}%");        
         
-        $select->order('idProducto')
-                ->limit(50);
+        if (isset($data["precio"]) and !empty($data["precio"]))
+            $select->where("p.precio like ?", "%{$data["precio"]}%");        
+        
+        $select->order('idProducto');
+                
 
         return $db->fetchAll($select);
     }

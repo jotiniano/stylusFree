@@ -8,7 +8,7 @@
 class App_Model_Servicio extends App_Db_Table_Abstract {
 
     protected $_name = 'servicio';
-
+     protected $_nameProducto = 'producto';
     const ESTADO_ACTIVO = 1;
     const ESTADO_ELIMINADO = 0;
     const TABLA_SERVICIO = 'servicio';
@@ -100,9 +100,6 @@ class App_Model_Servicio extends App_Db_Table_Abstract {
         }
         $query->order('s.descripcionServicio asc');
         return $this->getAdapter()->fetchAll($query);
-            
-
-        
     }
     
 }

@@ -19,12 +19,12 @@ class Admin_ProductoController extends App_Controller_Action
         $form = new App_Form_BuscarProducto();
         $modelProducto = new App_Model_Producto();
         
-        $result = $modelProducto->lista();
+        $result = $modelProducto->lista($tipo = 1);
         
         if($this->getRequest()->isPost()){
             $data = $this->getRequest()->getPost();
             $form->populate($data);
-            $result = $modelProducto->buscarProductos($data);
+            $result = $modelProducto->buscarProductos($data,$tipo=1);
         }
         $this->view->form = $form;
         $this->view->result = $result; 
@@ -43,7 +43,8 @@ class Admin_ProductoController extends App_Controller_Action
                 $fecha = Zend_Date::now()->toString('YYYY-MM-dd HH:mm:ss');
                 $data['fechaRegistro'] = $fecha;
                 $data['usuarioRegistro'] = $this->view->authData->idUsuario;
-                $data['estado'] = App_Model_Producto::ESTADO_ACTIVO;                
+                $data['estado'] = App_Model_Producto::ESTADO_ACTIVO;  
+                $data['tipo'] = '1';
                 $id = $modelProducto->actualizarDatos($data);
                 
                 $foto = $form->foto->getFileName();
@@ -127,6 +128,7 @@ class Admin_ProductoController extends App_Controller_Action
     {        
         $modelProducto = new App_Model_Producto();
         $id = $this->_getParam('id');        
+        $tipo = $this->_getParam('tipo');        
         $data = array(
             'idProducto' => $id,
             'estado' => App_Model_Producto::ESTADO_ELIMINADO
@@ -134,7 +136,13 @@ class Admin_ProductoController extends App_Controller_Action
         
         $modelProducto->actualizarDatos($data);
         $this->_flashMessenger->addMessage("Producto eliminado con éxito");
-        $this->_redirect('/producto');
+        if ($tipo == 1) {
+            $this->_redirect('/producto');
+        }
+        
+        if ($tipo == 2) {
+            $this->_redirect('/servicio');
+        }
     }
     public function eliminarfotoAction()
     {
