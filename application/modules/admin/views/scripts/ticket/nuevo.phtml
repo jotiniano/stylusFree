@@ -27,49 +27,43 @@
         <div class="controls">
             <select name ="idTipo" id="idTipo" class="span3">
                 <option value="0">--Seleccionar--</option>
-                <option id="producto" value="1" > Producto </option>
-                <option id="servicio" value="2" > Servicio </option>
-                
-            </select>    
+                <option id="idTipo" value="1" > Producto </option>
+                <option id="idTipo" value="2" > Servicio </option>
+            </select>
         </div>
     </div>
     
     
     
-    <div class="control-group">
+    <!--<div class="control-group">
         <label class="control-label" for="inputServicio">Servicio : </label>
         <div class="controls">
             <select name ="idServicio" id="idServicio" class="span3">
                 <option value="0"> --Seleccionar--</option>
                 <?php 
-                $ser = $this->servicios;
-                foreach ($ser as $item):
+                //$ser = $this->servicios;
+                //foreach ($ser as $item):
                 ?>
-                <option id="servicio" value="<?php echo $item['idServicio']?>" precio="<?php echo $item['precio']?>"> <?php echo $item['descripcionServicio']?></option>
-                <?php endforeach; ?>
+                <option id="servicio" value="<?php //echo $item['idServicio']?>" precio="<?php //echo $item['precio']?>"> <?php //echo $item['descripcionServicio']?></option>
+                <?php //endforeach; ?>
             </select>    
         </div>
-    </div>
+    </div>-->
     <div class="control-group">
-        <label class="control-label" for="inputProducto">Producto : </label>
+        <label class="control-label" for="inputItem">Item : </label>
         <div class="controls">
-            <select name ="idProducto" id="idProducto" class="span3">
+            <select class="xlarge disabled" name ="idItem" id="idItem" class="span3" disabled="disabled">
                 <option value="0">--Seleccionar--</option>
-                <?php 
-                $producto = $this->productos;
-                foreach ($producto as $item):
-                ?>
-                <option id="servicio" value="<?php echo $item['idProducto']?>" precio="<?php echo $item['precio']?>"> <?php echo $item['nombreProducto']?></option>
-                <?php endforeach; ?>
-            </select>    
+            </select>
         </div>
     </div>
+    
     <div class="control-group">
         <label class="control-label" for="inputAtendido">Atendido por : </label>
         <div class="controls">
             <select class="xlarge disabled" id="idUsuario" name="idUsuario" disabled="disabled">
                     <option value="0">-- Seleccionar --</option>
-                </select>                    
+                </select>
             <span class="help-inline">
                 <a class="btn" id="agregarItem" disabled="disabled">
                     <span>Agregar Servicio</span>

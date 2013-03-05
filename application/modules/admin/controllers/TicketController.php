@@ -134,6 +134,20 @@ class Admin_TicketController extends App_Controller_Action
         }
 
     }
+    public function productotipoAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $this->_helper->viewRenderer->setNoRender();
+        
+        $idTipo = $this->_getParam('id');
+        
+        $modelProducto = new App_Model_Producto();
+        
+        $result = $modelProducto->getProductos($idTipo);
+        
+        echo Zend_Json::encode($result);
+        
+    }
 
 }
 

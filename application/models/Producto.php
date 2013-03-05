@@ -85,4 +85,18 @@ class App_Model_Producto extends App_Db_Table_Abstract {
 
         return $db->fetchAll($select);
     }
+    
+    public function getProductos($idTipo)
+    {
+        $db = $this->getAdapter();
+        
+        $select = $db->select()
+            ->from(array('p' => 'producto'))
+            ->where('p.estado = ?', '1')
+            ->where('p.tipo = ?', $idTipo)
+            ;
+        
+        return $db->fetchAll($select);
+        
+    }
 }
