@@ -112,7 +112,7 @@ class Admin_TicketController extends App_Controller_Action
             if ($tam > 0) {
                 for ($i = 0; $i < $tam; $i++) {
                     $detalle['idTicket'] = $idTicket;
-                    $detalle['idServicio'] = $data['detalleServicio'][$i];
+                    $detalle['idProducto'] = $data['detalleServicio'][$i];
                     $detalle['precio'] = $data['detalleCosto'][$i];
                     $detalle['idUsuario'] = $data['detalleWorker'][$i];                
                     $modelTicketDeta->actualizarDatos($detalle);                
