@@ -38,7 +38,7 @@ class Admin_AuthController extends App_Controller_Action
             if ($this->autentificateUser($this->_getParam('usuario'), $this->_getParam('pwd'))) {
                 ;
                 $this->_redirect($this->view->url(array("module" => "admin",
-                            "controller" => "index",
+                            "controller" => "agenda",
                             "action" => "index")));
             } else {
                 $this->_flashMessenger->addMessage("Verifique sus credenciales");
