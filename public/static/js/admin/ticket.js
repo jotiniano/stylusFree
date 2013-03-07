@@ -72,16 +72,14 @@ $(function(){
                 var tipoVal = $(tipo).val();                
                 
                 if (actual.val() != 0) {
-                    $("#agregarItem").removeAttr("disabled");                    
-                }
-                if (actual.val() != 0 && tipoVal == '2') {
                     $(cd).removeAttr("disabled");
                     $("#agregarItem").removeAttr("disabled");
                     $.ajax({
                         url: url,
                         type: 'post',
                         data: {
-                           id : actual.val()
+                           id : actual.val(),
+                           tipo : tipoVal
                         },
                         dataType: 'json',
                         success: function(data){
@@ -124,9 +122,9 @@ $(function(){
         appendTableIngresos : function(btn, tabla) {
             $(btn).bind("click", function(){
                 //Obteniendo valores
-                var tipo     = $("#idTipo").val();
+                var tipo     = $("#idTipo").val();                
                 var servicio     = $("#idItem").val();
-                var precio     = $("#idPrecio").val();
+                var precio     = Math.round(parseFloat($("#idPrecio").val())*100)/100;
                 var comision     = parseFloat($("#comision").val());
                 
                 if(($(this).attr("disabled")== "" || $(this).attr("disabled")== undefined)&& servicio != '0'){
@@ -139,33 +137,26 @@ $(function(){
                 if (isNaN(comision)) {
                     comision = 0;
                 }
-                
-                if (tipo == '2') {
-                    var idworker     = $("#idUsuario").val();
-                } else {
-                    var idworker     = '';
-                }
+                var idworker     = $("#idUsuario").val();                
                 
                 var total     = $("#totalValue").val();
                 
                 if (total != "") {
-                    var sum = parseFloat($("#totalValue").val()) + parseFloat(precio);
-                    $("#totalValue").val(sum);
+                    var sum = Math.round((parseFloat($("#totalValue").val()) + parseFloat(precio))*100)/100;
+                    $("#totalValue").val(sum);                    
                 } else {
                     $("#totalValue").val(precio);
                 }
+                $("#efectivo").val(Math.round(parseFloat($("#totalValue").val())*100)/100);
                 
                 //MEDIO PAGO
                 var inputMediopago = "<input type='hidden' name='detalleServicio[]' value='"+servicio+"' />";
                 var inputMediopagoValor = $("#idItem option:selected").text();
                 //worker
                 var inputWorker = "<input type='hidden' name='detalleWorker[]' value='"+idworker+"' />";
-                if (tipo == '2') {
-                    var inputWorkerValor = $("#idUsuario option:selected").text();
-                } else {
-                    var inputWorkerValor = "--";
-                }                
-                                
+                
+                var inputWorkerValor = $("#idUsuario option:selected").text();
+                
                 //COSTO
                 var inputCosto = "<input type='hidden' name='detalleCosto[]' value='"+precio+"' />";
                 var inputCostoValor = "S/. <span class='precio'>"+precio+"</span>";
@@ -189,12 +180,13 @@ $(function(){
             
         },
         deleteRowTableIngreso : function() {
-           $(".eliminarDetalleIngreso").live("click", function(e){
+           $(".eliminarDetalleIngreso").live("click", function(e){               
                var va = $(this).parents("tr").find("th");
                var les = $($(va[1]).find("span")).html();               
-               var sum = parseFloat($("#totalValue").val()) - parseFloat(les);
-               $("#totalValue").val(sum);
+               var sum = Math.round((parseFloat($("#totalValue").val()) - parseFloat(les))*100)/100;
+               $("#totalValue").val(sum);               
                $("#totalfinal").html(sum);
+               $("#efectivo").val(Math.round(parseFloat(sum)*100)/100);
                e.preventDefault();
                $(this).parents("tr").remove();
                
