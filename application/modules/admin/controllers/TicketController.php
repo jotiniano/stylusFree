@@ -102,6 +102,9 @@ class Admin_TicketController extends App_Controller_Action
                 'fechaCreacion' => Zend_Date::now()->toString('YYYY-MM-dd HH:mm:ss'),
                 'idCliente' => $data["otroCliente"],
                 'total' => $total,
+                'visa' => $data["visa"],
+                'mastercard' => $data["mastercard"],
+                'efectivo' => $data["efectivo"],
 
             );                        
             
