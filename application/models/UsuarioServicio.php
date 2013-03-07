@@ -146,7 +146,7 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
 
         return $db->fetchAll($select);
     }
-    public function getUsuariosPorServicio($idServicio)
+    public function getUsuariosPorServicio($idServicio = NULL)
     {
         $db = $this->getAdapter();
         
@@ -155,14 +155,15 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
                 array('idUsuario' => 'us.idUsuario', 
                     'nombreUsuario' => "CONCAT(u.nombreUsuario, ' ', u.apellidoUsuario)")
             )
-            ->joinInner(array('u' => $this->_nameUsuario), 'us.idUsuario = u.idUsuario', array())
-            ->where('us.idServicio = ?', $idServicio)
-            ->where('u.idTipoUsuario = ?', '3')
-            ->group('idUsuario')
-            
-            ;
+            ->joinInner(array('u' => $this->_nameUsuario), 'us.idUsuario = u.idUsuario', array())            
+            ->where('u.idTipoUsuario = ?', '3');
         
-        return $db->fetchAll($select);
+        if ($idServicio) 
+            $select->where('us.idServicio = ?', $idServicio);
+        
+            
+        
+        return $db->fetchAll($select->group('idUsuario'));
         
     }
     
