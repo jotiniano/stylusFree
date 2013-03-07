@@ -23,6 +23,7 @@ class App_Model_Reserva extends App_Db_Table_Abstract
                 'fechaInicio'   => $data['fechaIni'],
                 'fechaFin'      => $data['fechaFin'],
                 'descripcion'   => $data['descripcion'],
+                'idEstilista'   => $data['idEstilista'],
                 'estado'        => 1,
                 'fechaRegistro' => date('Y-m-d H:i:s'),
             )
@@ -78,7 +79,8 @@ class App_Model_Reserva extends App_Db_Table_Abstract
                         "apellidos"     => "c.apellidoCliente",
                         "fechaIni"      => "r.fechaInicio",
                         "fechaFin"      => "r.fechaFin",
-                        "descripcion"   => "r.descripcion"
+                        "descripcion"   => "r.descripcion",
+                        "idestilista"   => "r.idEstilista"
                     )
                 )
                 ->join(
