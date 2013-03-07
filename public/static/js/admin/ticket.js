@@ -22,6 +22,7 @@ $(function(){
            this.ComboDependiente("#idTipo", "#idItem", "#idUsuario", "-- Seleccionar --", "/admin/ticket/productotipo", "idProducto", "nombreProducto");
            this.ComboDependienteDos("#idTipo", "#idItem", "#idUsuario", "-- Seleccionar --", "/admin/user/get-usuarios", "idUsuario", "nombreUsuario");
            this.appendTableIngresos("#agregarItem", "#idPanelTablaDetalleIngreso");
+           this.validaMonto("#generar");
            this.deleteRowTableIngreso();           
         },        
         ComboDependiente : function (c, cd, cus, def, url, fieldv, fields) {
@@ -88,6 +89,28 @@ $(function(){
                     $(cd).attr("disabled", "disabled");
                 }
             });
+       },
+       validaMonto : function(gen){
+           $(gen).bind("click", function(){
+               var v = parseFloat($("#visa").val());
+               var ms = parseFloat($("#mastercard").val());
+               var e = parseFloat($("#efectivo").val());  
+               if (isNaN(v)) v = 0;
+               if (isNaN(ms)) ms = 0;
+               if (isNaN(e)) e = 0;               
+               var sum = v+ms+e;
+               
+               var total = parseFloat($("#totalValue").val());
+               
+               if (sum == total) {
+                   $("#frmTicket").submit();
+               }                   
+               else {
+                   alert('Los montos ingresados no coinciden');
+                    return false;
+               }
+               
+           });
        },
        
         appendTableIngresos : function(btn, tabla) {
