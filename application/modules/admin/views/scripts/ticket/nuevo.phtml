@@ -21,6 +21,7 @@
     <input type="hidden" value="<?php echo $this->idCliente?>" id="otroCliente" name="otroCliente" required>
     
     <input type="hidden" value="" id="idPrecio">
+    <input type="hidden" value="" id="comision">
     
     <div class="control-group">
         <label class="control-label" for="inputTipo">Tipo: </label>
@@ -71,10 +72,6 @@
             </span>
         </div>
     </div>
-    
-    <br/>
-    <br/>
-    
     <div id="idPanelTablaDetalleIngreso">
                 <table class="table table-condensed">
                     <caption class="alert">Servicios Brindados</caption>
@@ -83,12 +80,14 @@
                             <th>Servicio</th>
                             <th>Precio</th>
                             <th>Atendido por</th>
+                            <th>Comisión</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody class="">
                         <tr class="hide modelo">
                             
+                            <th></th>
                             <th></th>
                             <th></th>
                             <th></th>
@@ -102,8 +101,6 @@
         <p>
             <strong> Total S/.<span id="totalfinal"> </span></strong>
         </p>
-        <br>
-        <br>
         
         <div class="breadcrumb">
         <h5>Pagos :</h5>

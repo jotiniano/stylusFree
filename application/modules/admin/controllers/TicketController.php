@@ -117,13 +117,14 @@ class Admin_TicketController extends App_Controller_Action
                     $detalle['idTicket'] = $idTicket;
                     $detalle['idProducto'] = $data['detalleServicio'][$i];
                     $detalle['precio'] = $data['detalleCosto'][$i];
-                    $detalle['idUsuario'] = $data['detalleWorker'][$i];                
-                    $modelTicketDeta->actualizarDatos($detalle);                
+                    $detalle['idUsuario'] = $data['detalleWorker'][$i];
+                    $detalle['comision'] = $data['detalleComision'][$i];
+                    if ($detalle['idProducto']) 
+                        $modelTicketDeta->actualizarDatos($detalle);
                 }
-            $db->commit();
+            $db->commit();            
+            $this->_flashMessenger->addMessage("Ticket Generado con exito : Total por Servicio : S/. " . $total);
             
-            $this->_flashMessenger->addMessage("Ticket Generado con exito : ");
-            $this->_flashMessenger->addMessage("Total por Servicio : " . $total);
             } else
                 $this->_flashMessenger->addMessage("Tiene que ingresar al menos un producto");            
             

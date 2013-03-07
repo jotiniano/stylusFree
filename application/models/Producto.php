@@ -90,11 +90,21 @@ class App_Model_Producto extends App_Db_Table_Abstract {
     {
         $db = $this->getAdapter();
         
-        $select = $db->select()
-            ->from(array('p' => 'producto'))
-            ->where('p.estado = ?', '1')
-            ->where('p.tipo = ?', $idTipo)
-            ;
+        $select = $db->select()->from(array('p' => 'producto'), 
+                    array('idProducto', 'nombreProducto', 'contenido', 
+                        'precio', 'tipo'));
+            
+        if ($idTipo == '2') {
+            $select->join(
+                array('us' => 'usuarioservicio'), 
+                    'us.idServicio = p.idProducto',
+                    array('us.comision')
+                );
+        }
+        $select->where('p.estado = ?', '1')
+                ->where('p.tipo = ?', $idTipo);
+        
+        
         
         return $db->fetchAll($select);
         
