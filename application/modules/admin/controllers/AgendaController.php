@@ -98,6 +98,9 @@ class Admin_AgendaController extends App_Controller_Action
         $this->view->start = $this->_getParam('start');
         $this->view->end = $this->_getParam('end');
         $this->view->allDay = $this->_getParam('allDay');
+        
+        $modelServ = new App_Model_UsuarioServicio();
+        $this->view->style = $modelServ->getUsuariosPorServicio();
     }
 
     public function editarReservaAction()
@@ -113,7 +116,11 @@ class Admin_AgendaController extends App_Controller_Action
 
         $this->view->start  = $reserva[0]["fechaIni"];
         $this->view->end    = $reserva[0]["fechaFin"];
+        $this->view->idstyle    = $reserva[0]["idestilista"];
         $this->view->allDay = false;
+        
+        $modelServ = new App_Model_UsuarioServicio();
+        $this->view->style = $modelServ->getUsuariosPorServicio();
     }
 
     public function listarClientesAction()
@@ -155,6 +162,7 @@ class Admin_AgendaController extends App_Controller_Action
         $horaFin = $this->_getParam("hora_reserva_fin");
         $descripcion = $this->_getParam("descripcion");
         $idcliente = $this->_getParam("idcliente");
+        $idEstilista = $this->_getParam("idestilista");
 
         if (isset($idcliente)) {
             //Agregar la Reserva
@@ -166,6 +174,7 @@ class Admin_AgendaController extends App_Controller_Action
             $data["fechaFin"] = $nff[2]."-".$nff[1]."-".$nff[0]." ".$horaFin;
             $data["descripcion"] = $descripcion;
             $data["idCliente"] = $idcliente;
+            $data["idEstilista"] = $idEstilista;
             $data["idUsuario"] = $this->view->authData->idUsuario;
 
            
