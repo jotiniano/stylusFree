@@ -131,10 +131,11 @@ class Admin_UserController extends App_Controller_Action
         $this->_helper->viewRenderer->setNoRender();
         
         $idServicio = $this->_getParam('id');
+        $tipo = $this->_getParam('tipo');
         
         $modelUserSer = new App_Model_UsuarioServicio();
         
-        $result = $modelUserSer->getUsuariosPorServicio($idServicio);
+        $result = $modelUserSer->getUsuariosPorServicio($idServicio, $tipo);
         
         echo Zend_Json::encode($result);
         
