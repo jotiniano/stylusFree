@@ -31,6 +31,20 @@
 </div>
 
 <div class="control-group">
+  <label class="control-label" for="estilista">Estilista :</label>
+  <div class="controls">
+      <select id="idestilista" name="idestilista">
+          <option value="0"> -- Seleccionar -- </option>
+          <?php foreach ($this->style as $item): ?>
+          <option value="<?php echo $item['idUsuario']?>"> <?php echo $item['nombreUsuario']?> </option>              
+          <?php endforeach; ?>
+          
+      </select>
+    
+  </div>
+</div>
+
+<div class="control-group">
   <label class="control-label" for="descripcionReserva">Descripción:</label>
   <div class="controls">
     <textarea rows=5 class="span12" id="descripcionReserva"></textarea>
