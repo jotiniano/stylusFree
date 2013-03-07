@@ -1,7 +1,5 @@
 <h2> AGENDA </h2>
 <hr />
-
-
 <script type='text/javascript'>
 
 	$(document).ready(function() {
@@ -121,6 +119,8 @@
 
 		var fecha_reserva_fin = $("#fechaReservaFin").val();
 		var hora_reserva_fin = $("#horaReservaFin").val();
+        
+        var idestilista = $("#idestilista").val();
 
 		var descripcion = $("#descripcionReserva").val();
 		var idcliente = $("#idCliente").val();
@@ -134,7 +134,8 @@
 				fecha_reserva_fin : fecha_reserva_fin,
 				hora_reserva_fin  : hora_reserva_fin,
 				descripcion       : descripcion,
-				idcliente         : idcliente
+				idcliente         : idcliente,
+                idestilista       : idestilista
 			};
 
 			$("#contentReserva .contenido").addClass("hide");
