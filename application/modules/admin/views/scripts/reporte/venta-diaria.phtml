@@ -1,0 +1,99 @@
+  <div>
+        <!-- row of columns -->
+        <div class="row-fluid">
+          
+          <div>
+                <ul class="breadcrumb">                    
+                    <li><a href="#">Venta Diaria a la fecha <?php echo $this->fecha;?></a></li>
+                </ul>
+              
+                 <div id="message"></div>
+                 <table class="table table-bordered">                     
+                   <thead>
+                     <tr>                       
+                       <th>
+                           Nro. Ticket
+                       </th>
+                       <th>
+                           Nombre Usuario
+                       </th>
+                       <th>
+                           Efectivo
+                       </th>
+                       <th>
+                           Visa
+                       </th>
+                       <th>
+                           MasterCard
+                       </th>
+                       <th>
+                           Total
+                       </th>
+                       <th>
+                           Acciones
+                       </th>
+                       
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <?php 
+                     $total = "";
+                     foreach ($this->ventaDiaria as $res):
+                     $total += $res["total"];    
+                     ?>
+                     <tr>
+                      <td>
+                         <?php echo $res["idTicket"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["nombreUsuario"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["efectivo"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["mastercard"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["visa"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["total"]; ?>
+                       </td>
+                       <td>
+                           <a href="/admin/reporte/venta-diaria-detalle/id/<?php echo $res["idTicket"]; ?>" title="Detalle">Ver Detalle</a>
+                       </td>
+                     </tr>
+                         <?php endforeach; ?>
+                     <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><span class="alert-info">Total S/.:</span> </td>
+                        <td><?php echo $total;?></td>
+                        <td></td>
+                     </tr>
+                     <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><span class="alert-info">IGV:</span> </td>
+                        <td><?php echo $total;?></td>
+                        <td></td>
+                     </tr>
+                     <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><span class="alert-info">Sub Total S/.:</span> </td>
+                        <td><?php echo $total;?></td>
+                        <td></td>
+                     </tr>
+                   </tbody>
+                 </table>
+         </div>
+        </div>                
+  </div>

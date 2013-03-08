@@ -1,0 +1,112 @@
+<ul class="breadcrumb">    
+    <li>
+        <a href="#">Detalle del Nro de Ticket <?php echo $this->ticket['idTicket'];?></a>
+    </li>    
+</ul>
+<div id="content_wrapper">
+     <div id="content">
+         <div class="inner">
+             <form action="" method="post" enctype="multipart/form-data" class="well">
+                <div class="header">
+                    
+                </div>
+                <div class="row-fluid">
+                    <div class="span5">
+                      <div class="clear"></div>
+                     
+                      <div class="span4"><h4>Cliente:</h4></div>
+                      <div class="span4 no-margin"><?php echo $this->ticket['nombreCliente']." ".$this->ticket['apellidoCliente'];?></div>
+                      
+                      <div class="span4"><h4>Fecha:</h4></div>
+                      <div class="span4 no-margin"><?php echo $this->ticket['fechaCreacion'];?></div>
+                      <div class="clear"></div>
+                      <div class="clear"></div>
+                        
+                      <div class="span4"><h4>Usuario:</h4></div>
+                      <div class="span4 no-margin"><?php echo $this->ticket['usuario'];?></div>
+                      <div class="clear"></div>
+                      
+                      <div class="span4"><h4>Tipo Usuario:</h4></div>
+                      <div class="span4 no-margin"><?php echo $this->ticket['descripcion'];?></div>
+                      <div class="clear"></div>
+                    </div>
+                    <div class="span5">
+                      <div class="clear"></div>
+                      
+                      <div class="span4"><h4>Efectivo:</h4></div>
+                      <div class="span4 no-margin"><?php echo $this->ticket['efectivo'];?></div>
+                      <div class="clear"></div>
+                        
+                      <div class="span4"><h4>MasterCard:</h4></div>
+                      <div class="span4 no-margin"><?php echo $this->ticket['mastercard'];?></div>
+                      <div class="clear"></div>
+                        
+                      <div class="span4"><h4>Visa:</h4></div>
+                      <div class="span4 no-margin"><?php echo $this->ticket['visa'];?></div>
+                      <div class="clear"></div>
+                        
+                      <div class="span4"><h4>Total:</h4></div>
+                      <div class="span4 no-margin"><?php echo $this->ticket['total'];?></div>
+                      <div class="clear"></div>
+                    </div>
+                    <div class="clear"></div>
+                    
+                    
+                    
+                </div>
+        </form>
+             <table class="table table-bordered">                     
+                   <thead>
+                     <tr>                                                
+                       <th>
+                           Id.
+                       </th>
+                       <th>
+                           Producto
+                       </th>
+                       <th>
+                           Tipo Producto
+                       </th>
+                       <th>
+                           Precio
+                       </th>                       
+                       <th>
+                          Usuario
+                       </th>
+                       <th>
+                          Comsion
+                       </th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <?php
+                     foreach ($this->detalleTicket as $res):?>
+                     <tr>
+                       <td>
+                         <?php echo $res["idDetalleTicket"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["nombreProducto"]; ?>
+                       </td>
+                       <td>
+                         <?php if($res["tipo"]==1){echo "Producto";};
+                               if($res["tipo"]==2){echo "Servicio";}; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["precio"]; ?>
+                       </td>                       
+                       <td>
+                           <?php echo $res["usuario"]; ?>
+                       </td>
+                       <td>
+                           <?php echo $res["comision"]; ?>
+                       </td>
+                     </tr>
+                         <?php endforeach; ?>
+                   </tbody>
+                 </table>
+    </div>
+ </div>
+</div>
+
+

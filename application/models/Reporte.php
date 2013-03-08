@@ -11,6 +11,8 @@ class App_Model_Reporte extends App_Db_Table_Abstract {
     protected $_nameTipoUsuario = 'tipoUsuario';
     protected $_nameCliente = 'cliente';
     protected $_nameTicket = 'ticket';
+    protected $_nameTicketDetalle = 'detalleticket';
+    protected $_nameProducto = 'producto';
     
 
     const ESTADO_ACTIVO = 1;
@@ -71,7 +73,7 @@ class App_Model_Reporte extends App_Db_Table_Abstract {
     
     
     public  function listarReporte(){
-        $db = $this->getAdapter();
+       $db = $this->getAdapter();
 
        $select = $db->select()
                 
@@ -147,6 +149,81 @@ class App_Model_Reporte extends App_Db_Table_Abstract {
         
         return $db->fetchAll($select);
         
+    }
+    
+    
+    public function listarVentaDiaria($fecha){
+        
+        $db = $this->getAdapter();
+
+       $select = $db->select()
+                
+                ->from(array('usuario'=>$this->_name),array(
+                    'ticket.idTicket',
+                    'usuario.nombreUsuario',
+                    'ticket.efectivo',
+                    'ticket.mastercard',
+                    'ticket.visa',
+                    'ticket.total',
+                    'ticket.fechaCreacion'
+                    ))
+             
+                ->join(array('ticket'=>$this->_nameTicket), 'usuario.idUsuario = ticket.idUsuario','')
+                ->where('usuario.estado = 1')
+                ->where('CAST(ticket.fechaCreacion as DATE) = ?' , $fecha)
+                ;
+        return $db->fetchAll($select);
+    }
+    
+    public function getTicket($idTicket){
+      $db = $this->getAdapter();
+
+      $select = $db->select()
+                
+                ->from(array('usuario'=>$this->_name),array(
+                    'usuario.nombreUsuario',
+                    'cliente.nombreCliente',
+                    'cliente.apellidoCliente',
+                    'ticket.idTicket',
+                    'ticket.fechaCreacion',
+                    'ticket.efectivo',
+                    'ticket.mastercard',
+                    'ticket.total',
+                    'ticket.visa',
+                    'usuario.usuario',
+                    'tipousuario.descripcion'
+                    ))
+             
+                ->join(array('ticket'=>$this->_nameTicket), 'usuario.idUsuario = ticket.idUsuario','')
+                ->join(array('cliente'=>$this->_nameCliente), 'cliente.idCliente = ticket.idCliente','')
+                ->join(array('tipoUsuario'=>$this->_nameTipoUsuario), 'tipoUsuario.idTipoUsuario = usuario.idTipoUsuario','')
+                ->where('usuario.estado = 1')
+                ->where('ticket.idTicket= ?',$idTicket);
+      
+          
+        return $db->fetchRow($select);
+    }
+    
+    public function getDetalleTicket($idTicket){
+        
+      $db = $this->getAdapter();
+
+      $select = $db->select()
+                
+                ->from(array('usuario'=>$this->_name),array(
+                    'dt.idDetalleTicket',
+                    'dt.idTicket',
+                    'dt.comision',
+                    'dt.precio',
+                    'producto.nombreProducto',
+                    'producto.tipo',
+                    'usuario.usuario',
+                    ))
+                ->join(array('dt'=>$this->_nameTicketDetalle), 'usuario.idUsuario = dt.idUsuario','')
+                ->join(array('producto'=>$this->_nameProducto), 'dt.idProducto = producto.idProducto','')
+                ->where('dt.idTicket = ?',$idTicket);
+        return $db->fetchAll($select);
+      
     }
 
 }

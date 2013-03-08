@@ -12,11 +12,12 @@ class Admin_ReporteController extends App_Controller_Action
                         controller => "auth",
                         action => "index")));
         }
-        $this->view->activeReporte = 'class="active"';
+       
     }
     
     public function indexAction()
-    {        
+    {    
+         $this->view->activeReporte = 'class="active"';
         
         $this->view->headLink()->appendStylesheet(
             $this->getConfig()->app->mediaUrl . '/css/datepicker-bootstrap/datepicker.css'
@@ -40,6 +41,27 @@ class Admin_ReporteController extends App_Controller_Action
     }
     
   
+    public function ventaDiariaAction(){
+        $this->view->activeVentaDiaria = 'class="active"';
+        $fecha = Zend_Date::now()->toString('YYYY-MM-dd');
+        $this->view->fecha = $fecha;
+        $modelReporte = new App_Model_Reporte();
+        $ventaDiaria = $modelReporte->listarVentaDiaria($fecha);
+        $this->view->ventaDiaria = $ventaDiaria;
+        
+    }
+    
+    public function ventaDiariaDetalleAction(){
+        $this->view->activeVentaDiaria = 'class="active"';
+        $idticket = $this->_getParam('id');
+        
+        $modelReporte = new App_Model_Reporte();
+        $ticket = $modelReporte->getTicket($idticket);
+        $detalleTicket = $modelReporte->getDetalleTicket($idticket);
+        
+        $this->view->ticket = $ticket;
+        $this->view->detalleTicket = $detalleTicket;
+    }
     
 
 }
