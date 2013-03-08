@@ -191,12 +191,12 @@ class App_Model_Reporte extends App_Db_Table_Abstract {
                     'ticket.total',
                     'ticket.visa',
                     'usuario.usuario',
-                    'tipousuario.descripcion'
+                    
                     ))
              
                 ->join(array('ticket'=>$this->_nameTicket), 'usuario.idUsuario = ticket.idUsuario','')
                 ->join(array('cliente'=>$this->_nameCliente), 'cliente.idCliente = ticket.idCliente','')
-                ->join(array('tipoUsuario'=>$this->_nameTipoUsuario), 'tipoUsuario.idTipoUsuario = usuario.idTipoUsuario','')
+                //->join(array('tipoUsuario'=>$this->_nameTipoUsuario), 'tipoUsuario.idTipoUsuario = usuario.idTipoUsuario','')
                 ->where('usuario.estado = 1')
                 ->where('ticket.idTicket= ?',$idTicket);
       
