@@ -110,8 +110,10 @@ class App_Model_Reserva extends App_Db_Table_Abstract
                         "fechaFin"      => "r.fechaFin",
                         "descripcion"   => "r.descripcion",
                         "idestilista"   => "r.idEstilista",
-                        "nombreu"       => "u.nombreUsuario",
-                        "apellidou"     => "u.apellidoUsuario"
+                        "nombree"       => "u.nombreUsuario",
+                        "apellidoe"     => "u.apellidoUsuario"
+                        "nombreu"       => "us.nombreUsuario",
+                        "apellidou"     => "us.apellidoUsuario"
                     )
                 )
                 ->join(
@@ -121,7 +123,12 @@ class App_Model_Reserva extends App_Db_Table_Abstract
                 )
                 ->join(
                     array('u' => 'usuario'),
-                    'u.idUsuario = r.idEstilista OR u.idUsuario = r.idUsuario',
+                    'u.idUsuario = r.idEstilista',
+                    array()
+                )
+                ->join(
+                    array('us' => 'usuario'),
+                    'us.idUsuario = r.idUsuario',
                     array()
                 )
                 ->where('c.estado = ?', App_Model_Cliente::ESTADO_ACTIVO)
