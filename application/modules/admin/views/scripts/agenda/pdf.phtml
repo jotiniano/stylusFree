@@ -22,7 +22,7 @@
                   <th>Fecha Inicio</th>
                   <th>Fecha Fin</th>                  
                   <th>Estilista</th>                  
-                  <th>Usuario Registro</th>
+                  <th>Cód Usuario Reg.</th>
                 </tr>
               </thead>
               <tbody>
@@ -31,8 +31,8 @@
                   <td><?php echo $item['nombre']." ". $item['apellidos']?></td>
                   <td><?php echo $item['fechaIni']?></td>
                   <td><?php echo $item['fechaFin']?></td>                  
-                  <td><?php echo "-" ?></td>
-                  <td><?php echo "-" ?></td>
+                  <td><?php echo $item['nombreu']." ". $item['apellidou']?></td>
+                  <td><?php echo $item['idUsuario']?></td>
                 </tr>                
                 <?php endforeach; ?>
               </tbody>
