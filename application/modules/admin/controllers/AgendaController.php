@@ -205,6 +205,8 @@ class Admin_AgendaController extends App_Controller_Action
             $data = $this->getRequest()->getPost();
             $reserva = new App_Model_Reserva();
             $this->view->pdf = $reserva->pdf($data);
+            $this->view->fechai = $data['fechaI'];
+            $this->view->fechaf = $data['fechaF'];
             
             $html = $this->view->render('agenda/pdf.phtml');
             

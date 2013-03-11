@@ -12,22 +12,27 @@
     <script type="text/javascript" src="<?php echo MEDIA_URL?>/js/libs/jquery-1.7.1.min.js"></script>
 </head>
 <body>
+<h3> Reporte de Reserva </h3>
+<h4> del <?php echo $this->fechai . " al " . $this->fechaf; ?> </h4>
+<br />
     <table class="table table-bordered">
               <thead>
                 <tr>
+                  <th>Cliente</th>
                   <th>Fecha Inicio</th>
-                  <th>Fecha Fin</th>
-                  <th>Usuario</th>
-                  <th>Detalle</th>                  
+                  <th>Fecha Fin</th>                  
+                  <th>Estilista</th>                  
+                  <th>Cód Usuario Reg.</th>
                 </tr>
               </thead>
               <tbody>
                   <?php foreach ($this->pdf as$item): ?>
                 <tr>
-                  <td><?php echo $item['fechaIni']?></td>
-                  <td><?php echo $item['fechaFin']?></td>
                   <td><?php echo $item['nombre']." ". $item['apellidos']?></td>
-                  <td><?php echo $item['descripcion']?></td>
+                  <td><?php echo $item['fechaIni']?></td>
+                  <td><?php echo $item['fechaFin']?></td>                  
+                  <td><?php echo $item['nombreu']." ". $item['apellidou']?></td>
+                  <td><?php echo $item['idUsuario']?></td>
                 </tr>                
                 <?php endforeach; ?>
               </tbody>
