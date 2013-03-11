@@ -63,5 +63,6 @@ class Admin_ReporteController extends App_Controller_Action
         $this->view->detalleTicket = $detalleTicket;
     }
     
+   
 
 }

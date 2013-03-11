@@ -26,6 +26,7 @@ class Admin_UserController extends App_Controller_Action
     
     public function indexAction()
     {
+        
         $form = new App_Form_BuscarUsuario();
         $modelUsuario = new App_Model_User();
         
