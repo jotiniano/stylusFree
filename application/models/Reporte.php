@@ -72,7 +72,7 @@ class App_Model_Reporte extends App_Db_Table_Abstract {
     }
     
     
-    public  function listarReporte(){
+    public  function listarReporte($dato){
        $db = $this->getAdapter();
 
        $select = $db->select()
@@ -82,7 +82,7 @@ class App_Model_Reporte extends App_Db_Table_Abstract {
                     'ticket.idTicket',
                     'tipoUsuario.descripcion',
                     'cliente.nombreCliente',
-                    'CAST(ticket.fechaCreacion AS DATE)as fechaCreacion',
+                    'ticket.fechaCreacion',
                     'ticket.total'
                     ))
              
@@ -90,7 +90,7 @@ class App_Model_Reporte extends App_Db_Table_Abstract {
                 ->join(array('cliente'=>$this->_nameCliente), 'cliente.idCliente = ticket.idCliente','')
                 ->join(array('tipoUsuario'=>$this->_nameTipoUsuario), 'tipoUsuario.idTipoUsuario = usuario.idTipoUsuario','')
                 ->where('usuario.estado = 1')
-                ->where('DATE(fechaCreacion) BETWEEN "2013-02-16" AND "2013-02-28"');
+                ->where('DATE(fechaCreacion) BETWEEN "'.$dato['fechaInicial'].'" AND "'.$dato['fechaFinal'].'"');
         return $db->fetchAll($select);
              
     }

@@ -28,13 +28,14 @@ class Admin_ReporteController extends App_Controller_Action
         
         $form = new App_Form_FiltrarReporte();
         $modelTicket = new App_Model_Ticket();
+        $modelReporte = new App_Model_Reporte();
         
         $result = $modelTicket->lista();
         
         if($this->getRequest()->isPost()){
-            $data = $this->getRequest()->getPost();
-            $form->populate($data);
-            $result = $modelTicket->buscarTicketxFecha($data);
+            $dato = $this->getRequest()->getPost();
+            $result = $modelReporte->listarReporte($dato);
+            
         }
         $this->view->form = $form;
         $this->view->result = $result; 
