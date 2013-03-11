@@ -37,7 +37,29 @@ class Admin_ReporteController extends App_Controller_Action
         $this->view->result = $result; 
     }
     
-  
+    public function estilistaAction(){
+        $this->view->activeEstilista = 'class="active"';
+        
+        $this->view->headLink()->appendStylesheet(
+            $this->getConfig()->app->mediaUrl . '/css/datepicker-bootstrap/datepicker.css'
+        );
+        $this->view->headScript()->appendFile(
+            $this->getConfig()->app->mediaUrl . '/js/datepicker-bootstrap/bootstrap-datepicker.js'
+        );
+        
+        $form = new App_Form_FiltrarReporte();
+        $modelReporte = new App_Model_Reporte();
+        
+        if($this->getRequest()->isPost()){
+            $dato = $this->getRequest()->getPost();
+            $result = $modelReporte->getReporteEstilista($dato);
+        }
+        $this->view->form = $form;
+        $this->view->result = $result; 
+        $this->view->dato = $dato;
+    }
+
+
     public function ventaDiariaAction(){
         $this->view->activeVentaDiaria = 'class="active"';
         $fecha = Zend_Date::now()->toString('YYYY-MM-dd');

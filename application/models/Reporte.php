@@ -88,7 +88,7 @@ class App_Model_Reporte extends App_Db_Table_Abstract {
              
                 ->join(array('ticket'=>$this->_nameTicket), 'usuario.idUsuario = ticket.idUsuario','')
                 ->join(array('cliente'=>$this->_nameCliente), 'cliente.idCliente = ticket.idCliente','')
-                ->join(array('tipoUsuario'=>$this->_nameTipoUsuario), 'tipoUsuario.idTipoUsuario = usuario.idTipoUsuario','')
+                ->join(array('tipoUsuario'=>  App_Model_TipoUsuario::TABLA_TIPOUSUARIO), 'tipoUsuario.idTipoUsuario = usuario.idTipoUsuario','')
                 ->where('usuario.estado = 1')
                 ->where('DATE(fechaCreacion) BETWEEN "'.$dato['fechaInicial'].'" AND "'.$dato['fechaFinal'].'"');
         return $db->fetchAll($select);
@@ -225,5 +225,36 @@ class App_Model_Reporte extends App_Db_Table_Abstract {
         return $db->fetchAll($select);
       
     }
+    
+    public function getReporteEstilista($dato)
+    {
+     $db = $this->getAdapter();
 
+      $select = $db->select()
+                
+                ->from(array('usuario'=>$this->_name),array(
+                    'usuario.idUsuario',
+                    'usuario.usuario',
+                    'usuario.idTipoUsuario',
+                    'ticket.idTicket',
+                    'ticket.fechaCreacion',
+                    'ticket.total',
+                    'detalleticket.idProducto',
+                    'producto.nombreProducto',
+                    'producto.tipo',
+                    'detalleticket.comision',
+                    'ue.usuario as usuarioEstilista',
+                    'detalleticket.idUsuario as idUsuarioEstilista',
+
+                    ))
+                
+                ->join(array('detalleticket'=>$this->_nameTicketDetalle), 'usuario.idUsuario = detalleticket.idUsuario','')
+                ->join(array('ticket'=>$this->_nameTicket), 'detalleticket.idTicket = ticket.idTicket','')
+                ->join(array('producto'=>$this->_nameProducto), 'detalleticket.idProducto = producto.idProducto','')
+                ->join(array('ue'=>$this->_name), 'ue.idUsuario = detalleticket.idUsuario','')
+                ->where('detalleticket.idUsuario= ?',$dato['idUsuario'])
+                ->where('DATE(ticket.fechaCreacion) BETWEEN "'.$dato['fechaInicial'].'" AND "'.$dato['fechaFinal'].'"');
+               
+        return $db->fetchAll($select);
+    }
 }

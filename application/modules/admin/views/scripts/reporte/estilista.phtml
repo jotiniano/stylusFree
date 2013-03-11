@@ -1,0 +1,117 @@
+  <div>
+        <!-- row of columns -->
+        <div class="row-fluid">
+          
+          <div>
+                <ul class="breadcrumb">                    
+                    <li><a href="#">Reporte de Estilista</a></li>
+                </ul>
+              <form class="well inline" method="post" enctype="multipart/form-data" >
+                      <h3>Buscar Tickets</h3>
+                      <hr>                      
+                      <div class="row-fluid">
+                          <div class="span3">
+                              <h4>Fecha Inicial:</h4>
+                              <?php echo $this->form->fechaInicial;?>
+                           </div>
+                          <div class="span3">
+                              <h4>Fecha Final:</h4>
+                              <?php echo $this->form->fechaFinal;?>
+                           </div>
+                          <div class="span3">
+                              <h4>Estilista:</h4>
+                              <?php echo $this->form->idUsuario;?>
+                           </div>
+                                    
+                          <div class="span1">
+                              <?php echo $this->form->buscar?>
+                           </div>
+                      </div>
+                 </form>
+                 <div id="message"></div>
+                 
+                 <?php
+                 error_reporting(E_ERROR);
+                 if($this->result !=""){
+                 ?>
+                 <table class="table table-bordered">                     
+                   <thead>
+                     <tr>                       
+                       <th colspan="5" style="text-align: center;">
+                         Filtro a la Fecha: <?php echo $this->dato['fechaInicial']. " al " . $this->dato['fechaFinal'];?>
+                       </th>
+                      
+                     </tr>
+                     <tr>                       
+                       <th>
+                           Nro. Ticket
+                       </th>
+                       <th>
+                           Estilista
+                       </th>
+                       <th>
+                           Producto
+                       </th>
+                       <th>
+                           Tipo
+                       </th>
+                       <th>
+                           Comision
+                       </th>
+                     </tr>
+                   </thead>
+                  <tbody>
+                     <?php
+                     $totalComision = "";
+                     foreach ($this->result as $res):
+                         $totalComision  +=$res["comision"];
+                         ?>
+                     <tr>
+                      <td>
+                         <?php echo $res["idTicket"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["usuarioEstilista"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["nombreProducto"]; ?>
+                       </td>
+                       <td>
+                          <?php if($res["tipo"]==1){echo "Producto";};
+                               if($res["tipo"]==2){echo "Servicio";}; ?>
+                       </td>
+                      
+                       <td>
+                         <?php echo $res["comision"]; ?>
+                       </td>
+                      
+                     </tr>
+                         <?php endforeach; ?>
+                  <tr>                       
+                       <th></th>
+                       <th></th>
+                       <th></th>
+                       <th>Total</th>
+                       <th> <?php echo $totalComision; ?></th>
+                     </tr> 
+                  </tbody>
+                 </table>
+                 <?php }?>
+         </div>
+        </div>                
+  </div>
+<script>
+$(document).ready(function(){
+    $('#fechaInicial').datepicker({
+        format: 'yyyy-mm-dd',
+        todayBtn: 'linked',
+        language: 'es'
+    });
+    
+     $('#fechaFinal').datepicker({
+        format: 'yyyy-mm-dd',
+        todayBtn: 'linked',
+        language: 'es'
+    });
+});
+</script>
