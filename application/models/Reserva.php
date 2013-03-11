@@ -121,7 +121,7 @@ class App_Model_Reserva extends App_Db_Table_Abstract
                 )
                 ->join(
                     array('u' => 'usuario'),
-                    'u.idUsuario = r.idEstilista',
+                    'u.idUsuario = r.idEstilista OR u.idUsuario = r.idUsuario',
                     array()
                 )
                 ->where('c.estado = ?', App_Model_Cliente::ESTADO_ACTIVO)
