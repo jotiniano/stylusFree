@@ -111,7 +111,7 @@ class App_Model_Reserva extends App_Db_Table_Abstract
                         "descripcion"   => "r.descripcion",
                         "idestilista"   => "r.idEstilista",
                         "nombree"       => "u.nombreUsuario",
-                        "apellidoe"     => "u.apellidoUsuario"
+                        "apellidoe"     => "u.apellidoUsuario",
                         "nombreu"       => "us.nombreUsuario",
                         "apellidou"     => "us.apellidoUsuario"
                     )

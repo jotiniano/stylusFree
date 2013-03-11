@@ -25,6 +25,10 @@
                       </div>
                  </form>
                  <div id="message"></div>
+                 
+                 <?php
+                 if(count($this->result)>0){
+                 ?>
                  <table class="table table-bordered">                     
                    <thead>
                      <tr>                       
@@ -48,12 +52,12 @@
                        </th>
                      </tr>
                    </thead>
-                  <!-- <tbody>
-                     <?php /*
+                  <tbody>
+                     <?php 
                      foreach ($this->result as $res):?>
                      <tr>
                       <td>
-                         <?php echo $res["idServicio"]; ?>
+                         <?php echo $res["idTicket"]; ?>
                        </td>
                        <td>
                          <?php echo $res["descripcionServicio"]; ?>
@@ -72,14 +76,12 @@
                              echo "Soles";
                          }else{echo "Dolar";} ?>
                        </td>
-                       <td>
-                           <a href="/admin/servicio/editar/id/<?php echo $res["idServicio"]; ?>" title="Editar">Editar</a> |
-                           <a href="/admin/servicio/eliminar/id/<?php echo $res["idServicio"]; ?>" title="Editar">Eliminar</a>
-                       </td>
+                      
                      </tr>
-                         <?php endforeach; */?>
-                   </tbody>-->
+                         <?php endforeach; ?>
+                   </tbody>
                  </table>
+                 <?php }?>
          </div>
         </div>                
   </div>
