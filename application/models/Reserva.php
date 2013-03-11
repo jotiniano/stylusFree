@@ -103,17 +103,25 @@ class App_Model_Reserva extends App_Db_Table_Abstract
                     array(
                         "idReserva"     => "r.idReserva",
                         "idCliente"     => "r.idCliente",
+                        "idUsuario"     => "r.idUsuario",
                         "nombre"        => "c.nombreCliente",
                         "apellidos"     => "c.apellidoCliente",
                         "fechaIni"      => "r.fechaInicio",
                         "fechaFin"      => "r.fechaFin",
                         "descripcion"   => "r.descripcion",
-                        "idestilista"   => "r.idEstilista"
+                        "idestilista"   => "r.idEstilista",
+                        "nombreu"       => "u.nombreUsuario",
+                        "apellidou"     => "u.apellidoUsuario"
                     )
                 )
                 ->join(
                     array('c' => 'cliente'),
                     'r.idCliente = c.idCliente',
+                    array()
+                )
+                ->join(
+                    array('u' => 'usuario'),
+                    'u.idUsuario = r.idEstilista',
                     array()
                 )
                 ->where('c.estado = ?', App_Model_Cliente::ESTADO_ACTIVO)
