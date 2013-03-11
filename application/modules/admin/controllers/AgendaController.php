@@ -191,6 +191,43 @@ class Admin_AgendaController extends App_Controller_Action
             $result["status"] = "false";
         }
     }
+    public function exportarAction()
+    {        
+        //datepicker
+        $this->view->headLink()->appendStylesheet(
+            $this->getConfig()->app->mediaUrl . '/css/datepicker-bootstrap/datepicker.css'
+        );
+        $this->view->headScript()->appendFile(
+            $this->getConfig()->app->mediaUrl . '/js/datepicker-bootstrap/bootstrap-datepicker.js'
+        );
+        
+        if($this->getRequest()->isPost()){           
+            $data = $this->getRequest()->getPost();
+            $reserva = new App_Model_Reserva();
+            $this->view->pdf = $reserva->pdf($data);
+            
+            $html = $this->view->render('agenda/pdf.phtml');
+            
+            $path = APPLICATION_PATH."/../library/dompdf/dompdf_config.inc.php";                
+            require_once($path);
+
+            $codigo = utf8_decode($html);            
+            $dompdf = new DOMPDF();
+            $dompdf->load_html($codigo);
+            $dompdf->render();            
+            $dompdf->stream("reservas.pdf");
+            
+            echo "<stron>Se Genero el PDF correctamente</strong>";
+            exit;
+            
+        }
+        
+    }
+    public function pdfAction()
+    {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout->disableLayout();
+    }
 
 
 }

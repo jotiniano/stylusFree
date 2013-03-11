@@ -94,6 +94,38 @@ class App_Model_Reserva extends App_Db_Table_Abstract
                 
         return $this->getAdapter()->fetchAll($query);
     }
+    
+    public function pdf($data) 
+    {        
+        $query = $this->getAdapter()
+                ->select()->from(
+                    array('r' => $this->_name),
+                    array(
+                        "idReserva"     => "r.idReserva",
+                        "idCliente"     => "r.idCliente",
+                        "nombre"        => "c.nombreCliente",
+                        "apellidos"     => "c.apellidoCliente",
+                        "fechaIni"      => "r.fechaInicio",
+                        "fechaFin"      => "r.fechaFin",
+                        "descripcion"   => "r.descripcion",
+                        "idestilista"   => "r.idEstilista"
+                    )
+                )
+                ->join(
+                    array('c' => 'cliente'),
+                    'r.idCliente = c.idCliente',
+                    array()
+                )
+                ->where('c.estado = ?', App_Model_Cliente::ESTADO_ACTIVO)
+                ->where('r.estado = ?', App_Model_Reserva::ESTADO_ACTIVO)
+                ->where("DATE_FORMAT( r.fechaInicio, '%Y-%m-%d') >= ?", $data['fechaI'])
+                ->where("DATE_FORMAT( r.fechaFin, '%Y-%m-%d') <= ?", $data['fechaF'])
+                ;
+                
+        
+                
+        return $this->getAdapter()->fetchAll($query);
+    }
 
 
 }

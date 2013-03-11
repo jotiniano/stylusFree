@@ -1,0 +1,58 @@
+<ul class="breadcrumb">    
+    <li>
+        <a href="/agenda/exportar">Exportar Reservas a PDF</a> <span class="divider">/</span>
+    </li>    
+</ul>
+<div id="content_wrapper">
+     <div id="content">
+         <div class="inner">
+             <form action="" method="post" enctype="multipart/form-data" class="well">
+                <div class="header">
+                    <h3>Ingrese intervalo de fechas</h3>
+                    <br />
+                </div>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <label for="fechaI" class="span5 no-margin">Fecha Inicial:</label>
+                        <div class="span4 no-margin">
+                            <input required="true" class="span12" name="fechaI" id="fechaI"/>
+                        </div>
+                        <div class="clear"></div>
+                        
+                    </div>
+                    <div class="clear"></div>                                                            
+                </div>
+                 <div class="row-fluid">
+                    <div class="span6">
+                        <label for="fechaF" class="span5 no-margin">Fecha Final:</label>
+                        <div class="span4 no-margin">                            
+                            <input required="true" class="span12" name="fechaF" id="fechaF"/>                            
+                        </div>
+                        <div class="clear"></div>
+                        
+                    </div>
+                    <div class="clear"></div>                                                            
+                </div>
+                <div class="form-actions">
+                    <input name="Exportar" type="submit" id="exportar" class="btn pull-right" value="Exportar"/>
+                </div>
+        </form>
+    </div>
+ </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('#fechaI').datepicker({
+        format: 'yyyy-mm-dd',
+        todayBtn: 'linked',
+        language: 'es'
+    });
+    $('#fechaF').datepicker({
+        format: 'yyyy-mm-dd',
+        todayBtn: 'linked',
+        language: 'es'
+    });
+});
+</script>
+
