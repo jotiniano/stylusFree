@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">    
+<link href="<?php echo SITE_URL ?>static/css/styles/admin.css?201303102350" media="all" rel="stylesheet" type="text/css" >
+    
+    <title>Coupon</title>
+    <style type="text/css" media="all">
+        body {font-family: Helvetica;font-size: 15px}
+        @page { margin: 0.3in 0.3in 0.3in 0.3in;}
+    </style>
+    <script type="text/javascript" src="<?php echo MEDIA_URL?>/js/libs/jquery-1.7.1.min.js"></script>
+</head>
+<body>
+    <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Fecha Reserva</th>
+                  <th>Usuario</th>
+                  <th>Detalle</th>                  
+                </tr>
+              </thead>
+              <tbody>
+                  <?php foreach ($this->pdf as$item): ?>
+                <tr>
+                  <td><?php echo $item['fechaIni']?></td>
+                  <td><?php echo $item['nombre']." ". $item['apellidos']?></td>
+                  <td><?php echo $item['descripcion']?></td>
+                </tr>                
+                <?php endforeach; ?>
+              </tbody>
+            </table>
+    
+    
+</body>
+</html>
