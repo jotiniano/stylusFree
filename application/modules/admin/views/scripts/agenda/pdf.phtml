@@ -15,7 +15,8 @@
     <table class="table table-bordered">
               <thead>
                 <tr>
-                  <th>Fecha Reserva</th>
+                  <th>Fecha Inicio</th>
+                  <th>Fecha Fin</th>
                   <th>Usuario</th>
                   <th>Detalle</th>                  
                 </tr>
@@ -24,6 +25,7 @@
                   <?php foreach ($this->pdf as$item): ?>
                 <tr>
                   <td><?php echo $item['fechaIni']?></td>
+                  <td><?php echo $item['fechaFin']?></td>
                   <td><?php echo $item['nombre']." ". $item['apellidos']?></td>
                   <td><?php echo $item['descripcion']?></td>
                 </tr>                
