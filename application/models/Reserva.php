@@ -38,20 +38,21 @@ class App_Model_Reserva extends App_Db_Table_Abstract
                     array('r' => $this->_name),
                     array(
                         "idReserva"     => "r.idReserva",
-                        "nombre"        => "c.nombreCliente",
-                        "apellidos"     => "c.apellidoCliente",
+                        "nombre"        => "u.nombreUsuario",
+                        "apellidos"     => "u.apellidoUsuario",
                         "fechaIni"      => "r.fechaInicio",
                         "fechaFin"      => "r.fechaFin",
                         "descripcion"   => "r.descripcion"
                     )
                 )
                 ->join(
-                    array('c' => 'cliente'),
-                    'r.idCliente = c.idCliente',
+                    array('u' => 'usuario'),
+                    'r.idEstilista = u.idUsuario',
                     array()
                 )
-                ->where('c.estado = ?', App_Model_Cliente::ESTADO_ACTIVO)
+                ->where('u.estado = ?', App_Model_Cliente::ESTADO_ACTIVO)
                 ->where('r.estado = ?', App_Model_Reserva::ESTADO_ACTIVO)
+                ->where('u.idTipoUsuario = ?', '3')
                 ->order('r.fechaRegistro');
 
         return $this->getAdapter()->fetchAll($query);
