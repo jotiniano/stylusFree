@@ -164,13 +164,13 @@ $(function(){
                 
                 comision = Math.round(parseFloat(precio) * parseFloat(comision)*100)/100;
                 var inputComision = "<input type='hidden' name='detalleComision[]' value='"+ comision +"' />";
-                var inputComisionValor = "S/. <span class='comision'>"+ comision +"</span>";
+                //var inputComisionValor = "S/. <span class='comision'>"+ comision +"</span>";
                                 
                 
                 $("th:eq(0)", row).html(inputMediopagoValor+inputMediopago);
                 $("th:eq(1)", row).html(inputCostoValor+inputCosto); 
-                $("th:eq(2)", row).html(inputWorkerValor+inputWorker);
-                $("th:eq(3)", row).html(inputComisionValor+inputComision);
+                $("th:eq(2)", row).html(inputWorkerValor+inputWorker+inputComision);
+                //$("th:eq(3)", row).html(inputComisionValor+inputComision);
                 $(tabla+' tbody>tr:first').addClass("hide");
                 var tfinal = parseFloat($("#totalValue").val());
                 $("#totalfinal").html(tfinal.toFixed(2));
