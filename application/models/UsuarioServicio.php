@@ -192,6 +192,11 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
         return $db->fetchRow($select);
     }
     
-    
+    public function verComision($idUsuario, $idProducto){
+        $query = "select * from usuarioservicio
+            where idUsuario = " . $idUsuario . " and idServicio = " . $idProducto ;
+                 
+        return $this->getAdapter()->fetchAll($query);
+    }
 
 }

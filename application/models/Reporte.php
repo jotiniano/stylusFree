@@ -165,10 +165,13 @@ class App_Model_Reporte extends App_Db_Table_Abstract {
                     'ticket.mastercard',
                     'ticket.visa',
                     'ticket.total',
-                    'ticket.fechaCreacion'
+                    'ticket.fechaCreacion',
+                    'cliente.nombreCliente',
+                    'cliente.apellidoCliente',
                     ))
              
                 ->join(array('ticket'=>$this->_nameTicket), 'usuario.idUsuario = ticket.idUsuario','')
+               ->join(array('cliente'=>$this->_nameCliente), 'cliente.idCliente= ticket.idCliente','')
                 ->where('usuario.estado = 1')
                 ->where('CAST(ticket.fechaCreacion as DATE) = ?' , $fecha)
                 ;
@@ -230,7 +233,7 @@ class App_Model_Reporte extends App_Db_Table_Abstract {
     {
      $db = $this->getAdapter();
 
-      $select = $db->select()
+          $select = $db->select()
                 
                 ->from(array('usuario'=>$this->_name),array(
                     'usuario.idUsuario',
@@ -256,5 +259,18 @@ class App_Model_Reporte extends App_Db_Table_Abstract {
                 ->where('DATE(ticket.fechaCreacion) BETWEEN "'.$dato['fechaInicial'].'" AND "'.$dato['fechaFinal'].'"');
                
         return $db->fetchAll($select);
+    }
+    
+    public function getReporteEstilista2($dato){
+        $query = 'select distinct t.idTicket,u.idUsuario,u.usuario as usuarioEstilista, p.nombreProducto,
+                        p.idProducto,p.tipo,p.precio from 
+                detalleticket dt 
+                inner join usuarioservicio us on dt.idUsuario = us.idUsuario
+                inner join producto p on p.idProducto = dt.idProducto
+                inner join ticket t on t.idticket = dt.idTicket
+                inner join usuario u on dt.idUsuario = u.idUsuario
+                WHERE (dt.idUsuario='.$dato['idUsuario'].' ) AND 
+                    DATE(t.fechaCreacion) BETWEEN "'.$dato['fechaInicial'].'" AND "'.$dato['fechaFinal'].'"';
+        return $this->getAdapter()->fetchAll($query);
     }
 }

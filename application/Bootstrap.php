@@ -37,7 +37,7 @@ class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
         $v->headTitle($config->resources->view->title)->setSeparator(' - ');
         $v->headMeta()->appendHttpEquiv('Content-Type', 'text/html; charset=utf-8');
         $v->headMeta()->appendName("robots", "noindex, nofollow"); // for development
-        $v->headMeta()->appendName("author", "Steve Villano Esteban jsteve.villano@gmail.com");
+        $v->headMeta()->appendName("author", "Steve Villano Esteban jsteve.villano@gmail.com desarrolloador web php");
         $v->headMeta()->appendName("description", "Spa System"); //
         $v->headMeta()->setCharset("utf-8");
         //$v->headLink()->appendStylesheet($v->s('/css/normalize.css'));                

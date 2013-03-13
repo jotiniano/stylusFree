@@ -52,7 +52,7 @@ class Admin_ReporteController extends App_Controller_Action
         
         if($this->getRequest()->isPost()){
             $dato = $this->getRequest()->getPost();
-            $result = $modelReporte->getReporteEstilista($dato);
+            $result = $modelReporte->getReporteEstilista2($dato);
         }
         $this->view->form = $form;
         $this->view->result = $result; 

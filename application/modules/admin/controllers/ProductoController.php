@@ -37,8 +37,7 @@ class Admin_ProductoController extends App_Controller_Action
         if($this->getRequest()->isPost()){
             
             $data = $this->getRequest()->getPost();
-            
-            if ($form->isValid($data)) {                
+            //if ($form->isValid($data)) {
                 $modelProducto = new App_Model_Producto();
                 $fecha = Zend_Date::now()->toString('YYYY-MM-dd HH:mm:ss');
                 $data['fechaRegistro'] = $fecha;
@@ -67,10 +66,10 @@ class Admin_ProductoController extends App_Controller_Action
                 $this->_flashMessenger->addMessage("Guardado con éxito");
                 $this->_redirect('/producto');
                 
-            } else {
+          /*  } else {
                 $this->_flashMessenger->addMessage("Verifique sus datos");
                 $form->populate($data);
-            }
+            }*/
         }
     }
     

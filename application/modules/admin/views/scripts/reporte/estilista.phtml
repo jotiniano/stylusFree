@@ -64,11 +64,11 @@
                      <?php
                      $totalComision = "";
                      foreach ($this->result as $res):
-                         $totalComision  +=$res["comision"];
+                         //$totalComision  +=$res["comision"];
                          ?>
                      <tr>
                       <td>
-                         <?php echo $res["idTicket"]; ?>
+                         <?php echo $res["idTicket"]; echo $res["idUsuario"]; ?>
                        </td>
                        <td>
                          <?php echo $res["usuarioEstilista"]; ?>
@@ -77,12 +77,28 @@
                          <?php echo $res["nombreProducto"]; ?>
                        </td>
                        <td>
-                          <?php if($res["tipo"]==1){echo "Producto";};
-                               if($res["tipo"]==2){echo "Servicio";}; ?>
+                          <?php 
+                          if($res["tipo"]==1){ echo "Producto";}
+                          if($res["tipo"]==2){ echo "Servicio";} 
+                          ?>
                        </td>
                       
                        <td>
-                         <?php echo $res["comision"]; ?>
+                         <?php 
+                          
+                          if($res["tipo"]==1){
+                              
+                             echo $comision = $res["precio"] * 0.06;
+                          };
+                          if($res["tipo"]==2)
+                          {
+                            $modelUsuarioServicio = new App_Model_UsuarioServicio();
+                            $datoServicio = $modelUsuarioServicio->verComision($res["idUsuario"], $res["idProducto"]);
+                            echo $comision =$res["precio"] * $datoServicio[0]['comision'];
+                          }; 
+                          $totalComision  +=$comision;
+                         
+                         ?>
                        </td>
                       
                      </tr>
