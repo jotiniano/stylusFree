@@ -1,0 +1,59 @@
+<ul class="breadcrumb">    
+    <li>
+        <a href="/cliente">Clientes</a> <span class="divider">/</span>
+    </li>    
+</ul>
+<div id="content_wrapper">
+     <div id="content">
+         <div class="inner">
+             <form action="" method="post" enctype="multipart/form-data" class="well">
+                <div class="header">
+                    <h3>Crear Alerta:</h3>
+                </div>
+                 <input type="hidden" id="idCliente" name="idCliente" value="<?php echo $this->dataCliente['idCliente'];?>">
+                 
+                 </input>
+                <div class="clear"></div>
+                <div class="row-fluid">
+                    <div class="span6">
+                        <label for="nombre" class="span5 no-margin">Cliente:</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->dataCliente['nombreCliente']." ".$this->dataCliente['apellidoCliente']?>
+                        </div>
+                        <div class="clear"></div>
+                        <label for="fechaN" class="span5 no-margin">Fecha de Alerta:</label>
+                        <div class="span4 no-margin">
+                            <?php echo $this->form->fechaAlerta->setAttrib('class', 'span12')->setAttrib('maxlength', '20')
+                                    ->setAttrib('id', 'fechaAlerta')->renderViewHelper();
+                            ?>
+                            <?php if ($this->form->fechaAlerta->hasErrors()) echo "Ingresa Fecha de Alerta";?>
+                            
+                        </div>
+                        <div class="clear"></div>
+                        <label for="descripcion" class="span5 no-margin">Descripcion:</label>
+                        <div class="span7 no-margin">
+                            
+                            <?php echo $this->form->descripcion->setAttrib('class', 'span12')->setAttrib('cols', '100')->setAttrib('rows', '5')->renderViewHelper();?>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                                        
+                </div>
+                <div class="form-actions">
+                    <?php echo $this->form->guardar->setAttrib('class', 'btn pull-right')?>                    
+                </div>
+        </form>
+    </div>
+ </div>
+</div>
+
+<script>
+$(document).ready(function(){
+    $('#fechaAlerta').datepicker({
+        format: 'yyyy-mm-dd',
+        todayBtn: 'linked',
+        language: 'es'
+    });
+});
+</script>
+

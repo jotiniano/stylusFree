@@ -114,4 +114,44 @@ class Admin_ClienteController extends App_Controller_Action
         //}
     }
 
+    public function alertaAction(){
+         //datepicker
+        $this->view->headLink()->appendStylesheet(
+            $this->getConfig()->app->mediaUrl . '/css/datepicker-bootstrap/datepicker.css'
+        );
+        $this->view->headScript()->appendFile(
+            $this->getConfig()->app->mediaUrl . '/js/datepicker-bootstrap/bootstrap-datepicker.js'
+        );
+        $form = new App_Form_CrearAlerta();
+        $this->view->form = $form; 
+        
+        $modelCliente = new App_Model_Cliente();
+        $form = new App_Form_CrearCliente();
+        $id = $this->_getParam('id');
+        $cliente = $modelCliente->getClientesPorId($id);
+        $this->view->dataCliente = $cliente;
+        if($this->getRequest()->isPost()){            
+            
+            $dato = $this->getRequest()->getPost();
+            
+                $modelAlerta = new App_Model_Alerta();
+                $data = array(
+                'idCliente'   => $id,
+                'fechaAlerta'   => $dato['fechaAlerta'],
+                'descripcion'   => $dato['descripcion'],
+                'atendido' => "0",
+                    
+                );
+                
+                $dato['idCliente'] = $id;
+                $dato['alerta'] = "1";
+                
+                $idCliente = $modelCliente->actualizarDatos($dato);
+                $idAlerta = $modelAlerta->insertAlerta($data);
+                
+                
+                $this->_flashMessenger->addMessage("Alerta registrata con exito");
+                $this->_redirect('/cliente');
+        }
+    }
 }

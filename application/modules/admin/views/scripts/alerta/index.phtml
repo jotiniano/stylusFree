@@ -1,0 +1,101 @@
+    <div>
+        <!-- row of columns -->
+        <div class="row-fluid">
+          
+          <div>
+                <ul class="breadcrumb">                    
+                    <li><a href="#">Listado de Alerta</a></li>
+                </ul>
+              <!--<form class="well inline" method="post" enctype="multipart/form-data" >
+                      <h3>Buscar Clientes</h3>
+                      <hr>                      
+                      <div class="row-fluid">
+                              <?php echo $this->form->idCliente?>
+                          <div class="span3">
+                              <h4>Nombre</h4>
+                              <?php echo $this->form->nombre?>
+                           </div>
+                          <div class="span3">
+                              <h4>Apellido</h4>
+                              <?php echo $this->form->apellido?>
+                           </div>
+                          <div class="span3">
+                              <?php echo $this->form->buscar?>
+                           </div>
+                      </div>
+                 </form>-->
+                 <div id="message"></div>
+                 <table class="table table-bordered">                     
+                   <thead>
+                     <tr>                                                
+                       <th>
+                           Cliente
+                       </th>
+                       <th>
+                           Fecha de Alerta
+                       </th>
+                       <th>
+                           Telefono
+                       </th>
+                       <th>
+                           Celular
+                       </th>
+                       <th>
+                           Correo
+                       </th>
+                       <th>
+                           Descripcion
+                       </th>
+                       <th>
+                           Atendido
+                       </th>
+                       
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <?php
+                     foreach ($this->listarAlerta as $res):?>
+                     <tr>
+                      
+                       <td>
+                         <?php echo $res["nombreCliente"]. " " .$res["apellidoCliente"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["fechaAlerta"]; ?>
+                       </td>
+                       <td>
+                         <?php echo $res["telefono"]; ?>
+                       </td>                       
+                       <td>
+                         <?php echo $res["celular"]; ?>
+                       </td>                       
+                       <td>
+                         <?php echo $res["correo"]; ?>
+                       </td>                       
+                       <td>
+                         <?php echo $res["descripcion"]; ?>
+                       </td>                       
+                       
+                       <td style="color:red;">
+                           <span>  
+                               <a style="color: green;font-weight: bold;"
+                                   href="/alerta/eliminar/id/<?php echo $res["idAlerta"]; ?>/idC/<?php echo $res["idCliente"]; ?>" 
+                              title="SI">SI</a>
+                           </span>
+                           <SPAN style="color: black;font-weight: bold;">|</span>
+                           <span style="color: red;font-weight: bold;">No</span> 
+                         
+                           
+                         
+                           
+                         
+                       </td>                       
+                       
+                       
+                     </tr>
+                         <?php endforeach; ?>
+                   </tbody>
+                 </table>
+         </div>
+        </div>                
+  </div>

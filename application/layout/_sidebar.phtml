@@ -12,6 +12,9 @@
       <li <?php echo $this->activeProducto;?>><a href="/producto">Productos</a></li>
       <li <?php echo $this->activeServicio;?>><a href="/servicio">Servicios</a></li>
 
+      <li class="nav-header">Alertas</li>
+      <li <?php echo $this->activeAlerta;?>><a href="/alerta">Mostar Alerta</a></li>
+      
       <li class="nav-header">Procesos</li>
       <li <?php echo $this->activeTicket;?>><a href="/agenda">Mostrar Agenda</a></li>
       <!--<li <?php echo $this->activeListaTicket;?>><a href="#">Listar Ticket</a></li>
@@ -30,6 +33,10 @@
       <?php
       if($this->idTipoUsuario != 1){
       ?>
+      <li class="nav-header">Alertas</li>
+      <li <?php echo $this->activeAlerta;?>><a href="/alerta">Mostar Alerta</a></li>
+      <li <?php echo $this->activeAlertaNueva;?>><a href="/alerta/crear">Nuevo Alerta</a></li>
+      
       <li class="nav-header">Procesos</li>
       <li <?php echo $this->activeTicket;?>><a href="/agenda">Mostrar Agenda</a></li>
       <!--<li <?php echo $this->activeListaTicket;?>><a href="#">Listar Ticket</a></li>

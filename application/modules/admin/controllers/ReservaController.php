@@ -278,60 +278,6 @@ if (isset($argv[2])) {
     $pdf->save($argv[2]);
 } else {
     $pdf->save($argv[1], true /* update */);}
-
-/*
- 
- 
-        
-        $pdf = new App_Cezpdf();
-        $pdf = new App_Cezpdf('LETTER');
-        
-        $pdf->selectFont('../fonts/courier.afm');
-        $pdf->ezSetCmMargins(1,1,1.5,1.5);
-        
-        
-        //$modelReserva = new App_Model_Reserva();
-       // $dataReserva = $modelReserva->listarReserva();
-        
-        $modelUsuario = new App_Model_User();
-        $dataUsuario = $modelUsuario->lista();
-        
-        
-        $ixx = 0;
-        while($datatmp = mysql_fetch_assoc($dataUsuario)){
-                $ixx = $ixx+1;
-                $data[] = array_merge($datatmp, array('num'=>$ixx));
-        }
-        
-        print_r($datatmp);
-        exit;
-        $titles = array(
-                                        'idUsuario'=>'<b>id</b>',
-                                        'nombreUsuario'=>'<b>solicitante</b>',
-                                        'clave'=>'<b>clave</b>',
-                                        'fechaRegistro'=>'<b>Fecha</b>',
-                                        'apellidoUsuario'=>'<b>Apellidos</b>',
-
-                                );
-        $options = array(
-                                        'shadeCol'=>array(0.9,0.9,0.9,0.9),
-                                        'xOrientation'=>'center',
-                                        'width'=>500
-                                );
-        $txttit = "<b>Usuario</b>\n";
-        $txttit.= "Listado de Usuarios\n";
-
-        $pdf->ezimage("escudo.jpg",0,150,'none','center');
-        $pdf->ezText($txttit, 20);
-        $pdf->ezTable($data, $titles, '', $options);
-        $pdf->ezText("\n\n\n", 10);
-        $pdf->ezText("<b>Fecha:</b> ".date("d/m/Y"), 10);
-        $pdf->ezText("<b>Hora:</b> ".date("H:i:s")."\n\n", 10);
-        ob_end_clean();
-        $pdf->ezStream();
- 
- 
- */
     }
   
 

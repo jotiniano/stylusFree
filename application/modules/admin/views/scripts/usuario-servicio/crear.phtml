@@ -29,8 +29,8 @@
                         <label for="dni" class="span5 no-margin">Comision :</label>
                         <div class="span4 no-margin">
                             <?php echo $this->form->comision->setAttrib('class', 'span12')->setAttrib('maxlength', '8')->renderViewHelper();?>
-                            <?php if ($this->form->comision->hasErrors()) echo "Ingresa Comision";?>
-                        </div>
+                            <?php if ($this->form->comision->hasErrors()) echo "Ingresa Comision";?> 
+                        </div>&nbsp; %
                         <div class="clear"></div>
                         
                         <?php echo $this->form->csrf; ?>

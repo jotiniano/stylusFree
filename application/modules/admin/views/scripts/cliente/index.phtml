@@ -87,8 +87,13 @@
                          <?php echo $res["correo"]; ?>
                        </td>                       
                        <td>
+                         <?php if($res["alerta"]==0){ ?>  
+                           <a href="/cliente/alerta/id/<?php echo $res["idCliente"]; ?>" title="Alerta">Alerta</a> |
+                         <?php }else{?>
+                           <a href="/alerta/" title="Alerta"><span style="color: red;font-weight: bold;">Tiene Alerta</span></a> |
+                           <?php }?>
                            <a href="/cliente/editar/id/<?php echo $res["idCliente"]; ?>" title="Editar">Editar</a> |
-                           <a href="/cliente/eliminar/id/<?php echo $res["idCliente"]; ?>" title="Editar">Eliminar</a>
+                           <a href="/cliente/eliminar/id/<?php echo $res["idCliente"]; ?>" title="Eliminar">Eliminar</a>
                        </td>
                      </tr>
                          <?php endforeach; ?>

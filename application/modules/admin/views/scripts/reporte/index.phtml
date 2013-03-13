@@ -51,11 +51,26 @@
                        <th>
                            Total
                        </th>
+                       <th>
+                           Accion
+                       </th>
+                       
                      </tr>
                    </thead>
                   <tbody>
                      <?php 
-                     foreach ($this->result as $res):?>
+                     $total = "";
+                     $igv ="";
+                     $subTotal = "";
+                     
+                     foreach ($this->result as $res):
+                     $total += $res["total"];    
+                     
+                     $igv = $total*0.18;
+                     $subTotal = $total - $igv;
+                     
+                         
+                         ?>
                      <tr>
                       <td>
                          <?php echo $res["idTicket"]; ?>
@@ -75,9 +90,39 @@
                        <td>
                          <?php echo $res["total"]; ?>
                        </td>
+                       <td>
+                         <a href="/admin/reporte/venta-diaria-detalle/id/<?php echo $res["idTicket"]; ?>" title="Detalle">Ver Detalle</a>
+                       </td>
                       
                      </tr>
                          <?php endforeach; ?>
+                     <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><span class="alert-info">Total S/.:</span> </td>
+                        <td><?php echo $total;?></td>
+                        <td></td>
+                     </tr>
+                     <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><span class="alert-info">IGV:</span> </td>
+                        <td><?php echo round($igv,2);?></td>
+                        <td></td>
+                     </tr>
+                     <tr>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td><span class="alert-info">Sub Total S/.:</span> </td>
+                        <td><?php echo round($subTotal,2);?></td>
+                        <td></td>
+                     </tr>
                    </tbody>
                  </table>
                  <?php }?>

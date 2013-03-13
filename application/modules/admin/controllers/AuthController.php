@@ -36,10 +36,21 @@ class Admin_AuthController extends App_Controller_Action
         if( $this->_request->isPost() ){
             
             if ($this->autentificateUser($this->_getParam('usuario'), $this->_getParam('pwd'))) {
-                ;
-                $this->_redirect($this->view->url(array("module" => "admin",
+                
+                $modelAlerta = new App_Model_Alerta();
+                $listado = $modelAlerta->listarAlerta();
+                $totalAlerta = count($listado);
+                if($totalAlerta>0){
+                    $this->_redirect($this->view->url(array("module" => "admin",
+                            "controller" => "alerta",
+                            "action" => "index")));
+                }else{
+                    $this->_redirect($this->view->url(array("module" => "admin",
                             "controller" => "agenda",
                             "action" => "index")));
+                }
+                
+                
             } else {
                 $this->_flashMessenger->addMessage("Verifique sus credenciales");
                 $this->_redirect($this->view->url(array("module" => "admin",
