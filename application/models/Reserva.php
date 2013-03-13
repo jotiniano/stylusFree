@@ -52,7 +52,7 @@ class App_Model_Reserva extends App_Db_Table_Abstract
                 )
                 ->where('u.estado = ?', App_Model_Cliente::ESTADO_ACTIVO)
                 ->where('r.estado = ?', App_Model_Reserva::ESTADO_ACTIVO)
-                ->where('u.idTipoUsuario = ?', 3)
+                ->where('u.idTipoUsuario = ?', '3')
                 ->order('r.fechaRegistro');
 
         return $this->getAdapter()->fetchAll($query);
