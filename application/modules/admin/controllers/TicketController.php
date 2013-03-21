@@ -179,7 +179,8 @@ class Admin_TicketController extends App_Controller_Action
         $html = '
             <html>
               <body>
-              Empresa : Nombre Empresa <br>
+              Empresa : ManiColor Spa <br>
+              Direccion: Av. Las Artes Norte 961 - San Borja
               Cliente : ' . $data['nombreCliente'] . ' ' .$data['apellidoCliente'] .'<br>
               Fecha : ' . $data['fechaCreacion'] .'<br>
                   <table style="0">
@@ -191,7 +192,7 @@ class Admin_TicketController extends App_Controller_Action
                 $detalle
                 . '
 <tr>
-                  <td colspan>______</td>
+                  <td colspan= "2">______</td>
                   
                   </tr>                  
 <tr>
@@ -213,19 +214,16 @@ class Admin_TicketController extends App_Controller_Action
             ';
 
 
-$dompdf = new DOMPDF();
-$dompdf->set_paper('c6');
-$dompdf->load_html(utf8_decode($html));
+            $dompdf = new DOMPDF();
+            $dompdf->set_paper('c6');
+            $dompdf->load_html(utf8_decode($html));
 
-$dompdf->render();
-$dompdf->stream("my_pdf.pdf", array("Attachment" => 0));
+            $dompdf->render();
+            $dompdf->stream("my_pdf.pdf", array("Attachment" => 0));
 
-        
-exit;        
 
-        
-        
-        
+            exit;        
+
     }
 
 }
