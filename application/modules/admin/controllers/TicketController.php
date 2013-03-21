@@ -194,7 +194,10 @@ class Admin_TicketController extends App_Controller_Action
                   <td colspan>______</td>
                   
                   </tr>                  
-
+<tr>
+                  <td>Total : </td>
+                  <td style="text-align:right">' . $data['total']. '</td>
+                  </tr>
                   <tr>
                   <td>IGV : </td>
                   <td style="text-align:right">' . $igv . '</td>
@@ -203,10 +206,7 @@ class Admin_TicketController extends App_Controller_Action
                   <td>Subtotal : </td>
                   <td  style="text-align:right">' .  $subtotal . '</td>
                   </tr>
-                  <tr>
-                  <td>Total : </td>
-                  <td style="text-align:right">' . $data['total']. '</td>
-                  </tr>
+                  
                   </table>
               </body>
             </html>
