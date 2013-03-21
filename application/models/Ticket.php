@@ -85,4 +85,21 @@ class App_Model_Ticket extends App_Db_Table_Abstract {
         return $this->getAdapter()->fetchAll($query);
     }
     
+    public function buscarTicketId($orden)
+    {
+        $query = $this->getAdapter()
+                ->select()->from(
+                        array('t' => $this->_name)
+                )                
+                ->join(
+                        array('c' => App_Model_Cliente::TABLA_CLIENTE), 'c.idCliente = t.idCliente', array('nombreCliente', 'apellidoCliente',
+                    'idTipoUsuario')
+                )
+                ->where('t.idTicket = ?', $orden);
+
+
+        return $this->getAdapter()->fetchRow($query);
+    }    
+    
+    
 }

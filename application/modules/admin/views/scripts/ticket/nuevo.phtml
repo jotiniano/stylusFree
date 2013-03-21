@@ -1,3 +1,13 @@
+<?php if ($this->orden){ ?>
+<form class="form-horizontal" id="frmTicket" action="/ticket/imprimir/orden/<?php echo $this->orden?>" target="_blank" method="post">
+        <div class="control-group">
+            <div class="controls">
+                <button id="imprimir" class="btn">Imprimir Ticket Generado</button>
+            </div>
+        </div>
+    </form>
+<?php } ?>
+
 <ul class="breadcrumb">    
     <li>
         <a href="/agenda">Ir Agenda</a> <span class="divider">/</span>
@@ -139,7 +149,8 @@
     <br/>
     <div class="control-group">
         <div class="controls">    
-            <button id="generar" class="btn" disabled="disabled">Generar Ticket</button>
+            <button id="generar" class="btn" disabled="disabled">Generar Ticket</button>            
+            
         </div>
     </div>
     

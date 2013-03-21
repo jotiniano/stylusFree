@@ -47,7 +47,8 @@ class Admin_TicketController extends App_Controller_Action
     public function nuevoAction()
     {   
         
-        $idCliente = $this->_getParam('id', "");        
+        $idCliente = $this->_getParam('id', "");
+        $this->view->orden = $this->_getParam('ord', "");
         
         $idUsuario = $this->authData->idUsuario;
         $name = "";
@@ -132,7 +133,8 @@ class Admin_TicketController extends App_Controller_Action
                 $db->rollBack();
                 $this->_flashMessenger->addMessage("Ocurrio un error intentelo nuevamente");                
             }
-            $this->_redirect('/ticket/nuevo/id/'.$data["otroCliente"]);
+            $this->_redirect('/ticket/nuevo/id/'.$data["otroCliente"].'/ord/'.$idTicket);
+            
             
             
         }
@@ -150,6 +152,79 @@ class Admin_TicketController extends App_Controller_Action
         $result = $modelProducto->getProductos($idTipo);
         
         echo Zend_Json::encode($result);
+        
+    }
+    
+    public function imprimirAction()
+    {
+        $this->_helper->layout->disableLayout();
+        $orden = $this->_getParam('orden');
+        
+
+        $path = APPLICATION_PATH . "/../library/dompdf/dompdf_config.inc.php";
+        require_once($path);
+        $model = new App_Model_Ticket();
+        $modelDeta = new App_Model_TicketDetalle();
+        $data = $model->buscarTicketId($orden);
+        $deta = $modelDeta->buscarDetalleTicketId($orden);        
+        $detalle = "";
+        foreach ($deta as $item):
+            $detalle .= "<tr><td>{$item['nombreProducto']}</td><td style='text-align:right'>{$item['precio']}</td></tr>";
+        endforeach;
+        
+        $igv = round($data['total']*0.18, 2);
+        $subtotal = $data['total'] - $igv;
+        
+
+        $html = '
+            <html>
+              <body>
+              Empresa : Nombre Empresa <br>
+              Cliente : ' . $data['nombreCliente'] . ' ' .$data['apellidoCliente'] .'<br>
+              Fecha : ' . $data['fechaCreacion'] .'<br>
+                  <table style="0">
+                  <tr>
+                  <td width="200px"><u>Producto</u></td>
+                  <td><u>Precio</u></td>
+                  </tr>' 
+                . 
+                $detalle
+                . '
+<tr>
+                  <td colspan>______</td>
+                  
+                  </tr>                  
+
+                  <tr>
+                  <td>IGV : </td>
+                  <td style="text-align:right">' . $igv . '</td>
+                  </tr>
+                  <tr>
+                  <td>Subtotal : </td>
+                  <td  style="text-align:right">' .  $subtotal . '</td>
+                  </tr>
+                  <tr>
+                  <td>Total : </td>
+                  <td style="text-align:right">' . $data['total']. '</td>
+                  </tr>
+                  </table>
+              </body>
+            </html>
+            ';
+
+
+$dompdf = new DOMPDF();
+$dompdf->set_paper('c6');
+$dompdf->load_html(utf8_decode($html));
+
+$dompdf->render();
+$dompdf->stream("my_pdf.pdf", array("Attachment" => 0));
+
+        
+exit;        
+
+        
+        
         
     }
 
