@@ -185,10 +185,9 @@ class Admin_TicketController extends App_Controller_Action
         $html = '
             <html>
             <head>
-            <style  type="text/css"> 
-            span{ font-family:Courier New;
-                } 
-            <style>
+            <style type="text/css" media="all">
+            body {font-family: Courier New}
+            </style>
             </head>
               <body>
                
