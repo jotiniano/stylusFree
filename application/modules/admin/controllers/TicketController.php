@@ -162,6 +162,7 @@ class Admin_TicketController extends App_Controller_Action
         
 
         $path = APPLICATION_PATH . "/../library/dompdf/dompdf_config.inc.php";
+        $pathFont = APPLICATION_PATH . "/../library/dompdf/lib/Helvetica.afm";
         require_once($path);
         $model = new App_Model_Ticket();
         $modelDeta = new App_Model_TicketDetalle();
@@ -175,19 +176,39 @@ class Admin_TicketController extends App_Controller_Action
         $igv = round($data['total']*0.18, 2);
         $subtotal = $data['total'] - $igv;
         
+        
+        $fuente = 'Courier New';
+        $style = "font-family: '".$fuente."' ";
+        
+        $font = "font-family: Courier New";
 
         $html = '
             <html>
+            <head>
+            <style  type="text/css"> 
+            span{ font-family:Courier New;
+                } 
+            <style>
+            </head>
               <body>
-              Empresa : ManiColor Spa <br>
-              Direccion: Av. Las Artes Norte 961 - San Borja
-              Cliente : ' . $data['nombreCliente'] . ' ' .$data['apellidoCliente'] .'<br>
-              Fecha : ' . $data['fechaCreacion'] .'<br>
+               
+               <span class="text">MANICOLOR SPA </span> <br>
+                <span class="text">Av. Artes Norte 961 - San Borja</span> <br>
+                <span class="text">Telefono: 226 7665</span> <br>
+		=================== <br>
+
+              <span>Cliente : ' . $data['nombreCliente'] . ' ' .$data['apellidoCliente'] .'</span><br>
+              <span>Fecha : ' . $data['fechaCreacion'] .'</span><br>
+			  =================== <br>
                   <table style="0">
                   <tr>
-                  <td width="200px"><u>Producto</u></td>
+					<td colspan ="2">***** NOTA DE CAJA *******</td>
+				</tr>
+				  <tr>
+                  <td width="250px" ><u>Producto</u></td>
                   <td><u>Precio</u></td>
-                  </tr>' 
+                  </tr>
+				' 
                 . 
                 $detalle
                 . '
@@ -207,15 +228,23 @@ class Admin_TicketController extends App_Controller_Action
                   <td>Subtotal : </td>
                   <td  style="text-align:right">' .  $subtotal . '</td>
                   </tr>
+				  <tr>
+                  <td colspan = "2">&nbsp; </td>                
+                  </tr>
+				  <tr>
+                  <td colspan = "2">***** GRACIAS POR VISITARNOS *******	</td>                
+                  </tr>
                   
                   </table>
               </body>
             </html>
-            ';
+			
+		   ';
 
 
             $dompdf = new DOMPDF();
             $dompdf->set_paper('c6');
+            //$dompdf->selectFont($pathFont);
             $dompdf->load_html(utf8_decode($html));
 
             $dompdf->render();
