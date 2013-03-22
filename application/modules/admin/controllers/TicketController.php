@@ -186,7 +186,7 @@ class Admin_TicketController extends App_Controller_Action
             <html>
             <head>
             <style type="text/css" media="all">
-            body {font-family: Courier New}
+            body {font-family: "Helvetica"}
             </style>
             </head>
               <body>
