@@ -159,6 +159,8 @@ class Admin_TicketController extends App_Controller_Action
     {
         $this->_helper->layout->disableLayout();
         $orden = $this->_getParam('orden');
+        $razon = $this->config->app->razonsocial;
+        $ruc = $this->config->app->ruc;
         
 
         $path = APPLICATION_PATH . "/../library/dompdf/dompdf_config.inc.php";
@@ -193,6 +195,7 @@ class Admin_TicketController extends App_Controller_Action
             </head>
               <body>
                <span class="text">MANICOLOR SPA </span> <br>
+               <span class="text">  '. $ruc . " " .$razon. " 00000" . $orden .' </span> <br>
                 <span class="text">Av. Artes Norte 961 - San Borja</span> <br>
                 <span class="text">Telefono: 226 7665</span> <br>
 		=================== <br>
