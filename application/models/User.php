@@ -83,7 +83,8 @@ class App_Model_User extends App_Db_Table_Abstract {
                  ->from(array('usuario'=>$this->_name),array(
                     'usuario.idUsuario',
                     'usuario.usuario',)) 
-                ->where('usuario.idTipoUsuario = ?', self::TIPO_USUARIO_ESTILISTA);
+                ->where('usuario.idTipoUsuario = ?', self::TIPO_USUARIO_ESTILISTA)
+                ->where('usuario.estado = ?', self::ESTADO_ACTIVO);
         return $this->getAdapter()->fetchAll($query);
         
         

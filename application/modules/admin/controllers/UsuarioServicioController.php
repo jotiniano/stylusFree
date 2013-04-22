@@ -31,7 +31,10 @@ class Admin_UsuarioServicioController extends App_Controller_Action
         $result = $modelUsuario->listarUsuarioServicio();
         
         if($this->getRequest()->isPost()){
-            $data = $this->getRequest()->getPost();
+            $dato = $this->getRequest()->getPost();
+            $data['nombreUsuario'] = $dato['nombreUsuario'];
+            $data['descripcionServicio'] = $dato['descripcionServicio'];
+               
             $form->populate($data);
             $result = $modelUsuario->buscarUsuarioServicio($data);
         }
@@ -105,18 +108,19 @@ class Admin_UsuarioServicioController extends App_Controller_Action
     public function eliminarAction(){
         
         $modeloUsuarioServicio = new App_Model_UsuarioServicio();
-        $modeloTicketDetalle = new App_Model_TicketDetalle();
         $id = $this->_getParam('id');
+        
+        /*
+        $modeloTicketDetalle = new App_Model_TicketDetalle();
         $data = $modeloTicketDetalle->verificarUso($id);
-        //print_r($data);
-       
         if(count($data)>0){
             $this->_flashMessenger->addMessage("El usuario tiene ticket elaborados");
             $this->_redirect($this->indexUrl);
-        }else{
-            //$modeloUsuarioServicio->eliminarUsuarioServicio($id);
-            $this->_flashMessenger->addMessage("Servicio eliminado con exito");
-        }
+        }else{*/
+            $modeloUsuarioServicio->eliminarUsuarioServicio($id);
+            $this->_flashMessenger->addMessage("Servicio eliminado con exito"); $this->_redirect($this->indexUrl);
+            
+        //}
         
         
     }

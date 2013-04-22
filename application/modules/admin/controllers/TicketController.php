@@ -217,11 +217,13 @@ class Admin_TicketController extends App_Controller_Action
             <html>
             <head>
             <style type="text/css" media="all">
-            body {font-family: "Helvetica"}
+            body {font-family: "Helvetica";
+                  margin: 0px 0px 0px 0px;
+                  }
             </style>
             </head>
               <body>
-               
+               <span class="text">MANICOLOR SPA </span> <br>
                <span class="text">  '. $ruc . " " .$razon. " 00000" . $orden .' </span> <br>
                 <span class="text">Av. Artes Norte 961 - San Borja</span> <br>
                 <span class="text">Telefono: 226 7665</span> <br>

@@ -64,11 +64,9 @@ class Admin_ServicioController extends App_Controller_Action
                 $data['tipo'] = '2';
                 $modeloProducto->actualizarDatos($data);
                 
-                $this->_flashMessenger->addMessage("Sservicio guardado con exito");
+                $this->_flashMessenger->addMessage("Servicio guardado con exito");
                 $this->_redirect($this->indexUrl);
                 
-            } else {
-                $form->populate($data);                
             }
         }
     }

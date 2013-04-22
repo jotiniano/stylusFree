@@ -78,14 +78,18 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
     
     
     public function eliminarUsuarioServicio($id){
-        $where = $this->getAdapter()->quoteInto('idUsuarioServicio =?', $id);
+        
+        $where = $this->getAdapter()->quoteInto('idUsuario =?', $id);
             $this->delete($where);
+            
+        //$where = 'idUsuarioServicio = '.$id;
+        //$this->delete($where);
     }
     
     public  function listarUsuarioServicio(){
         $db = $this->getAdapter();
 
-       $select = $db->select()
+     $select = $db->select()
                 
                 ->from(array('usuarioServicio'=>$this->_name),array(
                     'usuarioServicio.comision',
@@ -112,35 +116,37 @@ class App_Model_UsuarioServicio extends App_Db_Table_Abstract {
     
     public function buscarUsuarioServicio(array $data = array()){
          $db = $this->getAdapter();
-
-         $select = $db->select()
+         //print_r($data);
+            
+           $select = $db->select()
                 
-                ->from(array('usuarioServicio'=>$this->_nameUsuarioServicio),array(
+                ->from(array('usuarioServicio'=>$this->_name),array(
                     'usuarioServicio.comision',
                     'usuarioServicio.idUsuarioServicio',
+                    'usuarioServicio.idUsuario as usuarioServicio',
                     'usuario.idUsuario',
                     'usuario.nombreUsuario',
                     'usuario.usuario',
-                    'servicio.idServicio',
-                    'servicio.descripcionServicio',
-                    'servicio.precio'
+                    'producto.idProducto',
+                    'producto.nombreProducto',
+                    'producto.precio'
                     ))
              
-                ->join(array('servicio'=>$this->_nameServicio), 'usuarioServicio.idServicio = servicio.idServicio','')
+                ->join(array('producto'=>$this->_nameProducto), 'usuarioServicio.idServicio = producto.idProducto','')
                 ->join(array('usuario'=>$this->_nameUsuario), 'usuarioServicio.idUsuario = usuario.idUsuario','')
                 ->where('usuario.idTipoUsuario = ?', self::TIPO_USUARIO_ESTILISTA);
-        
+           
         if (isset ($data['idUsuarioServicio']) and !empty($data['idUsuarioServicio'])){
             $select->where('usuarioServicio.idUsuarioServicio = ?', $data["idUsuarioServicio"]);
         }
         if (isset($data["nombreUsuario"]) and !empty($data["nombreUsuario"])) {
             $concat = new Zend_Db_Expr("CONCAT(TRIM(usuario.nombreUsuario), ' ', TRIM(usuario.apellidoUsuario))");
-            $select->where("$concat like ?", "%{$data["nombreUsuario"]}%");
+            $select->where("usuario.nombreUsuario like ?", "%{$data["nombreUsuario"]}%");
         }  
         if (isset($data["descripcionServicio"]) and !empty($data["descripcionServicio"]))
-            $select->where("servicio.descripcionServicio like ?", "%{$data["descripcionServicio"]}%");   
+            $select->where("producto.nombreProducto like ?", "%{$data["descripcionServicio"]}%");   
         
-        
+       
         $select->order('idUsuarioServicio')
                 ->limit(50);
 
