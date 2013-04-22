@@ -12,6 +12,45 @@ $(function(){
                 $("#otroCliente").val(obj.id);                
             }
         });
+   $('#itemProducto').typeahead({
+            source: function(typeahead, query) { 
+                if (query.length < 1)
+                    return [];
+                var tipo = $("#idTipo").val();
+                if (tipo != 0 && query.length > 1){
+                    $.post('/admin/ticket/productotipo/id/'+tipo, {query: query}, function(data) {
+                        return typeahead.process(JSON.parse(data));
+                    });
+                }
+            },
+            onselect: function(obj) {
+                
+                $.ajax({
+                    url: "/admin/user/get-usuarios",
+                    type: 'post',
+                    data: {
+                       id : obj.id,
+                       tipo : $("#idTipo").val()
+                    },
+                    dataType: 'json',
+                    success: function(data){
+                            $("#idUsuario").html("");
+                            $.each(data, function(index, value){
+                                $("#idUsuario").append("<option id='idUsuario'  data ='"+ value["idUsuario"]+"' value='"+value["nombreUsuario"]+"'>"+value["nombreUsuario"]+"</option>");
+                            });
+                            $("#idUsuario").removeAttr("disabled");
+                            $("#agregarItem").removeAttr("disabled");
+                            
+                    }
+                });    
+                $("#comision").val(obj.comision);
+                $("#idPrecio").val(obj.precio);
+                $("#producto").val(obj.id);
+                
+            }
+        });
+        
+        
     
     var url = "/admin/ingresos/buscar-alumno";
     
@@ -26,7 +65,10 @@ $(function(){
            this.deleteRowTableIngreso();           
         },        
         ComboDependiente : function (c, cd, cus, def, url, fieldv, fields) {
-            $(c).live("change blur", function(){                
+            $(c).live("change blur", function(){   
+                $("#itemProducto").val("").focus();
+                
+                
                 var actual = $(this);                
                 if (actual.val() != 0) {
                     $(cus).html("");
@@ -123,7 +165,7 @@ $(function(){
             $(btn).bind("click", function(){
                 //Obteniendo valores
                 var tipo     = $("#idTipo").val();                
-                var servicio     = $("#idItem").val();
+                var servicio     = $("#producto").val();
                 var precio     = Math.round(parseFloat($("#idPrecio").val())*100)/100;
                 var comision     = parseFloat($("#comision").val());
                 
@@ -138,7 +180,8 @@ $(function(){
                 if (isNaN(comision)) {
                     comision = 0;
                 }
-                var idworker     = $("#idUsuario").val();                
+                //var idworker     = $("#idUsuario").val();                
+                var idworker     = $("#idUsuario option:selected").attr("data");
                 
                 var total     = $("#totalValue").val();
                 
@@ -151,8 +194,9 @@ $(function(){
                 $("#efectivo").val(Math.round(parseFloat($("#totalValue").val())*100)/100);
                 
                 //MEDIO PAGO
+                
                 var inputMediopago = "<input type='hidden' name='detalleServicio[]' value='"+servicio+"' />";
-                var inputMediopagoValor = $("#idItem option:selected").text();
+                var inputMediopagoValor = $("#itemProducto").val();
                 //worker
                 var inputWorker = "<input type='hidden' name='detalleWorker[]' value='"+idworker+"' />";
                 

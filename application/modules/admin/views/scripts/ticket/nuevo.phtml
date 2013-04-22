@@ -1,4 +1,6 @@
-<style>
+<style type="text/css">
+    
+
  .button, .button:visited { /* botones genéricos */
 background: #222 url(http://sites.google.com/site/zavaletaster/Home/overlay.png) repeat-x;
 display: inline-block;
@@ -18,16 +20,16 @@ position: relative;
 cursor:pointer;
 }
 
-button::-moz-focus-inner,
-input[type="reset"]::-moz-focus-inner,
-input[type="button"]::-moz-focus-inner,
-input[type="submit"]::-moz-focus-inner,
-input[type="file"] > input[type="button"]::-moz-focus-inner {
+button:-moz-focus-inner,
+input[type="reset"]:-moz-focus-inner,
+input[type="button"]:-moz-focus-inner,
+input[type="submit"]:-moz-focus-inner,
+input[type="file"] > input[type="button"]:-moz-focus-inner {
 border: none;
 }
 
 .button:hover { /* el efecto hover */
-background-color: #111
+background-color: #111;
 color: #FFF;
 }
 
@@ -110,11 +112,12 @@ padding: 8px 14px 9px;
             </span>
         </div>
     </div>
-    <input type="hidden" value="" id="idCliente">
-    <input type="hidden" value="<?php echo $this->idCliente?>" id="otroCliente" name="otroCliente" required>
+    <input type="hidden" value="" id="idCliente"/>
+    <input type="hidden" value="<?php echo $this->idCliente?>" id="otroCliente" name="otroCliente" required />
     
     <input type="hidden" value="" id="idPrecio">
     <input type="hidden" value="" id="comision">
+    <input type="hidden" value="" id="producto">
     
     <div class="control-group">
         <label class="control-label" for="inputTipo">Tipo: </label>
@@ -126,29 +129,11 @@ padding: 8px 14px 9px;
             </select>
         </div>
     </div>
-    
-    
-    
-    <!--<div class="control-group">
-        <label class="control-label" for="inputServicio">Servicio : </label>
-        <div class="controls">
-            <select name ="idServicio" id="idServicio" class="span3">
-                <option value="0"> --Seleccionar--</option>
-                <?php 
-                //$ser = $this->servicios;
-                //foreach ($ser as $item):
-                ?>
-                <option id="servicio" value="<?php //echo $item['idServicio']?>" precio="<?php //echo $item['precio']?>"> <?php //echo $item['descripcionServicio']?></option>
-                <?php //endforeach; ?>
-            </select>    
-        </div>
-    </div>-->
+
     <div class="control-group">
         <label class="control-label" for="inputItem">Item : </label>
         <div class="controls">
-            <select class="xlarge disabled" name ="idItem" id="idItem" class="span3" disabled="disabled">
-                <option value="0">--Seleccionar--</option>
-            </select>
+            <input id="itemProducto" data-provide="typeahead" type="text" id="input" class="span5" placeholder="Ingrese Item" value="" required />            
         </div>
     </div>
     
@@ -236,12 +221,7 @@ padding: 8px 14px 9px;
             
         </div>
     </div>
+    </div>
     
 </form>
-
-<style>
-    .typeahead {
-        z-index: 1100;
-    }
-</style>
 

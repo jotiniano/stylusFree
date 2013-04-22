@@ -86,7 +86,7 @@ class App_Model_Producto extends App_Db_Table_Abstract {
         return $db->fetchAll($select);
     }
     
-    public function getProductos($idTipo)
+    public function getProductos($idTipo, $nombre= NULL)
     {
         $db = $this->getAdapter();
         
@@ -103,7 +103,9 @@ class App_Model_Producto extends App_Db_Table_Abstract {
         }
         $select->where('p.estado = ?', '1')
                 ->where('p.tipo = ?', $idTipo);
-        
+        if ($nombre) {
+            $select->where('p.nombreProducto like "%'.$nombre.'%"');
+        }
         
         
         return $db->fetchAll($select);

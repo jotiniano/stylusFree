@@ -28,7 +28,7 @@ class Admin_ReporteController extends App_Controller_Action
         
         $form = new App_Form_FiltrarReporte();
         $modelReporte = new App_Model_Reporte();
-        
+        $result = array();
         if($this->getRequest()->isPost()){
             $dato = $this->getRequest()->getPost();
             $result = $modelReporte->listarReporte($dato);
@@ -49,7 +49,8 @@ class Admin_ReporteController extends App_Controller_Action
         
         $form = new App_Form_FiltrarReporte();
         $modelReporte = new App_Model_Reporte();
-        
+        $result = array();
+        $dato = array();
         if($this->getRequest()->isPost()){
             $dato = $this->getRequest()->getPost();
             $result = $modelReporte->getReporteEstilista2($dato);

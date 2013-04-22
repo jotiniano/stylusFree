@@ -140,7 +140,7 @@ class Admin_TicketController extends App_Controller_Action
         }
 
     }
-    public function productotipoAction()
+    public function productotipo1Action()
     {
         $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender();
@@ -153,6 +153,35 @@ class Admin_TicketController extends App_Controller_Action
         
         echo Zend_Json::encode($result);
         
+    }
+    public function productotipoAction()
+    {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout->disableLayout();
+        
+        $idTipo = $this->_getParam("id");
+        $nombre = $this->_getParam("query");
+        
+        $modelProducto = new App_Model_Producto();
+        
+        $result = $modelProducto->getProductos($idTipo, $nombre);
+        
+        //echo Zend_Json::encode($result);
+        
+        $clientes = "";
+        foreach ($result as $index=>$item) {
+            $clientes[$index]["id"] = $item["idProducto"];
+            $clientes[$index]["value"] = $item["nombreProducto"];
+            $clientes[$index]["data"] = $item["nombreProducto"];
+            if ($idTipo == '1')
+                $clientes[$index]["comision"] = "0.06";
+            else 
+                $clientes[$index]["comision"] = "0";
+            $clientes[$index]["precio"] = $item["precio"];
+        }
+        //<option comision="0.06" precio="17.96" id="idItem" data="INOA" value="1">
+        //echo json_encode($clientes);
+        echo Zend_Json::encode($clientes);
     }
     
     public function imprimirAction()
@@ -254,6 +283,22 @@ class Admin_TicketController extends App_Controller_Action
 
             exit;        
 
+    }
+    
+    public function listarClientesAction()
+    {
+        $this->_helper->viewRenderer->setNoRender();
+        $this->_helper->layout->disableLayout();
+        $buscar = $this->_getParam("query");
+        $c = new App_Model_Cliente();
+        $lista = $c->listarByQuery($buscar);
+        $clientes = "";
+        foreach ($lista as $index=>$item) {
+
+            $clientes[$index]["id"] = $item["idCliente"];
+            $clientes[$index]["value"] = $item["nombreCliente"]." ".$item["apellidoCliente"];;
+        }
+        echo json_encode($clientes);
     }
 
 }
