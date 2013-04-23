@@ -191,6 +191,7 @@ class Admin_TicketController extends App_Controller_Action
         $numero = sprintf("%05s",$orden); 
         $razon = $this->config->app->razonsocial;
         $ruc = $this->config->app->ruc;
+        $aut = $this->config->app->autsunat;
         
 
         $path = APPLICATION_PATH . "/../library/dompdf/dompdf_config.inc.php";
@@ -213,6 +214,7 @@ class Admin_TicketController extends App_Controller_Action
         $style = "font-family: '".$fuente."' ";
         
         $font = "font-family: Courier New";
+        $fecha = Zend_Date::now()->toString('YYYY-MM-dd HH:mm:ss');
 
         $html = '
             <html>
@@ -223,20 +225,19 @@ class Admin_TicketController extends App_Controller_Action
                   }
             </style>
             </head>
-              <body>
-               <span class="text">MANICOLOR SPA </span> <br>
-               <span class="text">  '. $ruc . " " .$razon. " " . $numero .' </span> <br>
-                <span class="text">Av. Artes Norte 961 - San Borja</span> <br>
-                <span class="text">Telefono: 226 7665</span> <br>
-		=================== <br>
-
-              <span>Cliente : ' . $data['nombreCliente'] . ' ' .$data['apellidoCliente'] .'</span><br>
-              <span>Fecha : ' . $data['fechaCreacion'] .'</span><br>
-			  =================== <br>
-                  <table style="0">
-                  <tr>
-					<td colspan ="2">***** NOTA DE CAJA *******</td>
-				</tr>
+              <body style="font-size: 13px;padding-top: 5px; padding-bottom: 5px;">
+               <span class="text">MANICOLOR Salón y Spá </span> <br>
+               <span class="text">Fernandez y Torres SCR Ltds </span> <br>
+               <span class="text">Av. De las Artes Norte 961 San Borja </span> <br>
+               <span class="text">RUC : '. $ruc .'</span> <br>
+               <span class="text">Aut Sunat : '. $aut .'</span> <br>
+               <span class="text">POS:  01</span> <br>
+               <span class="text">Boleta de Venta</span> <br>
+               <span class="text">No : 01 - '. $numero .'</span> <br>
+               <span class="text">Fecha :  '. $data['fechaCreacion'] .'</span> <br>               
+                
+		--------------------- <br>
+                  <table style="0">                  
 				  <tr>
                   <td width="250px" ><u>Producto</u></td>
                   <td><u>Precio</u></td>
@@ -248,8 +249,11 @@ class Admin_TicketController extends App_Controller_Action
 <tr>
                   <td colspan= "2">______</td>
                   
-                  </tr>                  
+                  </tr>                                   
 <tr>
+
+
+
                   <td>Total : </td>
                   <td style="text-align:right">' . $data['total']. '</td>
                   </tr>
@@ -262,10 +266,19 @@ class Admin_TicketController extends App_Controller_Action
                   <td  style="text-align:right">' .  $subtotal . '</td>
                   </tr>
 				  <tr>
-                  <td colspan = "2">&nbsp; </td>                
+                  <td colspan = "2">-------------------</td>
+                  </tr>
+                                    <tr>
+                  <td colspan= "2">
+                  <span>Cliente : ' . $data['nombreCliente'] . ' ' .$data['apellidoCliente'] .'</span><br>              
+                  </td>
+                  
+                  </tr> 
+                  <tr>
+                  <td colspan = "2">-------------------</td>
                   </tr>
 				  <tr>
-                  <td colspan = "2">***** GRACIAS POR VISITARNOS *******	</td>                
+                  <td colspan = "2"><p style="font-size: 10px">***** GRACIAS POR VISITARNOS *******	</p></td>                
                   </tr>
                   
                   </table>
