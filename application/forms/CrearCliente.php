@@ -16,7 +16,7 @@ class App_Form_CrearCliente extends App_Form
         $this->addElement($e);
         
         $e = new Zend_Form_Element_Text('apellidoCliente');
-        $e->setRequired(true);
+        //$e->setRequired(true);
         $e->setFilters(array("StripTags", "StringTrim"));        
         $this->addElement($e);
         
